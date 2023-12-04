@@ -1,0 +1,128 @@
+@startuml
+entity "Clothing" as cl {
+  * ID | int
+  --
+  * name | varchar(255)
+  * ID_brand | int
+  * ID_category | int
+  * color | varchar(255)
+  * price | float
+  * size | varchar(255)
+  * notes | varchar(255)
+  * ID_status | int
+  * ID_washing_mode | int
+  * ID_user | int
+}
+
+entity "Status" as sta {
+  * ID | int
+  --
+  * status | varchar(255)
+}
+
+entity "Outfit_type" as typ {
+  * ID | int
+  --
+  * outfit_type | varchar(255)
+}
+
+entity "Washing_mode" as wad {
+  * ID | int
+  --
+  * washing_mode | varchar(255)
+}
+
+entity "Category" as cat {
+  * ID | int
+  --
+  * type | varchar(255)
+  * ID_partent_category | int
+}
+
+entity "Parent_Category" as pcat {
+  * ID | int
+  --
+  *type | varchar(255)
+}
+
+entity "Material" as mt {
+  * ID | int
+  --
+  * material | varchar(255)
+}
+
+entity "Clothing_Material" as cm {
+  * ID | int
+  --
+  * ID_clothing | int
+  * ID_material | int 
+}
+
+
+entity "Brand" as br {
+  * ID | int
+  --
+  * name | varchar(255)
+}
+
+entity "User" as usr {
+  * ID | int
+  --
+  * name | varchar(255)
+  * email | varchar(255)
+  * password | varchar(255)
+}
+
+entity "Outfit" as of {
+  * ID | int
+  --
+  * ID_user | int
+  * ID_outfit_type | smallint
+  * date | datetime
+  * ID_weather | int 
+}
+
+entity "Weather" as wth {
+  * ID | int
+  --
+  * weather | varchar(255)
+}
+
+entity "Occasion" as occ {
+  * ID | int
+  --
+  * occasion | varchar(255)
+}
+
+entity "Outfit_Occasion" as ouoc {
+  * ID | int
+  --
+  * ID_outfit | int
+  * ID_occasion | int
+}
+
+entity "Clothing_Outfit" as co {
+  * ID | int
+  --
+  * ID_clothing | int
+  * ID_outfit | int
+}
+
+cl ||--|| sta
+cl ||--|| br
+cl ||--|| wad
+cl ||--|| cat
+cl ||--|{ cm
+cl ||--|| usr
+cl }|--|| co
+
+cm }|--|| mt
+of }|--|| co
+usr ||--|{ of
+wth ||--|| of
+of ||--|{ ouoc
+occ ||--|{ ouoc
+of ||--|| typ
+
+cat ||--|| pcat
+@enduml
