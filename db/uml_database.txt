@@ -12,6 +12,7 @@ entity "Clothing" as cl {
   * ID_status | int
   * ID_washing_mode | int
   * ID_user | int
+  * ID_image | int
 }
 
 entity "Status" as sta {
@@ -108,21 +109,28 @@ entity "Clothing_Outfit" as co {
   * ID_outfit | int
 }
 
-cl ||--|| sta
-cl ||--|| br
-cl ||--|| wad
-cl ||--|| cat
-cl ||--|{ cm
-cl ||--|| usr
-cl }|--|| co
+entity "image" as img {
+  * ID | int
+  --
+  * url | varchar(255)
+}
 
-cm }|--|| mt
-of }|--|| co
-usr ||--|{ of
-wth ||--|| of
-of ||--|{ ouoc
-occ ||--|{ ouoc
-of ||--|| typ
+cl "1"--"1" sta
+cl "1"--"1" br
+cl "1"--"1" wad
+cl "1"--"1" cat
+cl "1"--"n" cm
+cl "1"--"1" usr
+cl "n"--"1" co
+cl "1"--"1" img
 
-cat ||--|| pcat
+cm "n"--"1" mt
+of "n"--"1" co
+usr "1"--"n" of
+wth "1"--"1" of
+of "1"--"n" ouoc
+occ "1"--"n" ouoc
+of "1"--"1" typ
+
+cat "1"--"1" pcat
 @enduml
