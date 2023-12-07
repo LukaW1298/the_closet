@@ -1,9 +1,3 @@
-#TODO:
-#   LOOK OVER TABLE ORDER
-#   LOOK OVER IT BRUH
-#  images
-#   
-
 CREATE TABLE Status (
     ID int NOT NULL AUTO_INCREMENT,
     status varchar(255),
@@ -72,6 +66,12 @@ CREATE TABLE Outfit(
     FOREIGN KEY (ID_weather) REFERENCES Weather (ID)
 );
 
+CREATE TABLE Image(
+    ID int NOT NULL AUTO_INCREMENT,
+    url varchar(255),
+    PRIMARY KEY (ID)
+);
+
 CREATE TABLE Clothing (
     ID int NOT NULL AUTO_INCREMENT,
     name varchar(255),
@@ -90,7 +90,8 @@ CREATE TABLE Clothing (
     FOREIGN KEY (ID_category) REFERENCES Category (ID),
     FOREIGN KEY (ID_status) REFERENCES Status (ID),
     FOREIGN KEY (ID_washing_mode) REFERENCES Washing_mode (ID),
-    FOREIGN KEY (ID_user) REFERENCES User (ID)
+    FOREIGN KEY (ID_user) REFERENCES User (ID),
+    FOREIGN KEY (ID_image) REFERENCES Image (ID)
 );
 
 CREATE TABLE Clothing_Material(
@@ -118,10 +119,4 @@ CREATE TABLE Clothing_Outfit(
     PRIMARY KEY (ID),
     FOREIGN KEY (ID_clothing) REFERENCES Clothing (ID),
     FOREIGN KEY (ID_outfit) REFERENCES Outfit (ID)
-);
-
-CREATE TABLE image(
-    ID int NOT NULL AUTO_INCREMENT,
-    url varchar(255),
-    PRIMARY KEY (ID)
 );
