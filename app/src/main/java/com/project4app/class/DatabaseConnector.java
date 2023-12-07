@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,8 +10,8 @@ public class DatabaseConnector {
 
     public static Connection connect() {
         try {
-            // Load the MySQL JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            // // Load the MySQL JDBC driver
+            // Class.forName("com.mysql.cj.jdbc.Driver");
             
             // jdbc:mysql://localhost:3306/mydatabase
             String url = "jdbc:mysql://127.0.0.1:3306/theclosettest";
@@ -27,7 +26,7 @@ public class DatabaseConnector {
             return connection;
 
         } 
-        catch (ClassNotFoundException | SQLException e) {
+        catch (SQLException e) {
             System.err.println(e.toString());
             return null;
         }
