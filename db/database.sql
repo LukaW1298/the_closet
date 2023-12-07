@@ -84,6 +84,7 @@ CREATE TABLE Clothing (
     ID_status int,
     ID_washing_mode int,
     ID_user int,
+    ID_image int,
     PRIMARY KEY (ID),
     FOREIGN KEY (ID_brand) REFERENCES Brand (ID),
     FOREIGN KEY (ID_category) REFERENCES Category (ID),
@@ -117,4 +118,10 @@ CREATE TABLE Clothing_Outfit(
     PRIMARY KEY (ID),
     FOREIGN KEY (ID_clothing) REFERENCES Clothing (ID),
     FOREIGN KEY (ID_outfit) REFERENCES Outfit (ID)
+);
+
+CREATE TABLE image(
+    ID int NOT NULL AUTO_INCREMENT,
+    url varchar(255),
+    PRIMARY KEY (ID)
 );
