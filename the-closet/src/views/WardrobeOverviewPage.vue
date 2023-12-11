@@ -57,9 +57,13 @@
   import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
   import ExploreContainer from '@/components/ExploreContainer.vue';
 import { defineComponent } from 'vue';
+import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome';
+
+
 
   export default defineComponent({
     name: "WardrobeOverviewPage",
+    components: {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, FontAwesomeIcon, FontAwesomeLayers},
     setup() {
 
       function addBorder(event: Event, id: number) {

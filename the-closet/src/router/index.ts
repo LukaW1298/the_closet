@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import TabsPage from '../views/TabsPage.vue'
-import RegisterPage from '../views/RegisterPage';
+import TabsPage from '@/views/TabsPage.vue'
+import RegisterPage from '@/views/RegisterPage';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,16 +14,16 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/tabs/add'
+        redirect: '/tabs/wardrobe'
       },
       {
         path: 'wardrobe',
         component: () => import('@/views/WardrobeOverviewPage.vue')
       },
-      {
-        path: 'add',
-        component: () => import('@/views/AddClothingPage.vue')
-      },
+      // {
+      //   path: 'add',
+      //   component: () => import('@/views/AddClothingPage.vue')
+      // },
       {
         path: 'washing',
         component: () => import('@/views/WashingPage.vue')
