@@ -14,7 +14,7 @@ public class DatabaseConnector {
             // Class.forName("com.mysql.cj.jdbc.Driver");
             
             // jdbc:mysql://localhost:3306/mydatabase
-            String url = "jdbc:mysql://127.0.0.1:3306/theclosettest";
+            String url = "jdbc:mysql://127.0.0.1:3306/the_closet";
             String username = "root";
             String password = "";
 

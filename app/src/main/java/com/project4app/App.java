@@ -6,20 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
 // import com.fasterxml.jackson.annotation.JsonCreator;
 // import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Hello world!
- *
- */
-
+@SpringBootApplication
+@EntityScan(basePackages = "com.project4app.model")
 public class App 
 {
     public static void main( String[] args )
     {
+        // Starts the REST servelet with Tomcat
+        // Goes through all controllers in "controller" folder 
+        SpringApplication.run(App.class, args);
+
+
+
         // Call the connect method to establish the connection
-        Connection connection = DatabaseConnector.connect();
+        /*Connection connection = DatabaseConnector.connect();
 
         if (connection != null) {
             try {
@@ -58,6 +65,6 @@ public class App
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
     }
 }

@@ -1,1 +1,7 @@
-app/src/main/java/com/project4app/App.class
+com/project4app/repository/BrandRepository.class
+com/project4app/controller/BrandController.class
+com/project4app/model/Brand.class
+com/project4app/controller/MyController.class
+com/project4app/service/BrandService.class
+com/project4app/classes/DatabaseConnector.class
+com/project4app/App.class
