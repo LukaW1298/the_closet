@@ -43,7 +43,7 @@ import RegistrationForm from '@/components/RegistrationComponent.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import router from '@/router';
 import { ref } from 'vue';
-import NavBar from '@/components/Navbar.vue';
+import NavBar from '@/components/NavBar.vue';
 
 const pageMode = ref<string>("login");
 

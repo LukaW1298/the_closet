@@ -15,74 +15,81 @@
       <div class="container-fluid pt-2 pb-3 d-flex justify-content-end">
         <button class="btn btn-primary btn-lg">Auswahlmodus aktivieren</button>
       </div>
-
+      
       <div class="container-md">
         <div class="row align-items-center gy-5">
-
           
-          <div class="col-sm-6 col-md-3" v-for="n in 19">
-            <div class="card" :id="`card-${n}`">
-              <!-- <div style="height: 10px;"> -->
+          
+          <div class="col-sm-6 col-md-3" v-for="item of testdata">
+            <div class="card cursor-pointer" :id="`card-${item.id}`" @click="showModal">
               <input class="form-check-input check-input-clothing" type="checkbox" :id="`checkbox-${n-1}`" @click="event => addBorder(event, n)">
-            <!-- </div> -->
-              <img :src="`../../resources/test_items/clothing${n-1}.png`" class="card-img-top clothing-card-img" >
+              <img :src="item.imageURL" class="card-img-top clothing-card-img" >
               <div class="card-body">
-                <h5 class="card-title">T-Shirt</h5>
-                <p class="card-text">Amisu | 38</p>
-                <div class="d-flex justify-content-between">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">
+                  {{ item.brand }} <br />
                   
-
-                  <font-awesome-icon icon="fa-solid fa-pen" transform="shrink-8" mask="fa-solid fa-circle" class="fa-lg"
-                  :style="{ color: 'var(--bs-secondary)' }"/>
-                  
-                  
-                    <font-awesome-layers class="fa-lg">
-
-                      <font-awesome-icon icon="fa-solid fa-shirt" :style="{ color: 'var(--bs-primary)' }" transform="right-10"/>
-                      <font-awesome-icon icon="fa-solid fa-circle-plus" transform="shrink-4 down-4" :style="{ color: 'var(--bs-primary-text-emphasis)' }" position="bottom-right" />
-
-                    </font-awesome-layers>
-                  </div>
-                </div>
+                  <span class="badge rounded-pill bg-light text-dark"> {{ item.size }} </span>
+                  <span :class="getStatusBadgeClass(item)"> {{ item.status }} </span>
+                </p>
+                
               </div>
             </div>
           </div>
         </div>
-      </ion-content>
-    </ion-page>
-  </template>
-  
-  <script lang="ts">
-  import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-  import ExploreContainer from '@/components/ExploreContainer.vue';
+      </div>
+    </ion-content>
+    <ClothingItemDialog ref="clothingItemDialog" />
+  </ion-page>
+</template>
+
+<script lang="ts" setup>
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import ExploreContainer from '@/components/ExploreContainer.vue';
 import { defineComponent } from 'vue';
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome';
 
 import NavBar from '@/components/NavBar.vue'
-  export default defineComponent({
-    name: "WardrobeOverviewPage",
-    components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, FontAwesomeIcon, FontAwesomeLayers, NavBar },
-    setup() {
+import testdata from '../../resources/test_data/clothing_items.json'
+import { ref, computed } from 'vue';
+import ClothingItemDialog from '@/components/ClothingItemDialog.vue';
 
-      function addBorder(event: Event, id: number) {
-        const card = document.getElementById(`card-${id}`)
+const clothingItemDialog = ref<any>(null);
 
-        if (event?.target?.checked)
-        {
-          card?.classList.add("border-primary-subtle")
-        }
-        else
-        {
-          card?.classList.remove("border-primary-subtle")
-        }
-      }
+function addBorder(event: Event, id: number) {
+  const card = document.getElementById(`card-${id}`)
+  
+  if (event?.target?.checked)
+  {
+    card?.classList.add("border-primary-subtle")
+  }
+  else
+  {
+    card?.classList.remove("border-primary-subtle")
+  }
+}
 
-      return {
-        addBorder
-      }
 
-    }
-  })
+
+function getStatusBadgeClass(clothingItem: any) {
+  let badgeClass = "badge rounded-pill ";
+  
+  if (clothingItem.status == "dirty")
+  badgeClass += "bg-danger";
+  else if (clothingItem.status == "okay")
+  badgeClass += "bg-warning";
+  else
+  badgeClass += "bg-success";
+  
+  return badgeClass;
+}
+
+function showModal() {
+  if (clothingItemDialog.value != null )
+  clothingItemDialog.value.openModal();
+  
+}
+
 </script>
 
 <style scoped>
