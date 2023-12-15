@@ -4,7 +4,7 @@
             <a class="navbar-brand d-flex justify-content-between w-100 " href="javascript:void(0)" disabled>
                 <div class="text-white">
                     <img src="/resources/favicon-96.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                   The Closet
+                    The Closet
                 </div>
                 <div class="text-white">
                     <slot></slot>
