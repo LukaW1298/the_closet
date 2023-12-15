@@ -1,10 +1,9 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
-        <ion-title>Kleiderschrank</ion-title>        
-
-      </ion-toolbar>
+      <NavBar>
+        Kleiderschrank
+      </NavBar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
@@ -59,11 +58,10 @@
 import { defineComponent } from 'vue';
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome';
 
-
-
+import NavBar from '@/components/NavBar.vue'
   export default defineComponent({
     name: "WardrobeOverviewPage",
-    components: {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, FontAwesomeIcon, FontAwesomeLayers},
+    components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, FontAwesomeIcon, FontAwesomeLayers, NavBar },
     setup() {
 
       function addBorder(event: Event, id: number) {
