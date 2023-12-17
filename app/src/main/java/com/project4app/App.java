@@ -1,20 +1,13 @@
 package com.project4app;
 
-import com.project4app.classes.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-// import com.fasterxml.jackson.annotation.JsonCreator;
-// import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project4app.classes.PasswordUtils;
+
+
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.project4app.model")
 public class App 
 {
     public static void main( String[] args )
@@ -23,48 +16,16 @@ public class App
         // Goes through all controllers in "controller" folder 
         SpringApplication.run(App.class, args);
 
+        /*// Example usage
+        String password = "mySecurePassword";
+        String newpw = "mySecurePassword";
+        
+        // Hash and store the password
+        String hashedPassword = PasswordUtils.hashPassword(password);
+        System.out.println("Hashed Password: " + hashedPassword);
 
-
-        // Call the connect method to establish the connection
-        /*Connection connection = DatabaseConnector.connect();
-
-        if (connection != null) {
-            try {
-                // Create a statement object
-                Statement statement = connection.createStatement();
-
-                // Execute a sample query (replace with your own query)
-                String query = "SELECT * FROM brand";
-                ResultSet resultSet = statement.executeQuery(query);
-
-                // Process the results
-                while (resultSet.next()) {
-                    // Retrieve data from the result set
-                    int brandID = resultSet.getInt("ID");
-                    String brandName = resultSet.getString("name");
-
-                    // Do something with the retrieved data
-                    System.out.println("id: " + brandID + ", name: " + brandName);
-                }
-
-                // Close the result set and statement
-                resultSet.close();
-                statement.close();
-
-            } 
-            catch (SQLException e) {
-                e.printStackTrace();
-
-            } 
-            finally {
-                // Don't forget to close the connection when you're done
-                try {
-                    connection.close();
-                    System.out.println("Connection closed.");
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }*/
+        // Verify a password
+        boolean isPasswordCorrect = PasswordUtils.verifyPassword(newpw, hashedPassword);
+        System.out.println("Password verification: " + isPasswordCorrect);*/
     }
 }

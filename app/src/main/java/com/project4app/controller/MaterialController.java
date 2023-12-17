@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/materials")
+@RequestMapping("/api/materials")
 public class MaterialController {
     private final MaterialService materialService;
 

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/parentCategorys")
+@RequestMapping("/api/parentCategorys")
 public class ParentCategoryController {
     private final ParentCategoryService parentCategoryService;
 

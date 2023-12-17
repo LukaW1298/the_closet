@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/washingModes")
+@RequestMapping("/api/washingModes")
 public class WashingModeController {
     private final WashingModeService washingModeService;
 
