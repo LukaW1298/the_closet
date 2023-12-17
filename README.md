@@ -8,5 +8,6 @@
 
 ## Backend API
 1. Start XAMPP
-2. Start App.java
- Api runs ! :)
+2. Go to "4APP-The-Closet/app" in terminal and run "mvn clean install"
+3. Start App.java
+4. Api runs ! :)
