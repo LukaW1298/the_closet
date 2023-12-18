@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hinzufügen</h5>
+                    <h5 class="modal-title"></h5>
                     <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
@@ -21,7 +21,10 @@
                             <div class=" col-sm-3">
                                 <label for="formGroupExampleInput">Bezeichnung</label>
                             </div>
-                            <div class=" col-sm-9">
+                            <div v-if="mode == 'view'" class="col-sm-9">
+                              <span>{{ props.data.name }}</span>  
+                            </div>
+                            <div v-else class=" col-sm-9">
                                 <input type="text" class="form-control" id="formGroupExampleInput"
                                     placeholder="z.B. Bunter Blumenrock">
                             </div>
@@ -30,7 +33,11 @@
                             <div class="col-sm-3">
                                 <label for="inputState">Kategorie</label>
                             </div>
-                            <div class="col-md-9">
+                            
+                            <div v-if="viewingMode" class="col-md-9">
+                                {{ props.data.category }}
+                                </div>
+                            <div v-else class="col-md-9">
                                 <select id="parentCategory" name="parentCategory" class="col-sm-6 form-control" v-model="selectedParentCategoryId"
                                     @change="changeChildCategories">
                                     <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
@@ -39,10 +46,13 @@
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <label for="inputState">Unterkategorie</label>
                             </div>
-                            <div class="col-md-9">
+                            <div v-if="viewingMode" class="col-sm-8">
+                                {{ props.data.subCategory }}
+                            </div>
+                            <div v-else class="col-sm-8">
                                 <select id="childCategory" name="childCategory" class="col-sm-6 form-control" v-model="selectedChildCategoryId">
                                     <option v-for="category in currentChildCategories" :value="category.id">{{ category.name
                                     }}</option>
@@ -56,25 +66,34 @@
                             <div class="col-sm-3">
                                 <label for="inputState">Marke</label>
                             </div>
-                            <div class="col-md-9">
+                            <div v-if="viewingMode" class="col-sm-9">
+                                {{ props.data.brand }}
+                                </div>
+                            <div v-else class="col-sm-9">
                                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. Asos">
                             </div>
                         </div>
 
                         <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
+                            <div class=" col-sm-4">
                                 <label for="formGroupExampleInput">Größe</label>
                             </div>
-                            <div class=" col-sm-9">
+                            <div v-if="viewingMode" class="col-sm-8">
+                                {{ props.data.size }}
+                            </div>
+                            <div v-else class=" col-sm-9">
                                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. M">
                             </div>
                         </div>
 
                         <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
+                            <div class=" col-sm-4">
                                 <label for="formGroupExampleInput">Kaufpreis (€)</label>
                             </div>
-                            <div class=" col-sm-9">
+                            <div v-if="viewingMode" class="col-sm-8">
+                                {{ props.data.price }}
+                            </div>
+                            <div v-else class=" col-sm-8">
                                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. 19,99">
                             </div>
                         </div>
@@ -110,7 +129,7 @@
   
 <script setup lang="ts">
 
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, defineProps, computed } from "vue";
 import ImageInput from '@/components/ImageInput.vue';
 import masterdata from '../../resources/test_data/masterdata.json'
 import ColorPicker from '@/components/ColorPicker.vue';
@@ -131,6 +150,13 @@ const colors = ref<any>(masterdata.colors);
 const selectedColorId = ref<number>(1);
 
 
+const props = defineProps(["data"])
+console.log(props.data.brand)
+console.log(props.data.value)
+console.log(props.data)
+
+const mode = ref<string>("view");
+
 const openModal = () => {
     modalDisplay.value = "block";
 };
@@ -138,6 +164,10 @@ const openModal = () => {
 const closeModal = () => {
     modalDisplay.value = "none";
 };
+
+const viewingMode = computed(() => {
+    return mode.value == "view";
+})
 
 function changeChildCategories() {
     let childCategoryArray: any = [];

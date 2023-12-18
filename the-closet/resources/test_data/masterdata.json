@@ -71,9 +71,20 @@
             "hex_code": "#b5251b"
         },
         {
-            "id": 2,
-            "name": "blau",
-            "hex_code": "#2074bd"
+            "id": 10,
+            "name": "orange",
+            "hex_code": "#FF8838"
+        },
+        {
+            "id": 11,
+            "name": "gelb",
+            "hex_code": "#E7E31E"
+        },
+       
+        {
+            "id": 19,
+            "name": "hellgrün",
+            "hex_code": "#90EE90"
         },
         {
             "id": 3,
@@ -81,9 +92,40 @@
             "hex_code": "#1f911d"
         },
         {
+            "id": 20,
+            "name": "dunkelgrün",
+            "hex_code": "#00693E"
+        },
+        {
+            "id": 12,
+            "name": "türkis",
+            "hex_code": "#10C09A"
+        },
+        {
+            "id": 13,
+            "name": "petrol",
+            "hex_code": "#067467"
+        },
+        {
+            "id": 18,
+            "name": "hellblau",
+            "hex_code": "#89CFF0"
+        },
+        {
+            "id": 2,
+            "name": "blau",
+            "hex_code": "#2074bd"
+        },
+        {
+            "id": 17,
+            "name": "marineblau",
+            "hex_code": "#000080"
+        },
+       
+        {
             "id": 4,
             "name": "violett",
-            "hex_code": "#481994"
+            "hex_code": "#771cb0"
         },
         {
             "id": 5,
@@ -94,6 +136,50 @@
             "id": 6,
             "name": "schwarz",
             "hex_code": "#000000"
+        },
+        
+        
+        {
+            "id": 14,
+            "name": "grau",
+            "hex_code": "#515151"
+        },
+        {
+            "id": 15,
+            "name": "braun",
+            "hex_code": "#59260B"
+        },
+        {
+            "id": 16,
+            "name": "rosa",
+            "hex_code": "#FF6FCA"
+        },
+        
+       
+        {
+            "id": 21,
+            "name": "beige",
+            "hex_code": "#DBD7D2"
+        },
+        {
+            "id": 22,
+            "name": "hellgrau",
+            "hex_code": "#BEBFC5"
+        },
+        {
+            "id": 23,
+            "name": "burgunder",
+            "hex_code": "#800020"
+        },
+        {
+            "id": 24,
+            "name": "magenta",
+            "hex_code": "#8D0A59"
+        },
+        {
+            "id": 25,
+            "name": "hellbraun",
+            "hex_code": "#C18363"
         }
     ]
 }
