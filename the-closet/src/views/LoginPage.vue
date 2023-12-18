@@ -32,23 +32,27 @@
 
       <div v-if="pageMode == 'login'">
 
-        <login-form />
-        <p class="text-center pt-5">Noch kein Nutzerkonto? <a @click="pageMode = 'register'"
-            :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">Registrieren Sie
-            sich hier.</a></p>
+        <login-form>
+          <p class="text-center pt-5">Noch kein Nutzerkonto? <a @click="pageMode = 'register'"
+              :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">Registrieren
+              Sie
+              sich hier.</a></p>
+        </login-form>
 
 
       </div>
       <div v-else>
 
-        <registration-form></registration-form>
-        <p class="text-center pt-5">Sie haben schon ein Nutzerkonto?
-          <a @click="pageMode = 'login'"
-            :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">
-            Melden Sie sich hier an.
-          </a>
-        </p>
+        <registration-form>
+          <p class="text-center pt-5">Sie haben schon ein Nutzerkonto?
+            <a @click="pageMode = 'login'"
+              :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">
+              Melden Sie sich hier an.
+            </a>
+          </p>
+        </registration-form>
       </div>
+
 
     </ion-content>
   </ion-page>

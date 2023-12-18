@@ -20,10 +20,11 @@
                 <div class="mb-3 px-4 d-flex justify-content-center">
 
                     <button type="submit" class="btn btn-primary">Registrieren</button>
+                   
                 </div>
             </form>
         </div>
-
+        <slot></slot>
         
     </div>
 </template>
