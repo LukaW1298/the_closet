@@ -1,26 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <nav class="navbar navbar-light bg-primary">
-        <div class="container-fluid">
-          <a class="navbar-brand d-flex justify-content-between w-100" href="#">
-            <div>
-              <img src="/resources/favicon-96.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-              The Closet
-            </div>
-            <div class="d-flex align-items-center" :style="{ columnGap: '10px' }">
-              <font-awesome-icon icon="fa-moon" />
-
-              <div class="form-check form-switch">
-
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-
-              </div>
-              <font-awesome-icon icon="fa-sun" />
-            </div>
-          </a>
-        </div>
-      </nav>
+     <nav-bar />
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
@@ -66,6 +47,7 @@ import RegistrationForm from '@/components/RegistrationComponent.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import router from '@/router';
 import { ref } from 'vue';
+import NavBar from '@/components/NavBar.vue';
 
 const pageMode = ref<string>("login");
 

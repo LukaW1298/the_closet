@@ -10,104 +10,109 @@
                 <div class="modal-body">
                     <form>
                         <div class="custom-file mb-3 px-4 row">
-                            <div class=" col-sm-3">
+                            <div class=" col-sm-4">
                                 <label class="custom-file-label" for="customFile">Foto</label>
                             </div>
-                            <div class=" col-sm-9">
+                            <div class=" col-sm-8">
                                 <ImageInput />
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
-                                <label for="formGroupExampleInput">Bezeichnung</label>
+                            <div class=" col-sm-4">
+                                <label for="name">Bezeichnung</label>
                             </div>
-                            <div class=" col-sm-9">
-                                <input type="text" class="form-control" id="formGroupExampleInput"
-                                    placeholder="z.B. Bunter Blumenrock">
+                            <div class=" col-sm-8">
+                                <input type="text" class="form-control" id="name"
+                                placeholder="z.B. Bunter Blumenrock">
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <label for="inputState">Kategorie</label>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-sm-8">
                                 <select id="parentCategory" name="parentCategory" class="col-sm-6 form-control" v-model="selectedParentCategoryId"
-                                    @change="changeChildCategories">
-                                    <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
-
-                                </select>
-                            </div>
+                                @change="changeChildCategories">
+                                <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+                                
+                            </select>
                         </div>
-                        <div class="mb-3 px-4 row">
-                            <div class="col-sm-3">
-                                <label for="inputState">Unterkategorie</label>
-                            </div>
-                            <div class="col-md-9">
-                                <select id="childCategory" name="childCategory" class="col-sm-6 form-control" v-model="selectedChildCategoryId">
-                                    <option v-for="category in currentChildCategories" :value="category.id">{{ category.name
-                                    }}</option>
-
-                                </select>
-                            </div>
+                    </div>
+                    <div class="mb-3 px-4 row">
+                        <div class="col-sm-4">
+                            <label for="inputState">Unterkategorie</label>
                         </div>
-
-
-                        <div class="mb-3 px-4 row">
-                            <div class="col-sm-3">
-                                <label for="inputState">Marke</label>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. Asos">
-                            </div>
+                        <div class="col-sm-8">
+                            <select id="childCategory" name="childCategory" class="col-sm-6 form-control" v-model="selectedChildCategoryId">
+                                <option v-for="category in currentChildCategories" :value="category.id">{{ category.name
+                                }}</option>
+                                
+                            </select>
                         </div>
-
-                        <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
-                                <label for="formGroupExampleInput">Größe</label>
-                            </div>
-                            <div class=" col-sm-9">
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. M">
-                            </div>
+                    </div>
+                    
+                    
+                    <div class="mb-3 px-4 row">
+                        <div class="col-sm-4">
+                            <label for="brand">Marke</label>
                         </div>
-
-                        <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
-                                <label for="formGroupExampleInput">Kaufpreis (€)</label>
-                            </div>
-                            <div class=" col-sm-9">
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. 19,99">
-                            </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="brand" placeholder="z.B. Asos">
                         </div>
-
-                        <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
-                                <label for="formGroupExampleInput">Material</label>
-                            </div>
-                            <div class="col-sm-9">
-                                <select id="material" class="col-sm-6 form-control" :multiple="true">
-                                    <option id="materialId" name="materialId" v-for="material in materials" :value="material.id">{{ material.name }}</option>
-                                </select>
-                            </div>
+                    </div>
+                    
+                    <div class="mb-3 px-4 row">
+                        <div class=" col-sm-4">
+                            <label for="size">Größe</label>
                         </div>
-
-
-
-                        <div class="mb-3 px-4 row">
+                        <div class=" col-sm-8">
+                            <input type="text" class="form-control" id="size" placeholder="z.B. M">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 px-4 row">
+                        <div class=" col-sm-4">
+                            <label for="price">Kaufpreis (€)</label>
+                        </div>
+                        <div class=" col-sm-8">
+                            <input type="text" class="form-control" id="price" placeholder="z.B. 19,99">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 px-4 row">
+                        <div class=" col-sm-4">
+                            <label for="material">Material</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="material" class="col-sm-6 form-control" :multiple="true">
+                                <option id="materialId" name="materialId" v-for="material in materials" :value="material.id">{{ material.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="mb-3 px-4 row">
+                        <div class=" col-sm-4">
+                            <label>Farbe</label>
+                        </div>
+                        <div class="col-sm-8">
                             <ColorPicker :colors="colors" v-model="selectedColorId" @update:model-value="console.log(selectedColorId)"/>
                         </div>
-
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal">Schließen</button>
-                    <button type="button" class="btn btn-primary">Speichern</button>
-                </div>
+                    </div>
+                    
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="closeModal">Schließen</button>
+                <button type="button" class="btn btn-primary">Speichern</button>
             </div>
         </div>
     </div>
+</div>
 </template>
-  
+
 <script setup lang="ts">
 
 import { ref, reactive, onMounted } from "vue";
@@ -141,12 +146,12 @@ const closeModal = () => {
 
 function changeChildCategories() {
     let childCategoryArray: any = [];
-
+    
     if (categories.value instanceof Array && typeof categories.value.filter == "function")
-        childCategoryArray = categories.value.filter((el) => el.id === selectedParentCategoryId.value)[0].child_categories;
-
+    childCategoryArray = categories.value.filter((el) => el.id === selectedParentCategoryId.value)[0].child_categories;
+    
     if (typeof childCategoryArray != "undefined")
-        currentChildCategories.value = childCategoryArray;
+    currentChildCategories.value = childCategoryArray;
 }
 
 onMounted(() => {
@@ -160,8 +165,7 @@ defineExpose({
 
 
 </script>
-  
+
 <style scoped>
 
 </style>
-  

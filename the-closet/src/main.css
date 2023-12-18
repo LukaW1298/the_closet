@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --royal-purple-50: 250 246 254;
+    --royal-purple-100: 243 234 253;
+    --royal-purple-200: 234 217 251;
+    --royal-purple-300: 217 187 247;
+    --royal-purple-400: 194 144 240;
+    --royal-purple-500: 171 101 231;
+    --royal-purple-600: 149 69 216;
+    --royal-purple-700: 128 51 189;
+    --royal-purple-800: 112 48 160;
+    --royal-purple-900: 89 39 124;
+    --royal-purple-950: 60 16 91;
+    
+    
+}

@@ -2,28 +2,31 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet>
-
+        
       </ion-router-outlet>
-    
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="tab1" href="/tabs/wardrobe">
-          <font-awesome-layers class="fa-lg">
-
-<font-awesome-icon icon="fa-solid fa-border-all"  transform="right-5  up-2" :style="{opacity: '60%'}"/>
-<font-awesome-icon icon="fa-solid fa-shirt" transform="shrink-2 down-2 left-5" position="bottom-right" />
-
-</font-awesome-layers>    
+      
+      <ion-tab-bar slot="bottom" color="primary">
+        
+        <ion-tab-button tab="outfits" href="/tabs/outfits">
+          
+          <ion-label>Outfits</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="wardrobe" href="/tabs/wardrobe">
+          
           <ion-label>Kleiderschrank</ion-label>
         </ion-tab-button>
-
-        <ion-tab-button tab="tab2" @click="showModal" color="primary" data-bs-toggle="modal" data-bs-target="#modalClothingItem">
-          <ion-icon aria-hidden="true" :icon="addCircle" color="primary" />
-          <ion-label>Hinzufügen</ion-label>
+        
+        <ion-tab-button tab="add" @click="showModal" color="primary" data-bs-toggle="modal" data-bs-target="#modalClothingItem">
+          <font-awesome-icon icon="fas fa-circle-plus" size="2x"/>
         </ion-tab-button>
-
+        
         <ion-tab-button tab="tab3" href="/tabs/washing">
-          <ion-icon aria-hidden="true" :icon="square" />
           <ion-label>Waschen</ion-label>
+        </ion-tab-button>
+        
+        <ion-tab-button tab="tab1" href="/tabs/profile">
+          
+          <ion-label>Profil</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -42,8 +45,13 @@ const modalDialogClothing = ref<any>(null);
 
 function showModal() {
   if (modalDialogClothing.value != null )
-    modalDialogClothing.value.openModal();
-
+  modalDialogClothing.value.openModal();
+  
 }
 
 </script>
+<style scoped>
+.tab-selected {
+    background-color: rgb(var(--royal-purple-900));
+}
+</style>

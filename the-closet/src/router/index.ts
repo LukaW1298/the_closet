@@ -20,13 +20,17 @@ const routes: Array<RouteRecordRaw> = [
         path: 'wardrobe',
         component: () => import('@/views/WardrobeOverviewPage.vue')
       },
-      // {
-      //   path: 'add',
-      //   component: () => import('@/views/AddClothingPage.vue')
-      // },
       {
         path: 'washing',
         component: () => import('@/views/WashingPage.vue')
+      },
+      {
+        path: 'profile',
+        component: () => import('@/views/ProfilePage.vue')
+      },
+      {
+        path: 'outfits',
+        component: () => import('@/views/OutfitsPage.vue')
       },
       {
         path: 'registration', 

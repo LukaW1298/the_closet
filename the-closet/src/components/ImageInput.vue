@@ -9,8 +9,9 @@
 import { ref } from 'vue';
 
 const emit = defineEmits(["input"]);
+const props = defineProps(["source"]);
 
-const imageData = ref<any>(null);
+const imageData = ref<any>(props.source);
 const fileInput = ref<any>(null);
 
 function chooseImage() {

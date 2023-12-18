@@ -1,6 +1,6 @@
 <template>
-    <div class="color-box-container">
-        <div v-for="color in colors" class="color-box" :style="{ backgroundColor: color.hex_code }" :title="color.name"
+    <div class="color-box-container flex flex-wrap gap-1">
+        <div v-for="color in colors" class="color-box border-2 w-7 h-7" :style="{ backgroundColor: color.hex_code }" :title="color.name"
             :value="color.id"
             
             @click="emit('update:modelValue', color.id)"
@@ -39,8 +39,6 @@ function updateInput(colorId: number) {
 }
 
 .color-box {
-    width: 35px;
-    height: 35px;
     border-radius: 4px;
 }
 
