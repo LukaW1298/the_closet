@@ -1,9 +1,7 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
-        <ion-title>Tab 3</ion-title>
-      </ion-toolbar>
+      <NavBar>Waschen</NavBar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
@@ -11,8 +9,6 @@
           <ion-title size="large">Waschen</ion-title>
         </ion-toolbar>
       </ion-header>
-
-      <ExploreContainer name="Waschzyklus" />
     </ion-content>
   </ion-page>
 </template>
@@ -20,4 +16,5 @@
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
+import NavBar from '@/components/NavBar.vue';
 </script>

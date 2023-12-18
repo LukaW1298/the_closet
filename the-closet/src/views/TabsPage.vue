@@ -24,7 +24,7 @@
           <ion-label>Waschen</ion-label>
         </ion-tab-button>
         
-        <ion-tab-button tab="tab1" href="/tabs/wardrobe">
+        <ion-tab-button tab="tab1" href="/tabs/profile">
           
           <ion-label>Profil</ion-label>
         </ion-tab-button>
