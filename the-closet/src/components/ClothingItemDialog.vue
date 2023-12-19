@@ -18,28 +18,28 @@
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
+                            <div class=" col-sm-4">
                                 <label for="formGroupExampleInput">Bezeichnung</label>
                             </div>
-                            <div v-if="mode == 'view'" class="col-sm-9">
-                              <span>{{ props.data.name }}</span>  
+                            <div v-if="mode == 'view'" class="col-sm-8">
+                                <span>{{ props.data.name }}</span>
                             </div>
-                            <div v-else class=" col-sm-9">
+                            <div v-else class=" col-sm-8">
                                 <input type="text" class="form-control" id="formGroupExampleInput"
                                     placeholder="z.B. Bunter Blumenrock">
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <label for="inputState">Kategorie</label>
                             </div>
-                            
-                            <div v-if="viewingMode" class="col-md-9">
+
+                            <div v-if="viewingMode" class="col-md-8">
                                 {{ props.data.category }}
-                                </div>
-                            <div v-else class="col-md-9">
-                                <select id="parentCategory" name="parentCategory" class="col-sm-6 form-control" v-model="selectedParentCategoryId"
-                                    @change="changeChildCategories">
+                            </div>
+                            <div v-else class="col-md-8">
+                                <select id="parentCategory" name="parentCategory" class="col-sm-6 form-control"
+                                    v-model="selectedParentCategoryId" @change="changeChildCategories">
                                     <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
 
                                 </select>
@@ -53,7 +53,8 @@
                                 {{ props.data.subCategory }}
                             </div>
                             <div v-else class="col-sm-8">
-                                <select id="childCategory" name="childCategory" class="col-sm-6 form-control" v-model="selectedChildCategoryId">
+                                <select id="childCategory" name="childCategory" class="col-sm-6 form-control"
+                                    v-model="selectedChildCategoryId">
                                     <option v-for="category in currentChildCategories" :value="category.id">{{ category.name
                                     }}</option>
 
@@ -63,13 +64,13 @@
 
 
                         <div class="mb-3 px-4 row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <label for="inputState">Marke</label>
                             </div>
-                            <div v-if="viewingMode" class="col-sm-9">
+                            <div v-if="viewingMode" class="col-sm-8">
                                 {{ props.data.brand }}
-                                </div>
-                            <div v-else class="col-sm-9">
+                            </div>
+                            <div v-else class="col-sm-8">
                                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. Asos">
                             </div>
                         </div>
@@ -99,12 +100,13 @@
                         </div>
 
                         <div class="mb-3 px-4 row">
-                            <div class=" col-sm-3">
+                            <div class=" col-sm-4">
                                 <label for="formGroupExampleInput">Material</label>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 <select id="material" class="col-sm-6 form-control" :multiple="true">
-                                    <option id="materialId" name="materialId" v-for="material in materials" :value="material.id">{{ material.name }}</option>
+                                    <option id="materialId" name="materialId" v-for="material in materials"
+                                        :value="material.id">{{ material.material }}</option>
                                 </select>
                             </div>
                         </div>
@@ -112,7 +114,13 @@
 
 
                         <div class="mb-3 px-4 row">
-                            <ColorPicker :colors="colors" v-model="selectedColorId" @update:model-value="console.log(selectedColorId)"/>
+                            <div class=" col-sm-4">
+                                <label for="formGroupExampleInput">Farbe</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <ColorPicker :colors="colors" v-model="selectedColorId"
+                                    @update:model-value="console.log(selectedColorId)" />
+                            </div>
                         </div>
 
 
@@ -191,7 +199,5 @@ defineExpose({
 
 </script>
   
-<style scoped>
-
-</style>
+<style scoped></style>
   
