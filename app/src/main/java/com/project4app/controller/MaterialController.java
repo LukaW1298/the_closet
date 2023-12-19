@@ -3,6 +3,7 @@ package com.project4app.controller;
 import com.project4app.model.Material;
 import com.project4app.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8100")
 @RequestMapping("/api/materials")
 public class MaterialController {
     private final MaterialService materialService;
