@@ -5,7 +5,7 @@ export type Category = {
 }
 
 export type Material = {
-    name: string,
+    material: string,
     id: number
 }
 
@@ -26,4 +26,14 @@ export type ClothingItem = {
     subCategory: string,
     price: number,
     imageURL: string
+}
+
+export type WashingMode = {
+    id: number,
+    washingMode: string
+}
+
+export type Brand = {
+    id: number,
+    name: string
 }
