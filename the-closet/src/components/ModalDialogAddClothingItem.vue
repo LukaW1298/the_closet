@@ -57,7 +57,12 @@
                             <label for="brand">Marke</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="brand" placeholder="z.B. Asos">
+                            <!-- <input type="text" class="form-control" id="brand" placeholder="z.B. Asos">
+                            -->
+
+                            <select id="brand" class="col-sm-6 form-control" :multiple="true">
+                                <option :id="`brand-${brand.id}`" :name="`material-${brand.id}`" v-for="brand in brands" :value="brand.id">{{ brand.name }}</option>
+                            </select>
                         </div>
                     </div>
                     
@@ -85,7 +90,7 @@
                         </div>
                         <div class="col-sm-8">
                             <select id="material" class="col-sm-6 form-control" :multiple="true">
-                                <option id="materialId" name="materialId" v-for="material in materials" :value="material.id">{{ material.name }}</option>
+                                <option :id="`material-${material.id}`" :name="`material-${material.id}`" v-for="material in materials" :value="material.id">{{ material.material }}</option>
                             </select>
                         </div>
                     </div>
@@ -105,7 +110,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="closeModal">Schließen</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Schließen</button>
                 <button type="button" class="btn btn-primary">Speichern</button>
             </div>
         </div>
@@ -115,12 +120,18 @@
 
 <script setup lang="ts">
 
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, onBeforeMount } from "vue";
 import ImageInput from '@/components/ImageInput.vue';
 import masterdata from '../../resources/test_data/masterdata.json'
 import ColorPicker from '@/components/ColorPicker.vue';
-import { Category, Material } from '@/custom_types';
+import { Category, Material, Brand, WashingMode } from '@/custom_types';
+import { getMaterials, getBrands, getWashingModes } from "@/composables/GetCalls";
+//import { Modal } from 'bootstrap'
 //import bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
+
+// initialize boostrap modal
+//const modal = Modal.getOrCreateInstance(document.querySelector("#modalClothingItem"))
+const modal = ref<any>(null);
 
 const modalDisplay = ref("none");
 
@@ -130,7 +141,9 @@ const selectedChildCategoryId = ref<number>(1);
 const categories = ref<Category[]>(masterdata.categories);
 const currentChildCategories = ref<Category[]>(masterdata.categories);
 
-const materials = ref<Material[]>(masterdata.materials);
+const materials = ref<Material[]>([]);
+const brands = ref<Brand[]>([]);
+const washingModes = ref<WashingMode[]>([]);
 const colors = ref<any>(masterdata.colors);
 
 const selectedColorId = ref<number>(1);
@@ -138,10 +151,21 @@ const selectedColorId = ref<number>(1);
 
 const openModal = () => {
     modalDisplay.value = "block";
+
+    // if (modal.value != null)
+    //     modal.value.show()
 };
 
 const closeModal = () => {
     modalDisplay.value = "none";
+
+    // console.log("1")
+    // if (modal.value != null)
+    // {
+    //     console.log("2")
+    //     modal.value.hide()
+    //     modal.value.dispose()
+    // }
 };
 
 function changeChildCategories() {
@@ -156,7 +180,27 @@ function changeChildCategories() {
 
 onMounted(() => {
     changeChildCategories();
+    modal.value = new Modal("#modalClothingItem", {backdrop: false})
+
 });
+
+onBeforeMount(() => {
+    getMaterials().then((data) => {
+        materials.value = data
+        console.log(data)
+    })
+
+    getBrands().then((data) => {
+        brands.value = data;
+        console.log(data);
+    })
+
+    getWashingModes().then((data) => {
+        washingModes.value = data;
+        console.log(data);
+    })
+})
+
 
 defineExpose({
     openModal,
