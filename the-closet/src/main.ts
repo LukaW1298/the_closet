@@ -37,7 +37,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap } from '@fortawesome/free-solid-svg-icons'
 
 //import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -47,7 +47,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 
 
-library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon);
+library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap);
 
 const app = createApp(App)
   .use(IonicVue)
