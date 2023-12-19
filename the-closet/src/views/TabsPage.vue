@@ -16,7 +16,7 @@
           <ion-label>Kleiderschrank</ion-label>
         </ion-tab-button>
         
-        <ion-tab-button tab="add" @click="showModal" color="primary" data-bs-toggle="modal" data-bs-target="#modalClothingItem">
+        <ion-tab-button tab="add" @click="showModal" color="primary">
           <font-awesome-icon icon="fas fa-circle-plus" size="2x"/>
         </ion-tab-button>
         
