@@ -21,7 +21,7 @@
           
           <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" v-for="item of items">
             <div class="card " :id="`card-${item.id}`">
-              <input class="form-check-input check-input-clothing" type="checkbox" :id="`checkbox-${n-1}`" @click="event => addBorder(event, n)">
+              <input class="form-check-input check-input-clothing" type="checkbox" :id="`checkbox-${item.id}`" @click="event => addBorder(event, item.id)">
               <div class="card-body cursor-pointer"  @click="showModal(item)">
                 <div class="flex justify-center">
                   <img :src="item.imageURL" class="card-img-top clothing-card-img" >
