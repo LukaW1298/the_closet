@@ -2,7 +2,7 @@
     {
         "id": 1,
         "userID": 1,
-        "name": "Schwarzes T-Shirt",
+        "name": "Black t-shirt",
         "brand": "Asos",
         "size": "M",
         "colorID": 2,
@@ -20,7 +20,7 @@
     {
         "id": 2,
         "userID": 1,
-        "name": "Jeansjacke",
+        "name": "Denim jacket",
         "brand": "H&M",
         "size": "S",
         "colorID": 2,
@@ -38,7 +38,7 @@
     {
         "id": 3,
         "userID": 1,
-        "name": "Burgrunderrotes Kleid",
+        "name": "Red summer dress",
         "brand": "Hessnatur",
         "size": "38",
         "colorID": 2,
@@ -56,7 +56,7 @@
     {
         "id": 4,
         "userID": 1,
-        "name": "Türkises T-Shirt",
+        "name": "Turquoise t-shirt",
         "brand": "Amisu",
         "size": "L",
         "colorID": 2,
@@ -74,7 +74,7 @@
     {
         "id": 5,
         "userID": 1,
-        "name": "Blaugraue Jeans",
+        "name": "Blue jeans",
         "brand": "Levi's",
         "size": "W31 L28",
         "colorID": 2,
@@ -92,7 +92,7 @@
     {
         "id": 6,
         "userID": 1,
-        "name": "Boyfriend-Jeans",
+        "name": "Boyfriend jeans",
         "brand": "Review",
         "size": "W30 L30",
         "colorID": 2,
@@ -106,5 +106,30 @@
         "subCategory": "Jeans",
         "price": 19.99,
         "imageURL": "/resources/test_items/clothing5.png"
+    },
+    {
+        "id": 7,
+        "name": "Maxi skirt",
+        "imageURL": "/resources/test_items/maxiskirt.png"
+    },
+    {
+        "id": 8,
+        "name": "Hoodie",
+        "imageURL": "/resources/test_items/hoodie.png"
+    },
+    {
+        "id": 9,
+        "name": "Cardigan",
+        "imageURL": "/resources/test_items/strickjacke.png"
+    },
+    {
+        "id": 10,
+        "name": "Blouse",
+        "imageURL": "/resources/test_items/blouse.png"
+    },
+    {
+        "id": 11,
+        "name": "Trench coat",
+        "imageURL": "/resources/test_items/trenchcoat.jpg"
     }
 ]
