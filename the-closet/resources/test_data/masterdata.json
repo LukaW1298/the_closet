@@ -2,41 +2,41 @@
     "categories": [
         {
             "id": 1,
-            "name": "Oberteil",
+            "name": "top",
             "child_categories": [
                 {
                     "id": 2,
-                    "name": "T-Shirt"
+                    "name": "t-shirt"
                 },
                 {
                     "id": 3,
-                    "name": "Pullover"
+                    "name": "sweater"
                 },
                 {
                     "id": 4,
-                    "name": "Bluse"
+                    "name": "blouse"
                 }
             ]
         },
         {
             "id": 5,
-            "name": "Hose",
+            "name": "trousers",
             "child_categories": [
                 {
                     "id": 6,
-                    "name": "Jeans"
+                    "name": "jeans"
                 },
                 {
                     "id": 7,
-                    "name": "Jogginghose"
+                    "name": "sweatpants"
                 },
                 {
                     "id": 8,
-                    "name": "Stoffhose"
+                    "name": "cloth pants"
                 },
                 {
                     "id": 9,
-                    "name": "Shorts"
+                    "name": "shorts"
                 }
             ]
         }
@@ -44,30 +44,30 @@
     "materials": [
         {
             "id": 1,
-            "name": "Baumwolle"
+            "name": "cotton"
         },
         {
             "id": 2,
-            "name": "Polyester"
+            "name": "polyester"
         },
         {
             "id": 3,
-            "name": "Elasthan"
+            "name": "elastane"
         },
         {
             "id": 4,
-            "name": "Schurwolle"
+            "name": "shearings"
         },
         {
             "id": 5,
-            "name": "Viskose"
+            "name": "viscose"
         }
     ],
 
     "colors": [
         {
             "id": 1,
-            "name": "rot",
+            "name": "red",
             "hex_code": "#b5251b"
         },
         {
@@ -77,81 +77,81 @@
         },
         {
             "id": 11,
-            "name": "gelb",
+            "name": "yellow",
             "hex_code": "#E7E31E"
         },
        
         {
             "id": 19,
-            "name": "hellgrün",
+            "name": "light green",
             "hex_code": "#90EE90"
         },
         {
             "id": 3,
-            "name": "grün",
+            "name": "green",
             "hex_code": "#1f911d"
         },
         {
             "id": 20,
-            "name": "dunkelgrün",
+            "name": "dark green",
             "hex_code": "#00693E"
         },
         {
             "id": 12,
-            "name": "türkis",
+            "name": "turquoise",
             "hex_code": "#10C09A"
         },
         {
             "id": 13,
-            "name": "petrol",
+            "name": "teal",
             "hex_code": "#067467"
         },
         {
             "id": 18,
-            "name": "hellblau",
+            "name": "light blue",
             "hex_code": "#89CFF0"
         },
         {
             "id": 2,
-            "name": "blau",
+            "name": "blue",
             "hex_code": "#2074bd"
         },
         {
             "id": 17,
-            "name": "marineblau",
+            "name": "navy",
             "hex_code": "#000080"
         },
        
         {
             "id": 4,
-            "name": "violett",
+            "name": "violet",
             "hex_code": "#771cb0"
         },
         {
             "id": 5,
-            "name": "weiß",
+            "name": "white",
             "hex_code": "#ffffff"
         },
         {
             "id": 6,
-            "name": "schwarz",
+            "name": "black",
             "hex_code": "#000000"
         },
         
         
         {
             "id": 14,
-            "name": "grau",
+            "name": "grey",
             "hex_code": "#515151"
         },
         {
             "id": 15,
-            "name": "braun",
+            "name": "brown",
             "hex_code": "#59260B"
         },
         {
             "id": 16,
-            "name": "rosa",
+            "name": "rose",
             "hex_code": "#FF6FCA"
         },
         
@@ -163,12 +163,12 @@
         },
         {
             "id": 22,
-            "name": "hellgrau",
+            "name": "light grey",
             "hex_code": "#BEBFC5"
         },
         {
             "id": 23,
-            "name": "burgunder",
+            "name": "burgundy",
             "hex_code": "#800020"
         },
         {
@@ -178,8 +178,66 @@
         },
         {
             "id": 25,
-            "name": "hellbraun",
+            "name": "light brown",
             "hex_code": "#C18363"
+        }
+    ],
+
+    "weather": [
+        {
+            "id": 1,
+            "name": "sunny"
+        },
+        {
+            "id": 2,
+            "name": "cloudy"
+        },
+        {
+            "id": 3,
+            "name": "rain"
+        },
+        {
+            "id": 4,
+            "name": "snow"
+        },
+        {
+            "id": 5,
+            "name": "spring"
+        },
+        {
+            "id": 6,
+            "name": "summer"
+        },
+        {
+            "id": 7,
+            "name": "fall"
+        },
+        {
+            "id": 8,
+            "name": "winter"
+        }
+    ],
+
+    "occasion": [
+        {
+            "id": 1,
+            "name": "casual"
+        },
+        {
+            "id": 2,
+            "name": "work"
+        },
+        {
+            "id": 3,
+            "name": "formal"
+        },
+        {
+            "id": 4,
+            "name": "home"
+        },
+        {
+            "id": 5,
+            "name": "party"
         }
     ]
 }
