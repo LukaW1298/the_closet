@@ -1,39 +1,34 @@
 <template>
   <ion-page>
     <ion-header>
-     <nav-bar />
+      <nav-bar />
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Anmelden</ion-title>
+          <ion-title size="large">Login</ion-title>
         </ion-toolbar>
       </ion-header>
 
-
       <div v-if="pageMode == 'login'">
-
         <login-form>
-          <p class="text-center pt-5">Noch kein Nutzerkonto? <a @click="pageMode = 'register'"
-              :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">Registrieren
-              Sie
-              sich hier.</a></p>
+          <p class="text-center pt-5">Not yet registered? <a class="text-royal-purple-500" @click="pageMode = 'register'"
+              :style="{ textDecoration: 'none', cursor: 'pointer' }">
+              Sign up here.</a></p>
         </login-form>
-
-
       </div>
-      <div v-else>
 
+      <div v-else>
         <registration-form>
-          <p class="text-center pt-5">Sie haben schon ein Nutzerkonto?
+          <p class="text-center pt-5">You already have an account?
             <a @click="pageMode = 'login'"
-              :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">
-              Melden Sie sich hier an.
+          class="text-royal-purple-500"
+              :style="{ textDecoration: 'none', cursor: 'pointer' }">
+              Log in here.
             </a>
           </p>
         </registration-form>
       </div>
-
 
     </ion-content>
   </ion-page>
@@ -41,11 +36,8 @@
   
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
 import LoginForm from '@/components/LoginComponent.vue';
 import RegistrationForm from '@/components/RegistrationComponent.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import router from '@/router';
 import { ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 

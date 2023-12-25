@@ -25,9 +25,6 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 import '../scss/custom.scss'
 
-//import "bootstrap/dist/css/bootstrap.min.css"
-//import "bootstrap"
-
 import 'vue-swatches/dist/vue-swatches.css'
 
 /* import the fontawesome core */
@@ -37,24 +34,25 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
-//import 'bootstrap/dist/css/bootstrap.css'
-//import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-// import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
+import { createPinia } from 'pinia';
 
 
-library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap);
+
+library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck);
+
+const pinia = createPinia();
 
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(store)
+  .use(pinia)
   .component("font-awesome-icon", FontAwesomeIcon);
-  
+
 router.isReady().then(() => {
   app.mount('#app');
 });
