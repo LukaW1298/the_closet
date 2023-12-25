@@ -5,8 +5,8 @@
         "name": "Black t-shirt",
         "brand": "Asos",
         "size": "M",
-        "colorID": 2,
-        "color": "#000000",
+        
+        "colorID": 6,
         "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
         "status": "dirty",
@@ -24,7 +24,6 @@
         "brand": "H&M",
         "size": "S",
         "colorID": 2,
-        "color": "#000000",
         "materialIdList": [10],
         "materialList": ["Denim"],
         "status": "okay",
@@ -41,7 +40,7 @@
         "name": "Red summer dress",
         "brand": "Hessnatur",
         "size": "38",
-        "colorID": 2,
+        "colorID": 1,
         "color": "#000000",
         "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
@@ -59,7 +58,7 @@
         "name": "Turquoise t-shirt",
         "brand": "Amisu",
         "size": "L",
-        "colorID": 2,
+        "colorID": 12,
         "color": "#000000",
         "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
@@ -110,26 +109,36 @@
     {
         "id": 7,
         "name": "Maxi skirt",
-        "imageURL": "/resources/test_items/maxiskirt.png"
+        "colorID": 15,
+        "imageURL": "/resources/test_items/maxiskirt.png",
+        "materialList": ["Baumwolle", "Elasthan"]
     },
     {
         "id": 8,
         "name": "Hoodie",
-        "imageURL": "/resources/test_items/hoodie.png"
+        "colorID": 19,
+        "imageURL": "/resources/test_items/hoodie.png",
+        "materialList": ["Baumwolle", "Elasthan"]
     },
     {
         "id": 9,
         "name": "Cardigan",
-        "imageURL": "/resources/test_items/strickjacke.png"
+        "colorID": 21,
+        "imageURL": "/resources/test_items/strickjacke.png",
+        "materialList": ["Baumwolle", "Elasthan"]
     },
     {
         "id": 10,
         "name": "Blouse",
-        "imageURL": "/resources/test_items/blouse.png"
+        "colorID": 18,
+        "imageURL": "/resources/test_items/blouse.png",
+        "materialList": ["Baumwolle", "Elasthan"]
     },
     {
         "id": 11,
         "name": "Trench coat",
-        "imageURL": "/resources/test_items/trenchcoat.jpg"
+        "colorID": 21,
+        "imageURL": "/resources/test_items/trenchcoat.jpg",
+        "materialList": ["Baumwolle", "Elasthan"]
     }
 ]

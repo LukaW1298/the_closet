@@ -16,7 +16,6 @@ export type ClothingItem = {
     brand: string,
     size: string,
     colorID: number,
-    color: string,
     materialIdList: number[]
     materialList: string[],
     status: string,

@@ -5,21 +5,26 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"></h5>
+                    <button type="button" class="btn btn-secondary" @click="toggleMode">
+                    {{ viewingMode ? 'Edit' : 'Discard changes' }}
+                    </button>
+
                     <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="custom-file mb-3 px-4 row">
                             <div class=" col-sm-3">
-                                <label class="custom-file-label" for="customFile">Foto</label>
+                                <label class="custom-file-label" for="customFile">Picture</label>
                             </div>
                             <div class=" col-sm-9">
-                                <ImageInput />
+                                <ImageViewer v-if="mode == 'view'" :source="props.data.imageURL" />
+                                <ImageInput v-else :source="props.data.imageURL" />
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
                             <div class=" col-sm-4">
-                                <label for="formGroupExampleInput">Bezeichnung</label>
+                                <label for="formGroupExampleInput">Name</label>
                             </div>
                             <div v-if="mode == 'view'" class="col-sm-8">
                                 <span>{{ props.data.name }}</span>
@@ -31,7 +36,7 @@
                         </div>
                         <div class="mb-3 px-4 row">
                             <div class="col-sm-4">
-                                <label for="inputState">Kategorie</label>
+                                <label for="inputState">Category</label>
                             </div>
 
                             <div v-if="viewingMode" class="col-md-8">
@@ -47,7 +52,7 @@
                         </div>
                         <div class="mb-3 px-4 row">
                             <div class="col-sm-4">
-                                <label for="inputState">Unterkategorie</label>
+                                <label for="inputState">Sub category</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
                                 {{ props.data.subCategory }}
@@ -65,7 +70,7 @@
 
                         <div class="mb-3 px-4 row">
                             <div class="col-sm-4">
-                                <label for="inputState">Marke</label>
+                                <label for="inputState">Brand</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
                                 {{ props.data.brand }}
@@ -77,7 +82,7 @@
 
                         <div class="mb-3 px-4 row">
                             <div class=" col-sm-4">
-                                <label for="formGroupExampleInput">Größe</label>
+                                <label for="formGroupExampleInput">Size</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
                                 {{ props.data.size }}
@@ -89,7 +94,7 @@
 
                         <div class="mb-3 px-4 row">
                             <div class=" col-sm-4">
-                                <label for="formGroupExampleInput">Kaufpreis (€)</label>
+                                <label for="formGroupExampleInput">Purchase price (€)</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
                                 {{ props.data.price }}
@@ -103,32 +108,34 @@
                             <div class=" col-sm-4">
                                 <label for="formGroupExampleInput">Material</label>
                             </div>
-                            <div class="col-sm-8">
-                                <select id="material" class="col-sm-6 form-control" :multiple="true">
-                                    <option id="materialId" name="materialId" v-for="material in materials"
-                                        :value="material.id">{{ material.material }}</option>
-                                </select>
+                            <div v-if="viewingMode" class="col-sm-8">
+                                {{ materialText }}
+                            </div>
+                            <div v-else class="col-sm-8">
+                                <button v-for="material in materials" type="button" data-bs-toggle="button" :class="{'btn': true, 'btn-outline-primary': !props.data.materialIdList.includes(material.id), 'btn-primary': props.data.materialIdList.includes(material.id)}">
+                                    {{ material.material }}
+                                </button>
                             </div>
                         </div>
 
-
-
                         <div class="mb-3 px-4 row">
                             <div class=" col-sm-4">
-                                <label for="formGroupExampleInput">Farbe</label>
+                                <label for="formGroupExampleInput">Color</label>
                             </div>
-                            <div class="col-sm-8">
+                            <div v-if="viewingMode" class="col-sm-8">
+                                <ColorIndicator :color="getColorByID(props.data.colorID)"/>
+                            </div>
+                            <div v-else class="col-sm-8">
                                 <ColorPicker :colors="colors" v-model="selectedColorId"
                                     @update:model-value="console.log(selectedColorId)" />
                             </div>
                         </div>
 
-
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal">Schließen</button>
-                    <button type="button" class="btn btn-primary">Speichern</button>
+                    <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+                    <button v-if="editMode" type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -137,12 +144,14 @@
   
 <script setup lang="ts">
 
-import { ref, reactive, onMounted, defineProps, computed } from "vue";
+import { ref, onMounted, defineProps, computed, onBeforeMount } from "vue";
 import ImageInput from '@/components/ImageInput.vue';
+import ImageViewer from "./ImageViewer.vue";
 import masterdata from '../../resources/test_data/masterdata.json'
 import ColorPicker from '@/components/ColorPicker.vue';
+import ColorIndicator from "./ColorIndicator.vue";
 import { Category, Material } from '@/custom_types';
-//import bootstrap from 'bootstrap/dist/js/bootstrap.min.js'
+import { getMaterials } from "@/composables/GetCalls";
 
 const modalDisplay = ref("none");
 
@@ -152,11 +161,10 @@ const selectedChildCategoryId = ref<number>(1);
 const categories = ref<Category[]>(masterdata.categories);
 const currentChildCategories = ref<Category[]>(masterdata.categories);
 
-const materials = ref<Material[]>(masterdata.materials);
+const materials = ref<Material[]>([]);
 const colors = ref<any>(masterdata.colors);
 
 const selectedColorId = ref<number>(1);
-
 
 const props = defineProps(["data"])
 console.log(props.data.brand)
@@ -167,15 +175,12 @@ const mode = ref<string>("view");
 
 const openModal = () => {
     modalDisplay.value = "block";
+    console.log(props.data.imageUrl)
 };
 
 const closeModal = () => {
     modalDisplay.value = "none";
 };
-
-const viewingMode = computed(() => {
-    return mode.value == "view";
-})
 
 function changeChildCategories() {
     let childCategoryArray: any = [];
@@ -187,9 +192,47 @@ function changeChildCategories() {
         currentChildCategories.value = childCategoryArray;
 }
 
+function getColorByID(id: number) {
+    console.log(id)
+    console.log(masterdata.colors.filter((color) => color.id == id))
+    return masterdata.colors.filter((color) => color.id == id)[0];
+}
+
+function toggleMode() {
+    if (mode.value == 'view')
+        mode.value = 'edit';
+    else
+        mode.value = 'view';
+}
+
+// computed properties
+
+const viewingMode = computed(() => {
+    return mode.value == "view";
+})
+
+const editMode = computed(() => {
+    return mode.value == "edit";
+})
+
+const materialText = computed(() => {
+    if (props.data.materialList !== undefined)
+        return props.data.materialList.join(", ")
+    return "No material"
+})
+
+// lifecycle hooks
+
 onMounted(() => {
     changeChildCategories();
 });
+
+onBeforeMount(() => {
+    getMaterials().then((data) => {
+        materials.value = data
+        console.log(data)
+    })
+})
 
 defineExpose({
     openModal,
