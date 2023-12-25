@@ -4,7 +4,7 @@ import { ref } from "vue";
 export const useUserStore = defineStore("user", () => {
     const name = ref("");
     const emailAddress = ref("");
-    const password = ref("");
+    const id = ref(0);
     
-    return { name, emailAddress, password }
+    return { name, emailAddress, id }
 })

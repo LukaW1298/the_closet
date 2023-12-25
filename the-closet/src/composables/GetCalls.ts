@@ -19,3 +19,8 @@ export async function getWashingModes() {
     return fetch(address + "/api/washingModes", {method: "GET", mode: "cors", redirect: "follow"})
         .then(response => response.json())        
 }
+
+export async function getUser(username: string) {
+    return fetch(address + "/api/auth/" + username, {method: "GET", mode: "cors", redirect: "follow"})
+        .then(response => response.json())        
+}

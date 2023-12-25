@@ -58,7 +58,8 @@ import { useUserStore } from '@/store/user';
 import { presentToast } from '@/helpers/toastController';
 
 const store = useUserStore();
-const { name, emailAddress, password } = storeToRefs(store);
+const { name, emailAddress } = storeToRefs(store);
+const password = ref("");
 const retypedPassword = ref("");
 
 const emailFocusOut = ref(false);

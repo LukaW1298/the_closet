@@ -1,73 +1,75 @@
 <template>
     <div class="container-md mt-3 p-3" :style="{ backgroundColor: 'var(--bs-body-bg)' }">
-        <h4 class="pb-3 text-center">Anmeldung</h4>
+        <h4 class="pb-3 text-center">Login</h4>
         <div>
             <form @submit.prevent="login">
                 <div class="mb-3 px-4">
-                    <label for="username" class="form-label">Benutzername</label>
-                    <input id="username" type="text" v-model="state.username" placeholder="Benutzername"
-                        class="form-control">
+                    <label for="username" class="form-label">Username</label>
+                    <input id="username" type="text" v-model="username" placeholder="Benutzername" class="form-control">
                 </div>
                 <div class="mb-3 px-4">
-                    <label for="password" class="form-label">Passwort</label>
-                    <input id="password" type="password" v-model="state.password" placeholder="Passwort"
-                        class="form-control">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" type="password" v-model="password" placeholder="Passwort" class="form-control">
                 </div>
                 <div class="mb-3 px-4 d-flex justify-content-center">
-
-                    <button type="submit" class="btn btn-primary">Anmelden</button>
-                    
+                    <button type="submit" class="btn btn-primary">Log in</button>
                 </div>
             </form>
         </div>
+
+        <div v-if="responseError.length > 0" class="alert alert-danger mx-4" role="alert">
+            The login attempt hasn't been successful.
+            <br><br>
+            Error message: {{ responseError }}
+        </div>
         <slot></slot>
-       
+
     </div>
 </template>
 
-<script>
-import { reactive, ref } from 'vue';
-import { useStore } from 'vuex'; // Assuming Vuex is set up properly
+<script setup lang="ts">
+import { ref } from 'vue';
 import router from '@/router';
+import { postLogin } from '@/composables/PostCalls';
+import { getUser } from '@/composables/GetCalls';
+import { useUserStore } from '@/store/user';
 
+const store = useUserStore();
+const username = ref("");
+const password = ref("");
+const responseError = ref("");
 
-export default {
-    setup() {
-        const store = useStore(); // Access the Vuex store
+const login = () => {
+    postLogin(username.value, password.value)
+        .then((response) => {
+            console.log(response)
 
-        // Reactive state using the Composition API
-        const state = reactive({
-            username: '',
-            password: ''
-        });
+            if (response.ok) {
+                getUser(username.value).then((result) => {
+                    console.log(result)
 
-        const errorMessage = ref("");
-
-        // Login function
-        const login = () => {
-            // Perform authentication logic using Vuex actions
-            store.dispatch('loginUser', {
-                username: state.username,
-                password: state.password
-            }).then(() => {
-                // Redirect to dashboard or another route on successful login
-                // Example: router.push('/dashboard');
-
-                console.log('Logged in successfully!');
+                    store.$patch({
+                        id: result.id,
+                        name: result.username,
+                        emailAddress: result.email
+                    })   
+                })
 
                 router.push("/tabs");
-            }).catch(error => {
-                // Handle authentication error
-                errorMessage.value = error;
-                console.error('Login failed:', error);
-            });
-        };
+            }
 
-        return {
-            state,
-            login,
-            errorMessage
-        };
-    }
-};
+            return response.json();
+        })
+        .then((result) => {
+            console.log("Result:", result);
+
+            if (result.error)
+                responseError.value = result.error;
+            if (result.message && result.status !== "200")
+                responseError.value = result.message;
+        })
+        .catch((error) => {
+            console.log("Error:", String(error));
+        })
+}
 </script>
