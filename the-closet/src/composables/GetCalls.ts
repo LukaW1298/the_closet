@@ -24,3 +24,8 @@ export async function getUser(username: string) {
     return fetch(address + "/api/auth/" + username, {method: "GET", mode: "cors", redirect: "follow"})
         .then(response => response.json())        
 }
+
+export async function getParentCategories() {
+    return fetch(address + "/api/parentCategorys", {method: "GET", mode: "cors", redirect: "follow"})
+        .then(response => response.json())        
+}

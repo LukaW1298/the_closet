@@ -1,12 +1,12 @@
 <template>
     <div class="color-box-container flex flex-wrap gap-1">
-        <div v-for="color in colors" class="color-box border-2 w-7 h-7" :style="{ backgroundColor: color.hex_code }" :title="color.name"
+        <div v-for="color in colors" class="flex color-box border-2 w-7 h-7 justify-center items-center cursor-pointer" :style="{ backgroundColor: color.hex_code }" :title="color.name"
             :value="color.id"
             
             @click="emit('update:modelValue', color.id)"
             
             :class="{ active: color.id == modelValue }">
-
+            <FontAwesomeIcon class="text-royal-purple-700" v-if="color.id == modelValue" icon="fas fa-circle-check"></FontAwesomeIcon>
         </div>
         <input type="hidden" :value="modelValue" id="color-id" name="color-id" ref="input"/>
     </div>
@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const props = defineProps(["colors", "modelValue"])
 const emit = defineEmits(['update:modelValue'])

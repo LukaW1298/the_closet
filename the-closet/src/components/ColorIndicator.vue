@@ -3,7 +3,7 @@
         <div class="flex color-box border-2 w-7 h-7 justify-center items-center cursor-pointer"
             :style="{ backgroundColor: props.color.hex_code }" :title="props.color.name" :value="props.color.id">
         </div>
-        <span>{{ $props.color.name }}</span>
+        <span>{{ props.color.name }}</span>
     </div>
 </template>
 

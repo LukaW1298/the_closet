@@ -24,7 +24,8 @@ export type ClothingItem = {
     subCategoryID: number,
     subCategory: string,
     price: number,
-    imageURL: string
+    imageURL: string,
+    washingModeID: number
 }
 
 export type WashingMode = {

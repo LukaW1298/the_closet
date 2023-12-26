@@ -15,7 +15,8 @@
         "subCategoryID": 3,
         "subCategory": "V-Ausschnitt-T-Shirt",
         "price": 17.99,
-        "imageURL": "/resources/test_items/clothing0.png"
+        "imageURL": "/resources/test_items/clothing0.png",
+        "washingModeID": 1
     },
     {
         "id": 2,
@@ -32,7 +33,8 @@
         "subCategoryID": 3,
         "subCategory": "Jeansjacke",
         "price": 19.99,
-        "imageURL": "/resources/test_items/clothing1.png"
+        "imageURL": "/resources/test_items/clothing1.png",
+        "washingModeID": 2
     },
     {
         "id": 3,
@@ -50,7 +52,8 @@
         "subCategoryID": 3,
         "subCategory": "Sommerkleid",
         "price": 24.99,
-        "imageURL": "/resources/test_items/clothing2.png"
+        "imageURL": "/resources/test_items/clothing2.png",
+        "washingModeID": 1
     },
     {
         "id": 4,
@@ -68,7 +71,8 @@
         "subCategoryID": 3,
         "subCategory": "T-Shirt",
         "price": 7.99,
-        "imageURL": "/resources/test_items/clothing3.png"
+        "imageURL": "/resources/test_items/clothing3.png",
+        "washingModeID": 1
     },
     {
         "id": 5,
@@ -86,7 +90,8 @@
         "subCategoryID": 3,
         "subCategory": "Jeans",
         "price": 29.99,
-        "imageURL": "/resources/test_items/clothing4.png"
+        "imageURL": "/resources/test_items/clothing4.png",
+        "washingModeID": 1
     },
     {
         "id": 6,
@@ -104,41 +109,47 @@
         "subCategoryID": 3,
         "subCategory": "Jeans",
         "price": 19.99,
-        "imageURL": "/resources/test_items/clothing5.png"
+        "imageURL": "/resources/test_items/clothing5.png",
+        "washingModeID": 1
     },
     {
         "id": 7,
         "name": "Maxi skirt",
         "colorID": 15,
         "imageURL": "/resources/test_items/maxiskirt.png",
-        "materialList": ["Baumwolle", "Elasthan"]
+        "materialList": ["Baumwolle", "Elasthan"],
+        "washingModeID": 2
     },
     {
         "id": 8,
         "name": "Hoodie",
         "colorID": 19,
         "imageURL": "/resources/test_items/hoodie.png",
-        "materialList": ["Baumwolle", "Elasthan"]
+        "materialList": ["Baumwolle", "Elasthan"],
+        "washingModeID": 1
     },
     {
         "id": 9,
         "name": "Cardigan",
         "colorID": 21,
         "imageURL": "/resources/test_items/strickjacke.png",
-        "materialList": ["Baumwolle", "Elasthan"]
+        "materialList": ["Baumwolle", "Elasthan"],
+        "washingModeID": 1
     },
     {
         "id": 10,
         "name": "Blouse",
         "colorID": 18,
         "imageURL": "/resources/test_items/blouse.png",
-        "materialList": ["Baumwolle", "Elasthan"]
+        "materialList": ["Baumwolle", "Elasthan"],
+        "washingModeID": 1
     },
     {
         "id": 11,
         "name": "Trench coat",
         "colorID": 21,
         "imageURL": "/resources/test_items/trenchcoat.jpg",
-        "materialList": ["Baumwolle", "Elasthan"]
+        "materialList": ["Baumwolle", "Elasthan"],
+        "washingModeID": 1
     }
 ]

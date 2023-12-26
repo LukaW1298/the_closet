@@ -1,14 +1,10 @@
 <!-- ModalDialog.vue -->
 <template>
-    <div class="modal fade show in" id="modalClothingItem" :style="{ 'display': modalDisplay }">
+    <div v-if="clickedClothingItem" class="modal fade show in" id="modalClothingItem" :style="{ 'display': modalDisplay }">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"></h5>
-                    <button type="button" class="btn btn-secondary" @click="toggleMode">
-                    {{ viewingMode ? 'Edit' : 'Discard changes' }}
-                    </button>
-
                     <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
@@ -18,20 +14,20 @@
                                 <label class="custom-file-label" for="customFile">Picture</label>
                             </div>
                             <div class=" col-sm-9">
-                                <ImageViewer v-if="mode == 'view'" :source="props.data.imageURL" />
-                                <ImageInput v-else :source="props.data.imageURL" />
+                                <ImageViewer v-if="mode == 'view'" :source="clickedClothingItem.imageURL" />
+                                <ImageInput v-else :source="clickedClothingItem.imageURL" />
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
                             <div class=" col-sm-4">
-                                <label for="formGroupExampleInput">Name</label>
+                                <label for="name">Name</label>
                             </div>
                             <div v-if="mode == 'view'" class="col-sm-8">
-                                <span>{{ props.data.name }}</span>
+                                <span>{{ clickedClothingItem.name }}</span>
                             </div>
                             <div v-else class=" col-sm-8">
-                                <input type="text" class="form-control" id="formGroupExampleInput"
-                                    placeholder="z.B. Bunter Blumenrock">
+                                <input type="text" class="form-control" id="name" placeholder="e.g. Short pants"
+                                    :value="clickedClothingItem.name">
                             </div>
                         </div>
                         <div class="mb-3 px-4 row">
@@ -40,7 +36,7 @@
                             </div>
 
                             <div v-if="viewingMode" class="col-md-8">
-                                {{ props.data.category }}
+                                {{ clickedClothingItem.category }}
                             </div>
                             <div v-else class="col-md-8">
                                 <select id="parentCategory" name="parentCategory" class="col-sm-6 form-control"
@@ -50,12 +46,13 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="mb-3 px-4 row">
                             <div class="col-sm-4">
                                 <label for="inputState">Sub category</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
-                                {{ props.data.subCategory }}
+                                {{ clickedClothingItem.subCategory }}
                             </div>
                             <div v-else class="col-sm-8">
                                 <select id="childCategory" name="childCategory" class="col-sm-6 form-control"
@@ -67,16 +64,19 @@
                             </div>
                         </div>
 
-
                         <div class="mb-3 px-4 row">
                             <div class="col-sm-4">
                                 <label for="inputState">Brand</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
-                                {{ props.data.brand }}
+                                {{ clickedClothingItem.brand }}
                             </div>
                             <div v-else class="col-sm-8">
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. Asos">
+                                <select id="brand" name="brand" class="col-sm-6 form-control">
+                                    <option v-for="brand in brandsStore.brands" :value="brand.id">
+                                        {{ brand.name }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
 
@@ -85,10 +85,10 @@
                                 <label for="formGroupExampleInput">Size</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
-                                {{ props.data.size }}
+                                {{ clickedClothingItem.size }}
                             </div>
-                            <div v-else class=" col-sm-9">
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. M">
+                            <div v-else class=" col-sm-8">
+                                <input type="text" class="form-control" id="size" placeholder="e.g. M" :value="clickedClothingItem.size">
                             </div>
                         </div>
 
@@ -97,24 +97,46 @@
                                 <label for="formGroupExampleInput">Purchase price (€)</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
-                                {{ props.data.price }}
+                                {{ clickedClothingItem.price }}
                             </div>
-                            <div v-else class=" col-sm-8">
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="z.B. 19,99">
+                            <div v-else class="col-sm-8">
+                                <input type="text" class="form-control" id="price" placeholder="e.g. 19,99" :value="clickedClothingItem.price">
                             </div>
                         </div>
 
                         <div class="mb-3 px-4 row">
                             <div class=" col-sm-4">
-                                <label for="formGroupExampleInput">Material</label>
+                                <label>Material</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
                                 {{ materialText }}
                             </div>
                             <div v-else class="col-sm-8">
-                                <button v-for="material in materials" type="button" data-bs-toggle="button" :class="{'btn': true, 'btn-outline-primary': !props.data.materialIdList.includes(material.id), 'btn-primary': props.data.materialIdList.includes(material.id)}">
-                                    {{ material.material }}
-                                </button>
+                                <div v-for="material in materialsStore.materials" class="form-check">
+                                    <input class="form-check-input" type="checkbox" :value="material.id"
+                                        :checked="clickedClothingItem.materialIdList.includes(material.id)">
+                                    <label class="form-check-label">
+                                        {{ material.material }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 px-4 row">
+                            <div class=" col-sm-4">
+                                <label for="washing-mode">Washing mode</label>
+                            </div>
+                            <div v-if="viewingMode" class="col-sm-8">
+                                {{ washingModeStore.washingModes.filter((el) => el.id == clickedClothingItem?.washingModeID)[0].washingMode }}
+                            </div>
+                            <div v-else class="col-sm-8">
+                                <div v-for="washingMode in washingModeStore.washingModes" class="form-check" id="washing-mode">
+                                    <input class="form-check-input" type="radio" :value="washingMode.id"
+                                        :checked="washingMode.id == clickedClothingItem.washingModeID">
+                                    <label class="form-check-label">
+                                        {{ washingMode.washingMode }}
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -123,7 +145,7 @@
                                 <label for="formGroupExampleInput">Color</label>
                             </div>
                             <div v-if="viewingMode" class="col-sm-8">
-                                <ColorIndicator :color="getColorByID(props.data.colorID)"/>
+                                <ColorIndicator :color="getColor" />
                             </div>
                             <div v-else class="col-sm-8">
                                 <ColorPicker :colors="colors" v-model="selectedColorId"
@@ -133,9 +155,18 @@
 
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-                    <button v-if="editMode" type="button" class="btn btn-primary">Save</button>
+                <div class="modal-footer !justify-between">
+                    <div class="flex justify-start">
+                        <button type="button" class="btn btn-secondary">
+                            Delete
+                        </button>
+                    </div>
+                    <div class="flex justify-end gap-x-2">
+                        <button type="button" class="btn btn-secondary" @click="toggleMode">
+                            {{ viewingMode ? 'Edit' : 'Discard changes' }}
+                        </button>
+                        <button v-if="editMode" type="button" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -143,15 +174,20 @@
 </template>
   
 <script setup lang="ts">
-
-import { ref, onMounted, defineProps, computed, onBeforeMount } from "vue";
+import { ref, onMounted, computed, onBeforeMount, inject, Ref } from "vue";
 import ImageInput from '@/components/ImageInput.vue';
 import ImageViewer from "./ImageViewer.vue";
 import masterdata from '../../resources/test_data/masterdata.json'
 import ColorPicker from '@/components/ColorPicker.vue';
 import ColorIndicator from "./ColorIndicator.vue";
-import { Category, Material } from '@/custom_types';
-import { getMaterials } from "@/composables/GetCalls";
+import { Category, ClothingItem } from '@/custom_types';
+import { useBrandsStore, useMaterialsStore, useWashingModeStore } from '@/store/masterdata';
+
+const brandsStore = useBrandsStore();
+const materialsStore = useMaterialsStore();
+const washingModeStore = useWashingModeStore();
+
+const clickedClothingItem = inject<Ref<ClothingItem>>("clickedClothingItem");
 
 const modalDisplay = ref("none");
 
@@ -161,25 +197,20 @@ const selectedChildCategoryId = ref<number>(1);
 const categories = ref<Category[]>(masterdata.categories);
 const currentChildCategories = ref<Category[]>(masterdata.categories);
 
-const materials = ref<Material[]>([]);
 const colors = ref<any>(masterdata.colors);
 
 const selectedColorId = ref<number>(1);
-
-const props = defineProps(["data"])
-console.log(props.data.brand)
-console.log(props.data.value)
-console.log(props.data)
 
 const mode = ref<string>("view");
 
 const openModal = () => {
     modalDisplay.value = "block";
-    console.log(props.data.imageUrl)
+    console.log(clickedClothingItem?.value)
 };
 
 const closeModal = () => {
     modalDisplay.value = "none";
+    mode.value = "view";
 };
 
 function changeChildCategories() {
@@ -192,12 +223,6 @@ function changeChildCategories() {
         currentChildCategories.value = childCategoryArray;
 }
 
-function getColorByID(id: number) {
-    console.log(id)
-    console.log(masterdata.colors.filter((color) => color.id == id))
-    return masterdata.colors.filter((color) => color.id == id)[0];
-}
-
 function toggleMode() {
     if (mode.value == 'view')
         mode.value = 'edit';
@@ -206,6 +231,10 @@ function toggleMode() {
 }
 
 // computed properties
+
+const getColor = computed(() => {
+    return masterdata.colors.filter((color) => color.id == clickedClothingItem?.value.colorID)[0];
+})
 
 const viewingMode = computed(() => {
     return mode.value == "view";
@@ -216,8 +245,8 @@ const editMode = computed(() => {
 })
 
 const materialText = computed(() => {
-    if (props.data.materialList !== undefined)
-        return props.data.materialList.join(", ")
+    if (clickedClothingItem?.value.materialList !== undefined)
+        return clickedClothingItem.value.materialList.join(", ")
     return "No material"
 })
 
@@ -225,13 +254,21 @@ const materialText = computed(() => {
 
 onMounted(() => {
     changeChildCategories();
+    console.log(clickedClothingItem?.value)
 });
 
 onBeforeMount(() => {
-    getMaterials().then((data) => {
-        materials.value = data
-        console.log(data)
-    })
+    if (brandsStore.isEmpty) {
+        brandsStore.fetch();
+    }
+
+    if (materialsStore.isEmpty) {
+        materialsStore.fetch();
+    }
+
+    if (washingModeStore.isEmpty) {
+        washingModeStore.fetch();
+    }
 })
 
 defineExpose({
