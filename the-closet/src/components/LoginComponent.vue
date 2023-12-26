@@ -70,6 +70,7 @@ const login = () => {
         })
         .catch((error) => {
             console.log("Error:", String(error));
+            responseError.value = String(error);
         })
 }
 </script>
