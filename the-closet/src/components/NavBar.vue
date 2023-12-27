@@ -1,30 +1,36 @@
 <template>
-    <nav class="navbar navbar-light bg-primary">
-        <div class="container-fluid">
-            <div class="navbar-brand d-flex justify-content-between w-100 " href="javascript:void(0)" >
-                <div class="text-white max-sm:text-xs flex items-center">
-                    <img src="/resources/favicon-96.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                    The Closet
-                </div>
-                <div class="text-white">
-                    <slot></slot>
-                </div>
-                <div class="d-flex align-items-center text-white" :style="{ columnGap: '10px' }">
-                    <font-awesome-icon icon="fa-moon" />
-                    <div class="form-check form-switch" :style="{marginRight: '-0.5em'}">
-                        <input class="form-check-input" 
-                        type="checkbox"
-                        role="switch"
-                        @change="event => toggleColorMode(event)"
-                        :checked="isThemeLight"
-                        >
-                    </div>
-                    <font-awesome-icon icon="fa-sun"/>
-                </div>
-            </div>
+  <nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+      <div class="navbar-brand d-flex justify-content-between w-100 " href="javascript:void(0)">
+        <div class="text-white max-sm:text-xs flex items-center">
+          <img
+            src="/resources/favicon-96.png" alt=""
+            width="30" height="24"
+            class="d-inline-block align-text-top"
+          >
+          The Closet
         </div>
-    </nav>
+        <div class="text-white">
+          <slot />
+        </div>
+        <div class="d-flex align-items-center text-white gap-x-3">
+          <font-awesome-icon icon="fa-moon" />
+          <div class="form-check form-switch mr-[-0.5em]">
+            <input
+              class="form-check-input" 
+              type="checkbox"
+              role="switch"
+              :checked="isThemeLight"
+              @change="toggleColorMode"
+            >
+          </div>
+          <font-awesome-icon icon="fa-sun" />
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
+
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ref, onBeforeMount } from 'vue';
@@ -59,8 +65,8 @@ onBeforeMount(() => {
         isThemeLight.value = true;
     }
 })
-
 </script>
+
 <style scoped>
 .form-check-input:checked {
     background-color: rgb(var(--royal-purple-500));

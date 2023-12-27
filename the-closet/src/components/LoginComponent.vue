@@ -1,30 +1,43 @@
 <template>
-    <div class="container-md mt-3 p-3" :style="{ backgroundColor: 'var(--bs-body-bg)' }">
-        <h4 class="pb-3 text-center">Login</h4>
-        <div>
-            <form @submit.prevent="login">
-                <div class="mb-3 px-4">
-                    <label for="username" class="form-label">Username</label>
-                    <input id="username" type="text" v-model="username" placeholder="Benutzername" class="form-control">
-                </div>
-                <div class="mb-3 px-4">
-                    <label for="password" class="form-label">Password</label>
-                    <input id="password" type="password" v-model="password" placeholder="Passwort" class="form-control">
-                </div>
-                <div class="mb-3 px-4 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-            </form>
+  <div class="container-md mt-3 p-3 bg-[--bs-body-bg]">
+    <h4 class="pb-3 text-center">
+      Login
+    </h4>
+    <div>
+      <form @submit.prevent="login">
+        <div class="mb-3 px-4">
+          <label for="username" class="form-label">Username</label>
+          <input
+            id="username" v-model="username"
+            type="text" placeholder="Benutzername"
+            class="form-control"
+          >
         </div>
-
-        <div v-if="responseError.length > 0" class="alert alert-danger mx-4" role="alert">
-            The login attempt hasn't been successful.
-            <br><br>
-            Error message: {{ responseError }}
+        <div class="mb-3 px-4">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password" v-model="password"
+            type="password" placeholder="Passwort"
+            class="form-control"
+          >
         </div>
-        <slot></slot>
-
+        <div class="mb-3 px-4 d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary">
+            Log in
+          </button>
+        </div>
+      </form>
     </div>
+    <div
+      v-if="responseError.length > 0" class="alert alert-danger mx-4"
+      role="alert"
+    >
+      The login attempt hasn't been successful.
+      <br><br>
+      Error message: {{ responseError }}
+    </div>
+    <slot />
+  </div>
 </template>
 
 <script setup lang="ts">

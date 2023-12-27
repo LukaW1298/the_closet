@@ -1,24 +1,30 @@
 <template>
   <ion-page>
     <ion-tabs>
-      <ion-router-outlet>
-      </ion-router-outlet>
-      <ion-tab-bar slot="bottom" color="primary">
-        <ion-tab-button tab="outfits" href="/tabs/outfits">
+      <ion-router-outlet />
+      <ion-tab-bar
+        slot="bottom"
+        color="primary"
+      >
+        <ion-tab-button
+          tab="outfits"
+          href="/tabs/outfits"
+        >
           <ion-label>Outfits</ion-label>
         </ion-tab-button>
-        <ion-tab-button tab="wardrobe" href="/tabs/wardrobe">
+        <ion-tab-button
+          tab="wardrobe"
+          href="/tabs/wardrobe"
+        >
           <ion-label>Wardrobe</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-    <modal-dialog-clothing-item ref="modalDialogClothing" />
   </ion-page>
 </template>
 
 <script setup lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonPage, IonRouterOutlet } from '@ionic/vue';
-import ModalDialogClothingItem from '@/components/ModalDialogAddClothingItem.vue'
 </script>
 
 <style scoped>

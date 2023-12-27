@@ -37,3 +37,16 @@ export type Brand = {
     id: number,
     name: string
 }
+
+export class Color {
+    id: number;
+    name: string;
+    hex_code: string;
+
+    constructor(id: number, name: string, hex_code: string) {
+        this.id = id;
+        this.name = name;
+        this.hex_code = hex_code;
+    }
+
+}

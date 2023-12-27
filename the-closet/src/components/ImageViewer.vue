@@ -1,12 +1,20 @@
 <template>
-  <div class="base-image-input" :style="{ 'background-image': `url(${props.source})` }">
-  </div>
+  <div
+    class="base-image-input"
+    :style="{ 'background-image': `url(${props.source})` }"
+  />
 </template>
 <script setup lang="ts">
 const emit = defineEmits(["input"]);
-const props = defineProps(["source"]);
-console.log(props.source)
+const props = defineProps(
+  {
+    "source": {
+      type: String,
+      required: true
+    }
+  });
 </script>
+
 <style scoped>
 .base-image-input {
   display: block;

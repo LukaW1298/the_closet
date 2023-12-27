@@ -1,31 +1,53 @@
 <template>
-  <div v-if="mode == 'edit'" class="base-image-input" :style="{ 'background-image': `url(${imageData})` }"
-    @click="chooseImage">
-    <span v-if="!imageData" class="placeholder">Foto wählen
+  <div
+    v-if="mode == 'edit'"
+    class="base-image-input"
+    :style="{ 'background-image': `url(${imageData})` }"
+    @click="chooseImage"
+  >
+    <span v-if="!imageData" class="placeholder">
+      Foto wählen
     </span>
-    <input class="file-input" ref="fileInput" type="file" accept="image/*" @input="onSelectFile">
+    <input
+      ref="fileInput"
+      class="file-input"
+      type="file"
+      accept="image/*"
+      @input="onSelectFile"
+    >
   </div>
-  <div v-else class="base-image-input" :style="{ 'background-image': `url(${props.source})` }" @click="chooseImage">
-    <span v-if="!imageData" class="placeholder">Foto wählen
+  <div
+    v-else
+    class="base-image-input"
+    :style="{ 'background-image': `url(${props.source})` }"
+    @click="chooseImage"
+  >
+    <span v-if="!props.source" class="placeholder">
+      Foto wählen
     </span>
-    <input class="file-input" ref="fileInput" type="file" accept="image/*" @input="onSelectFile">
+    <input
+      ref="fileInput"
+      class="file-input"
+      type="file"
+      accept="image/*"
+      @input="onSelectFile"
+    >
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, inject } from 'vue';
-import type { Ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const emit = defineEmits(["input"]);
-const props = defineProps(["source"]);
-console.log(props.source)
+const emit = defineEmits(["input"])
+const props = defineProps<{
+  source: string
+}>();
 
-const mode = ref("edit");
-const data = inject<Ref>("clickedClothingItem");
-const imageData = ref(props.source)
+const mode = ref("view");
+const imageData = ref()
 const fileInput = ref<any>(null);
 
 function chooseImage() {
-  if (typeof fileInput.value != null)
+  if (fileInput.value != null)
     fileInput.value.click();
 }
 
@@ -41,12 +63,13 @@ function onSelectFile() {
 
     reader.readAsDataURL(files[0]);
     emit("input", files[0]);
+    mode.value = "edit";
   }
 }
 
 onMounted(() => {
-  if (typeof data !== "undefined")
-    imageData.value = data.value.imageURL
+  if (typeof props.source !== "undefined")
+    imageData.value = props.source
 })
 </script>
 

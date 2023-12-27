@@ -117,6 +117,7 @@
         "name": "Maxi skirt",
         "colorID": 15,
         "imageURL": "/resources/test_items/maxiskirt.png",
+        "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
         "washingModeID": 2
     },
@@ -125,6 +126,7 @@
         "name": "Hoodie",
         "colorID": 19,
         "imageURL": "/resources/test_items/hoodie.png",
+        "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
         "washingModeID": 1
     },
@@ -133,6 +135,7 @@
         "name": "Cardigan",
         "colorID": 21,
         "imageURL": "/resources/test_items/strickjacke.png",
+        "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
         "washingModeID": 1
     },
@@ -141,6 +144,7 @@
         "name": "Blouse",
         "colorID": 18,
         "imageURL": "/resources/test_items/blouse.png",
+        "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
         "washingModeID": 1
     },
@@ -149,6 +153,7 @@
         "name": "Trench coat",
         "colorID": 21,
         "imageURL": "/resources/test_items/trenchcoat.jpg",
+        "materialIdList": [1, 2],
         "materialList": ["Baumwolle", "Elasthan"],
         "washingModeID": 1
     }
