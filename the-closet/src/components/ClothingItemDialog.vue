@@ -23,7 +23,9 @@
                 <label
                   class="custom-file-label"
                   for="customFile"
-                >Picture</label>
+                >
+                  {{ $t("message.picture") }}
+                </label>
               </div>
               <div class=" col-sm-9">
                 <ImageViewer
@@ -61,7 +63,7 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class="col-sm-4">
-                <label for="inputState">Category</label>
+                <label v-t="'message.category'" for="inputState" />
               </div>
 
               <div
@@ -94,7 +96,7 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class="col-sm-4">
-                <label for="inputState">Sub category</label>
+                <label v-t="'message.subCategory'" for="inputState" />
               </div>
               <div
                 v-if="viewingMode"
@@ -125,7 +127,7 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class="col-sm-4">
-                <label for="inputState">Brand</label>
+                <label v-t="'message.brand'" for="inputState" />
               </div>
               <div
                 v-if="viewingMode"
@@ -154,7 +156,7 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class=" col-sm-4">
-                <label for="formGroupExampleInput">Size</label>
+                <label v-t="'message.size'" for="formGroupExampleInput" />
               </div>
               <div
                 v-if="viewingMode"
@@ -177,7 +179,9 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class=" col-sm-4">
-                <label for="formGroupExampleInput">Purchase price (€)</label>
+                <label for="formGroupExampleInput">
+                  {{ $t("message.price") }} (€)
+                </label>
               </div>
               <div
                 v-if="viewingMode"
@@ -200,7 +204,7 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class=" col-sm-4">
-                <label>Material</label>
+                <label v-t="'message.material'" />
               </div>
               <div
                 v-if="viewingMode"
@@ -231,7 +235,7 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class=" col-sm-4">
-                <label for="washing-mode">Washing mode</label>
+                <label v-t="'message.washingMode'" for="washing-mode" />
               </div>
               <div
                 v-if="viewingMode"
@@ -263,7 +267,7 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class=" col-sm-4">
-                <label for="formGroupExampleInput">Color</label>
+                <label v-t="'message.color'" for="formGroupExampleInput" />
               </div>
               <div
                 v-if="viewingMode"
@@ -287,11 +291,10 @@
         <div class="modal-footer !justify-between">
           <div class="flex justify-start">
             <button
+              v-t="'message.delete'"
               type="button"
               class="btn btn-secondary"
-            >
-              Delete
-            </button>
+            />
           </div>
           <div class="flex justify-end gap-x-2">
             <button
@@ -299,15 +302,14 @@
               class="btn btn-secondary"
               @click="toggleMode"
             >
-              {{ viewingMode ? 'Edit' : 'Discard changes' }}
+              {{ viewingMode ? $t("message.edit") : $t("message.discardChanges") }}
             </button>
             <button
               v-if="editMode"
+              v-t="'message.save'"
               type="button"
               class="btn btn-primary"
-            >
-              Save
-            </button>
+            />
           </div>
         </div>
       </div>

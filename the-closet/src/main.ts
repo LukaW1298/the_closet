@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from '@/App.vue'
 import router from './router';
 import store from './store'
 
@@ -40,7 +40,15 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 import { createPinia } from 'pinia';
 
+import { createI18n } from 'vue-i18n';
+import { messages } from './messages';
 
+const i18n = createI18n({
+  legacy: false,
+  locale: 'de',
+  fallbackLocale: 'de',
+  messages
+})
 
 library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck);
 
@@ -51,6 +59,7 @@ const app = createApp(App)
   .use(router)
   .use(store)
   .use(pinia)
+  .use(i18n)
   .component("font-awesome-icon", FontAwesomeIcon);
 
 router.isReady().then(() => {

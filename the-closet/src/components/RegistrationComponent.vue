@@ -1,12 +1,14 @@
 <template>
   <div class="container-md mt-3 p-3 bg-[--bs-body-bg]">
     <h4 class="pb-3 text-center">
-      Register
+      {{ $t("message.registration") }}
     </h4>
     <div>
       <form>
         <div class="mb-3 px-4">
-          <label for="email" class="form-label">E-mail address</label>
+          <label for="email" class="form-label">
+            {{ $t("message.emailAddress") }}
+          </label>
           <input
             id="email" v-model="emailAddress"
             type="text" placeholder="mail@example.com"
@@ -14,12 +16,14 @@
             @blur="emailFocusOut = true"
           >
           <div v-if="emptyEmail" class="text-xs text-red-800 dark:text-red-300">
-            Please enter an e-mail address.
+            {{ $t("message.enterEmail") }}
           </div>
         </div>
 
         <div class="mb-3 px-4">
-          <label for="username" class="form-label">Username</label>
+          <label for="username" class="form-label">
+            {{ $t("message.username") }}
+          </label>
           <input
             id="username" v-model="name"
             type="text" placeholder="example"
@@ -27,33 +31,37 @@
             @blur="() => usernameFocusOut = true"
           >
           <div v-if="emptyUsername" class="text-xs text-red-800 dark:text-red-300">
-            Please enter a username.
+            {{ $t("message.enterUsername") }}
           </div>
         </div>
 
         <div class="mb-3 px-4">
-          <label for="password" class="form-label">Password</label>
+          <label for="password" class="form-label">
+            {{ $t("message.password") }}
+          </label>
           <input
             id="password" v-model="password"
-            type="password" placeholder="password"
+            type="password" :placeholder="$t('message.password')"
             class="form-control" :class="{ '!border-red-800 dark:!border-red-300': emptyPassword }"
             @blur="() => passwordFocusOut = true"
           >
           <div v-if="emptyPassword" class="text-xs text-red-800 dark:text-red-300">
-            Please enter a password.
+            {{ $t("message.enterPwd") }}
           </div>
         </div>
 
         <div class="mb-3 px-4">
-          <label for="password" class="form-label">Re-type password</label>
+          <label for="password" class="form-label">
+            {{ $t("message.retypePwd") }}
+          </label>
           <input
             id="password-retype" v-model="retypedPassword"
-            type="password" placeholder="password"
+            type="password" :placeholder="$t('message.password')"
             class="form-control" :class="{ '!border-red-800 dark:!border-red-300': passwordsNotEqual }"
             @blur="retypedPasswordFocusOut = true"
           >
           <div v-if="passwordsNotEqual" class="text-xs text-red-800 dark:text-red-300">
-            Re-typed password is not equal to password.
+            {{ $t("message.retypePwdError") }}
           </div>
         </div>
 
@@ -63,7 +71,7 @@
             :class="{ 'disabled': disabledRegisterButton }"
             @click="submitForm"
           >
-            Register
+            {{ $t("message.register") }}
           </button>
         </div>
       </form>
@@ -72,7 +80,7 @@
       v-if="hasResponseError" class="alert alert-danger mx-4"
       role="alert"
     >
-      The registration hasn't been successful. Make sure that you are connected to the internet.
+      {{ $t("message.unsuccessfullRegistration") }}
       <br><br>
       If you still experience this problem with a network connection, <a href="/help">contact our support.</a>
     </div>

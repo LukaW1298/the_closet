@@ -13,9 +13,7 @@
                   icon="fas fa-plus"
                   class="h-16 sm:h-24 opacity-50 text-royal-purple-400"
                 />
-                <p class="card-text text-center text-xs sm:text-base">
-                  Add new outfit
-                </p>
+                <p v-t="'message.addNewOutfit'" class="card-text text-center text-xs sm:text-base" />
               </div>
             </div>
           </div>

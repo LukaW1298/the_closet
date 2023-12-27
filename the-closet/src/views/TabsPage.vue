@@ -16,7 +16,7 @@
           tab="wardrobe"
           href="/tabs/wardrobe"
         >
-          <ion-label>Wardrobe</ion-label>
+          <ion-label v-t="'message.wardrobe'" />
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>

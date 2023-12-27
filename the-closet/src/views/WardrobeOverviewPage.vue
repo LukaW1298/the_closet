@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <NavBar>
-        Wardrobe
+        {{ $t("message.wardrobe") }}
       </NavBar>
       <button class="btn btn-primary" @click="mode = 'outfitSelection'">
         Outfit mode
@@ -29,9 +29,7 @@
                 <div class="card-body cursor-pointer  max-sm:!px-2" @click="addClothingItemDialog.openModal">
                   <div class="flex justify-center items-center flex-col h-full gap-y-8">
                     <FontAwesomeIcon icon="fas fa-plus" class="h-16 sm:h-24 opacity-50 text-royal-purple-400" />
-                    <p class="card-text text-center text-xs sm:text-base">
-                      Add new clothing item
-                    </p>
+                    <p v-t="'message.addClothing'" class="card-text text-center text-xs sm:text-base"></p>
                   </div>
                 </div>
               </div>
@@ -67,7 +65,7 @@
           </div>
           <div v-if="outfitSelectionMode" class="col-3 bg-white dark:!bg-zinc-800 flex items-center flex-col">
             <div class="flex justify-between pt-3 w-full">
-              <h5>New outfit</h5>
+              <h5 v-t="'message.newOutfit'"></h5>
               <button
                 type="button" class="btn-close text-reset"
                 aria-label="Close"
@@ -102,9 +100,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary absolute bottom-20 m-auto">
-              Save outfit
-            </button>
+            <button v-t="'message.saveOutfit'" class="btn btn-primary absolute bottom-20 m-auto"></button>
           </div>
         </div>
       </div>

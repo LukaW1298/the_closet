@@ -7,7 +7,7 @@
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
-            Login
+            {{ $t("message.login") }}
           </ion-title>
         </ion-toolbar>
       </ion-header>
@@ -15,11 +15,13 @@
       <div v-if="pageMode == 'login'">
         <login-form>
           <p class="text-center pt-5">
-            Not yet registered? <a
+            {{ $t("message.notYetRegistered") }}
+            <a
               class="text-royal-purple-500 no-underline cursor-pointer"
               @click="changeToRegistration"
             >
-              Sign up here.</a>
+              {{ $t("message.signUpHere") }}
+            </a>
           </p>
         </login-form>
       </div>
@@ -27,12 +29,12 @@
       <div v-else>
         <registration-form>
           <p class="text-center pt-5">
-            You already have an account?
+            {{ $t("message.alreadyHaveAnAcc") }}
             <a
               class="text-royal-purple-500 no-underline cursor-pointer"
               @click="changeToLogin"
             >
-              Log in here.
+              {{ $t("message.logInHere") }}
             </a>
           </p>
         </registration-form>

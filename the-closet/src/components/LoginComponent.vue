@@ -1,29 +1,33 @@
 <template>
   <div class="container-md mt-3 p-3 bg-[--bs-body-bg]">
     <h4 class="pb-3 text-center">
-      Login
+      {{ $t("message.login") }}
     </h4>
     <div>
       <form @submit.prevent="login">
         <div class="mb-3 px-4">
-          <label for="username" class="form-label">Username</label>
+          <label for="username" class="form-label">
+            {{ $t("message.username") }}
+          </label>
           <input
             id="username" v-model="username"
-            type="text" placeholder="Benutzername"
+            type="text" :placeholder="$t('message.username')"
             class="form-control"
           >
         </div>
         <div class="mb-3 px-4">
-          <label for="password" class="form-label">Password</label>
+          <label for="password" class="form-label">
+            {{ $t("message.password") }}
+          </label>
           <input
             id="password" v-model="password"
-            type="password" placeholder="Passwort"
+            type="password" :placeholder="$t('message.password')"
             class="form-control"
           >
         </div>
         <div class="mb-3 px-4 d-flex justify-content-center">
           <button type="submit" class="btn btn-primary">
-            Log in
+            {{ $t("message.logIn") }}
           </button>
         </div>
       </form>
@@ -32,9 +36,9 @@
       v-if="responseError.length > 0" class="alert alert-danger mx-4"
       role="alert"
     >
-      The login attempt hasn't been successful.
+      {{ $t("message.unsuccessfulLogin") }}
       <br><br>
-      Error message: {{ responseError }}
+      {{ $t("message.errorMsg") }}: {{ responseError }}
     </div>
     <slot />
   </div>
