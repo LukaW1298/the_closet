@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { Brand, Material, WashingMode } from "@/custom_types";
-import { getBrands, getMaterials, getWashingModes } from "@/composables/GetCalls";
+import { Brand, Material, WashingMode, Status, Color } from "@/custom_types";
+import { getBrands, getMaterials, getWashingModes, getStatus, getColors } from "@/composables/GetCalls";
 
 export const useBrandsStore = defineStore("brands", () => {
     const brands = ref<Brand[]>([]);
@@ -44,3 +44,32 @@ export const useWashingModeStore = defineStore("washingModes", () => {
 
     return { washingModes, isEmpty, fetch };
 })
+
+export const useStatusStore = defineStore("statusList", () => {
+    const statusList = ref<Status[]>([]);
+
+    const isEmpty = computed(() => statusList.value.length == 0);
+
+    function fetch() {
+        getStatus().then((result) => {
+            statusList.value = result;
+        })
+    }
+
+    return { statusList, isEmpty, fetch };
+ })
+
+
+ export const useColorStore = defineStore("colors", () => {
+    const colors = ref<Color[]>([]);
+
+    const isEmpty = computed(() => colors.value.length == 0);
+
+    function fetch() {
+        getColors().then((result) => {
+            colors.value = result;
+        })
+    }
+
+    return { colors, isEmpty, fetch };
+ })
