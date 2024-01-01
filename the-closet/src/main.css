@@ -17,3 +17,13 @@
     
     
 }
+
+@layer components {
+    .badge-royal-purple {
+        @apply !text-royal-purple-700 dark:!text-royal-purple-400 bg-royal-purple-50 dark:bg-royal-purple-950  ring-1 ring-inset ring-royal-purple-400 dark:ring-royal-purple-800;
+    }
+
+    .badge-sky {
+        @apply ring-1 ring-inset bg-sky-50 dark:bg-sky-950  !text-sky-700 dark:!text-sky-400;
+    }
+}

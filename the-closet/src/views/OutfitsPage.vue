@@ -35,7 +35,7 @@
                   class="p-1"
                 >
                   <span
-                    class="badge rounded-pill !text-royal-purple-700 dark:!text-royal-purple-400 bg-royal-purple-50 dark:bg-royal-purple-950  ring-1 ring-inset ring-royal-purple-400 dark:ring-royal-purple-800"
+                    class="badge rounded-pill badge-royal-purple"
                   >
                     {{ occasion.name }}
                   </span>
@@ -46,7 +46,7 @@
                   class="p-1"
                 >
                   <span
-                    class="badge rounded-pill ring-1 ring-inset bg-sky-50 dark:bg-sky-950  !text-sky-700 dark:!text-sky-400"
+                    class="badge rounded-pill badge-sky"
                   >
                     {{ weather.name }}
                   </span>

@@ -38,7 +38,8 @@ export const messages = {
             edit: "Edit",
             delete: "Delete",
             save: "Save",
-            discardChanges: "Discard changes"
+            discardChanges: "Discard changes",
+            close: "Close"
 
         }
     },
@@ -82,7 +83,8 @@ export const messages = {
             edit: "Bearbeiten",
             delete: "Löschen",
             save: "Speichern",
-            discardChanges: "Änderungen verwerfen"
+            discardChanges: "Änderungen verwerfen",
+            close: "Schließen"
         }
     }
 }
