@@ -1,12 +1,19 @@
-export type Category = {
+
+
+export interface Category {
     name: string,
     id: number,
-    child_categories?: Array<Category>
+    parentCategoryID?: number,
 }
 
-export type Material = {
-    material: string,
-    id: number
+export class Material {
+    material: string;
+    id: number; 
+
+    constructor(material: string, id: number) {
+        this.material = material;
+        this.id = id;
+    }
 }
 
 export type ClothingItem = {
@@ -56,7 +63,7 @@ export class Status {
     status: string;
 
     constructor(id: number, status: string) {
-        this.id = id;
+        this.id = id;   
         this.status = status;
     }
 }

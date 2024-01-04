@@ -1,44 +1,1035 @@
 {
     "categories": [
         {
+            "id": "0",
+            "name": "top"
+        },
+        {
+            "id": "1",
+            "name": "t-shirt"
+        },
+        {
+            "id": "2",
+            "name": "dress"
+        },
+        {
+            "id": "3",
+            "name": "jumper"
+        },
+        {
+            "id": "4",
+            "name": "coat"
+        },
+        {
+            "id": "5",
+            "name": "jeans"
+        },
+        {
+            "id": "6",
+            "name": "jacket"
+        },
+        {
+            "id": "7",
+            "name": "trousers"
+        },
+        {
+            "id": "8",
+            "name": "skirt"
+        },
+        {
+            "id": "9",
+            "name": "blouse"
+        },
+        {
+            "id": "10",
+            "name": "shirt"
+        },
+        {
+            "id": "11",
+            "name": "accessory"
+        },
+        {
+            "id": "12",
+            "name": "shoes"
+        },
+        {
+            "id": "13",
+            "name": "other"
+        },
+        {
+            "id": 0,
+            "name": "off-shoulder top",
+            "parentCategoryID": 0
+        },
+        {
             "id": 1,
-            "name": "top",
-            "child_categories": [
-                {
-                    "id": 2,
-                    "name": "t-shirt"
-                },
-                {
-                    "id": 3,
-                    "name": "sweater"
-                },
-                {
-                    "id": 4,
-                    "name": "blouse"
-                }
-            ]
+            "name": "bralette top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 2,
+            "name": "crop top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 3,
+            "name": "bustier top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 4,
+            "name": "camisole",
+            "parentCategoryID": 0
         },
         {
             "id": 5,
-            "name": "trousers",
-            "child_categories": [
-                {
-                    "id": 6,
-                    "name": "jeans"
-                },
-                {
-                    "id": 7,
-                    "name": "sweatpants"
-                },
-                {
-                    "id": 8,
-                    "name": "cloth pants"
-                },
-                {
-                    "id": 9,
-                    "name": "shorts"
-                }
-            ]
+            "name": "empire line top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 6,
+            "name": "halter top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 7,
+            "name": "henley neck top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 8,
+            "name": "one shoulder top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 9,
+            "name": "poncho",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 10,
+            "name": "spaghetti strap top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 11,
+            "name": "tank top",
+            "parentCategoryID": 0
+        },
+        {
+            "id": 12,
+            "name": "polo t-shirt",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 13,
+            "name": "half sleeves",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 14,
+            "name": "v-neck",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 15,
+            "name": "henley t-shirt",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 16,
+            "name": "hooded t-shirt",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 17,
+            "name": "u-neck",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 18,
+            "name": "long-sleeves",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 19,
+            "name": "graphic t-shirt",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 20,
+            "name": "sleeveless t-shirt",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 21,
+            "name": "pocket t-shirt",
+            "parentCategoryID": 1
+        },
+        {
+            "id": 22,
+            "name": "knit dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 23,
+            "name": "evening dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 24,
+            "name": "cocktail dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 25,
+            "name": "mini dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 26,
+            "name": "shirt dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 27,
+            "name": "midi dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 28,
+            "name": "summer dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 29,
+            "name": "maxi dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 30,
+            "name": "sheath dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 31,
+            "name": "denim dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 32,
+            "name": "lace dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 33,
+            "name": "beach dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 34,
+            "name": "dungaree dress",
+            "parentCategoryID": 2
+        },
+        {
+            "id": 35,
+            "name": "pullover",
+            "parentCategoryID": 3
+        },
+        {
+            "id": 36,
+            "name": "poncho",
+            "parentCategoryID": 3
+        },
+        {
+            "id": 37,
+            "name": "kimono",
+            "parentCategoryID": 3
+        },
+        {
+            "id": 38,
+            "name": "hoodie",
+            "parentCategoryID": 3
+        },
+        {
+            "id": 39,
+            "name": "full zip",
+            "parentCategoryID": 3
+        },
+        {
+            "id": 40,
+            "name": "winter coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 41,
+            "name": "wool coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 42,
+            "name": "between-seasons coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 43,
+            "name": "short coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 44,
+            "name": "trenchcoat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 45,
+            "name": "rain coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 46,
+            "name": "duffle coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 47,
+            "name": "down coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 48,
+            "name": "box coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 49,
+            "name": "cape coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 50,
+            "name": "parka coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 51,
+            "name": "wrap coat",
+            "parentCategoryID": 4
+        },
+        {
+            "id": 52,
+            "name": "skinny fit",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 53,
+            "name": "straight leg",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 54,
+            "name": "regular fit",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 55,
+            "name": "wide leg",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 56,
+            "name": "mom jeans",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 57,
+            "name": "boyfriend jeans",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 58,
+            "name": "jeggings",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 59,
+            "name": "shorts",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 60,
+            "name": "slim fit",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 61,
+            "name": "dungarees",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 62,
+            "name": "loose fit",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 63,
+            "name": "relaxed fit",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 64,
+            "name": "boot cut",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 65,
+            "name": "baggy fit",
+            "parentCategoryID": 5
+        },
+        {
+            "id": 66,
+            "name": "winter jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 67,
+            "name": "gilet",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 68,
+            "name": "quilted jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 69,
+            "name": "puffer jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 70,
+            "name": "parka",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 71,
+            "name": "leather jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 72,
+            "name": "bomber jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 73,
+            "name": "down jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 74,
+            "name": "denim jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 75,
+            "name": "rain jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 76,
+            "name": "outdoor jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 77,
+            "name": "anorak",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 78,
+            "name": "baseball jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 79,
+            "name": "blazer",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 80,
+            "name": "bolero",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 81,
+            "name": "cardigan",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 82,
+            "name": "cropped jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 83,
+            "name": "kimono",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 84,
+            "name": "motorcycle jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 85,
+            "name": "shirt jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 86,
+            "name": "shrug jacket",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 87,
+            "name": "windbreaker",
+            "parentCategoryID": 6
+        },
+        {
+            "id": 88,
+            "name": "fabric trousers",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 89,
+            "name": "leggings",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 90,
+            "name": "leather trousers",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 91,
+            "name": "tracksuit pants",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 92,
+            "name": "shorts",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 93,
+            "name": "corduroy trousers",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 94,
+            "name": "wide leg trousers",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 95,
+            "name": "cargo pants",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 96,
+            "name": "pleated trousers",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 97,
+            "name": "chino pants",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 98,
+            "name": "culottes",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 99,
+            "name": "harem trousers",
+            "parentCategoryID": 7
+        },
+        {
+            "id": 100,
+            "name": "a-line skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 101,
+            "name": "pencil skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 102,
+            "name": "gathered skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 103,
+            "name": "mini skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 104,
+            "name": "flared skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 105,
+            "name": "draped skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 106,
+            "name": "layered skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 107,
+            "name": "circle skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 108,
+            "name": "mermaid skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 109,
+            "name": "wrap skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 110,
+            "name": "pleated skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 111,
+            "name": "midi skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 112,
+            "name": "maxi skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 113,
+            "name": "denim skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 114,
+            "name": "leather skirt",
+            "parentCategoryID": 8
+        },
+        {
+            "id": 115,
+            "name": "shirt",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 116,
+            "name": "long blouse",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 117,
+            "name": "short blouse",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 118,
+            "name": "lace blouse",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 119,
+            "name": "denim shirt",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 120,
+            "name": "long-sleeved blouse",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 121,
+            "name": "short-sleeved blouse",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 122,
+            "name": "sleeveless blouse",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 123,
+            "name": "tunic",
+            "parentCategoryID": 9
+        },
+        {
+            "id": 124,
+            "name": "oxford button-down shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 125,
+            "name": "dress shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 126,
+            "name": "short-sleeved shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 127,
+            "name": "cuban collar shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 128,
+            "name": "flanell shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 129,
+            "name": "overshirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 130,
+            "name": "linen shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 131,
+            "name": "work shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 132,
+            "name": "denim shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 133,
+            "name": "chambray shirt",
+            "parentCategoryID": 10
+        },
+        {
+            "id": 134,
+            "name": "jewelry",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 135,
+            "name": "bag",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 136,
+            "name": "purse",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 137,
+            "name": "hat",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 138,
+            "name": "cap",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 139,
+            "name": "beanie",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 140,
+            "name": "scarf",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 141,
+            "name": "shawl",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 142,
+            "name": "belt",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 143,
+            "name": "gloves",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 144,
+            "name": "mittens",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 145,
+            "name": "hairband",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 146,
+            "name": "headband",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 147,
+            "name": "tie",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 148,
+            "name": "bow tie",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 149,
+            "name": "socks",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 150,
+            "name": "tights",
+            "parentCategoryID": 11
+        },
+        {
+            "id": 151,
+            "name": "sneakers",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 152,
+            "name": "loafers",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 153,
+            "name": "espadrilles",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 154,
+            "name": "ballet flats",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 155,
+            "name": "moccasins",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 156,
+            "name": "slip-ons",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 157,
+            "name": "mary janes",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 158,
+            "name": "slippers",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 159,
+            "name": "sandals",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 160,
+            "name": "flip-flops",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 161,
+            "name": "ankle boots",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 162,
+            "name": "chelsea boots",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 163,
+            "name": "combat boots",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 164,
+            "name": "knee-high boots",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 165,
+            "name": "hiking boots",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 166,
+            "name": "oxfords",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 167,
+            "name": "borgues",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 168,
+            "name": "derbies",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 169,
+            "name": "monk straps",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 170,
+            "name": "running shoes",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 171,
+            "name": "tennis shoes",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 172,
+            "name": "stilettos",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 173,
+            "name": "wedges",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 174,
+            "name": "high heels",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 175,
+            "name": "block heels",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 176,
+            "name": "kitten heels",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 177,
+            "name": "platform shoes",
+            "parentCategoryID": 12
+        },
+        {
+            "id": 178,
+            "name": "swimsuit",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 179,
+            "name": "bikini",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 180,
+            "name": "pajama",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 181,
+            "name": "loungewear",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 182,
+            "name": "workout clothing",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 183,
+            "name": "lingerie",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 184,
+            "name": "nightgown",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 185,
+            "name": "robe",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 186,
+            "name": "bra",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 187,
+            "name": "pocket square",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 188,
+            "name": "dancewear",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 189,
+            "name": "apron",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 190,
+            "name": "costume",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 191,
+            "name": "workwear",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 192,
+            "name": "dance shoes",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 193,
+            "name": "underwear",
+            "parentCategoryID": 13
+        },
+        {
+            "id": 194,
+            "name": "other",
+            "parentCategoryID": 13
         }
     ],
     "materials": [
@@ -63,7 +1054,6 @@
             "name": "viscose"
         }
     ],
-
     "colors": [
         {
             "id": 1,
@@ -80,7 +1070,6 @@
             "name": "yellow",
             "hex_code": "#E7E31E"
         },
-       
         {
             "id": 19,
             "name": "light green",
@@ -121,7 +1110,6 @@
             "name": "navy",
             "hex_code": "#000080"
         },
-       
         {
             "id": 4,
             "name": "violet",
@@ -137,8 +1125,6 @@
             "name": "black",
             "hex_code": "#000000"
         },
-        
-        
         {
             "id": 14,
             "name": "grey",
@@ -154,8 +1140,6 @@
             "name": "rose",
             "hex_code": "#FF6FCA"
         },
-        
-       
         {
             "id": 21,
             "name": "beige",
@@ -182,7 +1166,6 @@
             "hex_code": "#C18363"
         }
     ],
-
     "weather": [
         {
             "id": 1,
@@ -217,7 +1200,6 @@
             "name": "winter"
         }
     ],
-
     "occasion": [
         {
             "id": 1,
