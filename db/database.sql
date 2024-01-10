@@ -10,10 +10,18 @@ CREATE TABLE Washing_mode (
     PRIMARY KEY (ID)
 );
 
-CREATE TABLE Category(
+CREATE TABLE Parent_Category {
     ID int NOT NULL AUTO_INCREMENT,
     type varchar(255),
     PRIMARY KEY (ID)
+}
+
+CREATE TABLE Category(
+    ID int NOT NULL AUTO_INCREMENT,
+    type varchar(255),
+    ID_parent_category int,
+    PRIMARY KEY (ID)
+    FOREIGN KEY (ID_parent_category) REFERENCES Parent_Category (ID),
 );
 
 CREATE TABLE Brand(
