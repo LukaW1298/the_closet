@@ -1,0 +1,5 @@
+{
+    "java.jdt.ls.java.home": "/usr/lib/jvm/java-18-openjdk-amd64",
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
