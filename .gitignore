@@ -2,3 +2,5 @@ app/target/
 app/target/surefire-reports/
 app/target/classes/
 app/target/test-classes/
+the-closet/node_modules/*
+pythonapi
