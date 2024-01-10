@@ -1,56 +1,49 @@
 <template>
   <ion-page>
     <ion-header>
-     <nav-bar />
+      <nav-bar />
     </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Anmelden</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-
+    <ion-content>
       <div v-if="pageMode == 'login'">
-
         <login-form>
-          <p class="text-center pt-5">Noch kein Nutzerkonto? <a @click="pageMode = 'register'"
-              :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">Registrieren
-              Sie
-              sich hier.</a></p>
+          <p class="dark:text-neutral-100 text-center pt-5">
+            {{ $t("message.notYetRegistered") }}
+            <a class="text-royal-purple-500 no-underline cursor-pointer" @click="changeToRegistration">
+              {{ $t("message.signUpHere") }}
+            </a>
+          </p>
         </login-form>
-
-
       </div>
-      <div v-else>
 
+      <div v-else>
         <registration-form>
-          <p class="text-center pt-5">Sie haben schon ein Nutzerkonto?
-            <a @click="pageMode = 'login'"
-              :style="{ textDecoration: 'none', color: 'var(--bs-primary-text-emphasis)', cursor: 'pointer' }">
-              Melden Sie sich hier an.
+          <p class="dark:text-neutral-100 text-center pt-5">
+            {{ $t("message.alreadyHaveAnAcc") }}
+            <a class="text-royal-purple-500 no-underline cursor-pointer" @click="changeToLogin">
+              {{ $t("message.logInHere") }}
             </a>
           </p>
         </registration-form>
       </div>
-
-
     </ion-content>
   </ion-page>
 </template>
   
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+import { IonPage, IonHeader, IonContent } from '@ionic/vue';
 import LoginForm from '@/components/LoginComponent.vue';
 import RegistrationForm from '@/components/RegistrationComponent.vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import router from '@/router';
 import { ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 
 const pageMode = ref<string>("login");
 
+function changeToRegistration() {
+  pageMode.value = "register";
+}
 
+function changeToLogin() {
+  pageMode.value = "login";
+}
 </script>
   

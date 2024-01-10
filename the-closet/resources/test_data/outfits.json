@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "Casual outfit #1",
+        "clothingIdList": [1, 5],
+        "weatherList": [1, 2, 5, 7],
+        "occasionList": [1]
+    },
+    {
+        "id": 2,
+        "name": "Casual outfit #2",
+        "clothingIdList": [2, 3],
+        "weatherList": [1, 6],
+        "occasionList": [1]
+    },
+    {
+        "id": 3,
+        "name": "Work outfit #1",
+        "clothingIdList": [10, 6, 9],
+        "weatherList": [1, 2, 6],
+        "occasionList": [2]
+    }
+]

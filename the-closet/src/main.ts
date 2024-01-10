@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from '@/App.vue'
 import router from './router';
 import store from './store'
 
@@ -9,7 +9,7 @@ import { IonicVue } from '@ionic/vue';
 import '@ionic/vue/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-import '@ionic/vue/css/normalize.css';
+//import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';
 import '@ionic/vue/css/typography.css';
 
@@ -25,9 +25,6 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 import '../scss/custom.scss'
 
-//import "bootstrap/dist/css/bootstrap.min.css"
-//import "bootstrap"
-
 import 'vue-swatches/dist/vue-swatches.css'
 
 /* import the fontawesome core */
@@ -37,24 +34,39 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'
 
-//import 'bootstrap/dist/css/bootstrap.css'
-//import 'bootstrap-vue/dist/bootstrap-vue.css'
+/* PrimeVue */
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/primevue.min.css';
 
-// import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
+import { createPinia } from 'pinia';
 
+import { createI18n } from 'vue-i18n';
+import { messages } from './messages';
 
-library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon);
+const i18n = createI18n({
+  legacy: false,
+  locale: 'en',
+  fallbackLocale: 'de',
+  messages
+})
+
+library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck);
+
+const pinia = createPinia();
 
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(store)
+  .use(pinia)
+  .use(i18n)
+  .use(PrimeVue)
   .component("font-awesome-icon", FontAwesomeIcon);
-  
+
 router.isReady().then(() => {
   app.mount('#app');
 });

@@ -1,77 +1,154 @@
 <template>
-    <div class="container-md mt-3 p-3" :style="{ backgroundColor: 'var(--bs-body-bg)' }">
-        <h4 class="pb-3 text-center">Registrieren</h4>
-        <div>
-            <form @submit.prevent="login">
-                <div class="mb-3 px-4">
-                    <label for="username" class="form-label">E-Mail</label>
-                    <input id="username" type="text" v-model="state.username" placeholder="mail@example.com"
-                        class="form-control">
-                </div>
-                <div class="mb-3 px-4">
-                    <label for="username" class="form-label">Benutzername</label>
-                    <input id="username" type="text" v-model="state.username" placeholder="example" class="form-control">
-                </div>
-                <div class="mb-3 px-4">
-                    <label for="password" class="form-label">Passwort</label>
-                    <input id="password" type="password" v-model="state.password" placeholder="password"
-                        class="form-control">
-                </div>
-                <div class="mb-3 px-4 d-flex justify-content-center">
-
-                    <button type="submit" class="btn btn-primary">Registrieren</button>
-                   
-                </div>
-            </form>
+  <Panel class="mt-3 p-3" :header="$t('message.registration')">
+    <div>
+      <form>
+        <div class="flex flex-col mb-3 px-4">
+          <label for="email" class="form-label dark:text-neutral-100">
+            {{ $t("message.emailAddress") }}
+          </label>
+          <InputText
+            id="email" v-model="emailAddress"
+            placeholder="mail@example.com"
+            :class="{ '!border-red-800 dark:!border-red-300': emptyEmail }"
+            @blur="emailFocusOut = true"
+          />
+          <div v-if="emptyEmail" class="text-xs text-red-800 dark:text-red-300">
+            {{ $t("message.enterEmail") }}
+          </div>
         </div>
-        <slot></slot>
-        
+
+        <div class="flex flex-col mb-3 px-4">
+          <label for="username" class="form-label dark:text-neutral-100">
+            {{ $t("message.username") }}
+          </label>
+          <InputText
+            id="username" v-model="name"
+            placeholder="example" :class="{ '!border-red-800 dark:!border-red-300': emptyUsername }"
+            @blur="() => usernameFocusOut = true"
+          />
+          <div v-if="emptyUsername" class="text-xs text-red-800 dark:text-red-300">
+            {{ $t("message.enterUsername") }}
+          </div>
+        </div>
+
+        <div class="flex flex-col mb-3 px-4">
+          <label for="password" class="form-label dark:text-neutral-100">
+            {{ $t("message.password") }}
+          </label>
+          <Password
+            id="password" v-model="password"
+            :class="{ '!border-red-800 dark:!border-red-300': emptyPassword }"
+            @blur="() => passwordFocusOut = true"
+          />
+          <div v-if="emptyPassword" class="text-xs text-red-800 dark:text-red-300">
+            {{ $t("message.enterPwd") }}
+          </div>
+        </div>
+
+        <div class="flex flex-col mb-3 px-4">
+          <label for="password" class="form-label dark:text-neutral-100">
+            {{ $t("message.retypePwd") }}
+          </label>
+          <Password
+            id="password-retype" v-model="retypedPassword"
+            :class="{ '!border-red-800 dark:!border-red-300': passwordsNotEqual }"
+            :feedback="false" 
+            @blur="retypedPasswordFocusOut = true"
+          />
+          <div v-if="passwordsNotEqual" class="text-xs text-red-800 dark:text-red-300">
+            {{ $t("message.retypePwdError") }}
+          </div>
+        </div>
+
+        <div class="mb-3 px-4 d-flex justify-content-center">
+          <Button
+            type="button" class="btn btn-primary"
+            :class="{ 'disabled': disabledRegisterButton }"
+            :label="$t('message.register')"
+            @click="submitForm"
+          />
+        </div>
+      </form>
     </div>
+    <div
+      v-if="hasResponseError" class="alert alert-danger mx-4"
+      role="alert"
+    >
+      {{ $t("message.unsuccessfullRegistration") }}
+      <br><br>
+      If you still experience this problem with a network connection, <a href="/help">contact our support.</a>
+    </div>
+    <slot />
+  </Panel>
 </template>
 
-<script>
-import { reactive, ref } from 'vue';
-import { useStore } from 'vuex'; // Assuming Vuex is set up properly
-import router from '@/router';
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { postRegister } from '@/composables/PostCalls';
+import { useUserStore } from '@/store/user';
+import { presentToast } from '@/helpers/toastController';
+import Panel from 'primevue/panel';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+import Button from 'primevue/button';
+
+import InputMask from 'primevue/inputmask';
 
 
-export default {
-    setup() {
-        const store = useStore(); // Access the Vuex store
+const store = useUserStore();
+const { name, emailAddress } = storeToRefs(store);
+const password = ref("");
+const retypedPassword = ref("");
 
-        // Reactive state using the Composition API
-        const state = reactive({
-            username: '',
-            password: ''
+const emailFocusOut = ref(false);
+const usernameFocusOut = ref(false);
+const passwordFocusOut = ref(false);
+const retypedPasswordFocusOut = ref(false);
+const responseError = ref("");
+
+const emptyEmail = computed(() => {
+    return emailAddress.value.length === 0 && emailFocusOut.value;
+})
+
+const emptyUsername = computed(() => {
+    return name.value.length === 0 && usernameFocusOut.value === true;
+})
+
+const emptyPassword = computed(() => {
+    return password.value.length === 0 && passwordFocusOut.value === true;
+})
+
+const passwordsNotEqual = computed(() => {
+    return password.value !== retypedPassword.value && retypedPasswordFocusOut.value;
+})
+
+const disabledRegisterButton = computed(() => {
+    return emailAddress.value.length === 0 ||
+        name.value.length === 0 ||
+        password.value.length === 0 ||
+        password.value !== retypedPassword.value
+})
+
+const hasResponseError = computed(() => {
+    return responseError.value.length > 0;
+})
+
+function submitForm() {
+    postRegister(name.value, emailAddress.value, password.value)
+        .then((response) => {
+            console.log(response.status)
+            console.log(response)
+
+            if (response.ok) {
+                presentToast("Your registration has been successful. You can now log in with your new credentials.")
+            }
+
+            return response.json();
+        }).then((result) => {
+            console.log(result)
+        }).catch((error) => {
+            responseError.value = String(error);
         });
-
-        const errorMessage = ref("");
-
-        // Login function
-        const login = () => {
-            // Perform authentication logic using Vuex actions
-            store.dispatch('loginUser', {
-                username: state.username,
-                password: state.password
-            }).then(() => {
-                // Redirect to dashboard or another route on successful login
-                // Example: router.push('/dashboard');
-
-                console.log('Logged in successfully!');
-
-                router.push("/tabs");
-            }).catch(error => {
-                // Handle authentication error
-                errorMessage.value = error;
-                console.error('Login failed:', error);
-            });
-        };
-
-        return {
-            state,
-            login,
-            errorMessage
-        };
-    }
-};
+}
 </script>

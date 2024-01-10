@@ -4,12 +4,12 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #7030A0;
-	--ion-color-primary-rgb: 112,48,160;
+  --ion-color-primary: #7a54d4;
+	--ion-color-primary-rgb: 122,84,212;
 	--ion-color-primary-contrast: #ffffff;
 	--ion-color-primary-contrast-rgb: 255,255,255;
-	--ion-color-primary-shade: #632a8d;
-	--ion-color-primary-tint: #7e45aa;
+	--ion-color-primary-shade: #6b4abb;
+	--ion-color-primary-tint: #8765d8;
 
 	--ion-color-secondary: #41D3BD;
 	--ion-color-secondary-rgb: 65,211,189;
@@ -73,8 +73,8 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
-  --ion-background-color: rgb(var(--royal-purple-200));
-  --ion-background-color-rgb: var(--royal-purple-200);
+  --ion-background-color: rgb(var(--royal-purple-100));
+  --ion-background-color-rgb: var(--royal-purple-100);
 }
 
 
@@ -84,12 +84,16 @@ http://ionicframework.com/docs/theming/ */
 */
 
 .dark body, body.dark {
-  --ion-color-primary: #7030A0;
-	--ion-color-primary-rgb: 112,48,160;
+  --ion-background: #121212;
+  --ion-background-color: #121212;
+  --ion-background-color-rgb: 18,18,18;
+
+  --ion-color-primary: #6844bb;
+	--ion-color-primary-rgb: 104,68,187;
 	--ion-color-primary-contrast: #ffffff;
 	--ion-color-primary-contrast-rgb: 255,255,255;
-	--ion-color-primary-shade: #632a8d;
-	--ion-color-primary-tint: #7e45aa;
+	--ion-color-primary-shade: #5c3ca5;
+	--ion-color-primary-tint: #7757c2;
 
 	--ion-color-secondary: #41D3BD;
 	--ion-color-secondary-rgb: 65,211,189;
@@ -154,8 +158,9 @@ http://ionicframework.com/docs/theming/ */
 */
 
 .dark .ios body, .dark.ios body .ios body.dark {
-  --ion-background-color: #000000;
-  --ion-background-color-rgb: 0,0,0;
+  --ion-background: #121212;
+  --ion-background-color: #121212;
+  --ion-background-color-rgb: 18,18,18;
   
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255,255,255;
@@ -198,6 +203,7 @@ http://ionicframework.com/docs/theming/ */
 */
 
 .dark .md body, .dark.md body, .md body.dark {
+  --ion-background: #121212;
   --ion-background-color: #121212;
   --ion-background-color-rgb: 18,18,18;
   

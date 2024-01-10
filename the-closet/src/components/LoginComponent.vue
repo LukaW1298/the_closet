@@ -1,73 +1,91 @@
 <template>
-    <div class="container-md mt-3 p-3" :style="{ backgroundColor: 'var(--bs-body-bg)' }">
-        <h4 class="pb-3 text-center">Anmeldung</h4>
-        <div>
-            <form @submit.prevent="login">
-                <div class="mb-3 px-4">
-                    <label for="username" class="form-label">Benutzername</label>
-                    <input id="username" type="text" v-model="state.username" placeholder="Benutzername"
-                        class="form-control">
-                </div>
-                <div class="mb-3 px-4">
-                    <label for="password" class="form-label">Passwort</label>
-                    <input id="password" type="password" v-model="state.password" placeholder="Passwort"
-                        class="form-control">
-                </div>
-                <div class="mb-3 px-4 d-flex justify-content-center">
-
-                    <button type="submit" class="btn btn-primary">Anmelden</button>
-                    
-                </div>
-            </form>
+  <Panel class="mt-3 p-3" :header="$t('message.login')">
+    <div>
+      <form @submit.prevent="login">
+        <div class="mb-3 px-4 flex flex-col gap-x-3">
+          <label for="username" class="form-label dark:text-neutral-100">
+            {{ $t("message.username") }}
+          </label>
+          <InputText
+            id="username" v-model="username"
+            :placeholder="$t('message.username')"
+          />
         </div>
-        <slot></slot>
-       
+        <div class="mb-3 px-4 flex flex-col gap-x-3">
+          <label for="password" class="form-label dark:text-neutral-100">
+            {{ $t("message.password") }}
+          </label>
+          <Password
+            id="password" v-model="password"
+            :placeholder="$t('message.password')"
+            :feedback="false"
+          />
+        </div>
+        <div class="mb-3 px-4 d-flex justify-content-center">
+          <Button :label="$t('message.logIn')" type="submit"/>
+        </div>
+      </form>
     </div>
+    <div
+      v-if="responseError.length > 0" class="alert alert-danger mx-4"
+      role="alert"
+    >
+      {{ $t("message.unsuccessfulLogin") }}
+      <br><br>
+      {{ $t("message.errorMsg") }}: {{ responseError }}
+    </div>
+    <slot />
+  </Panel>
 </template>
 
-<script>
-import { reactive, ref } from 'vue';
-import { useStore } from 'vuex'; // Assuming Vuex is set up properly
+<script setup lang="ts">
+import { ref } from 'vue';
 import router from '@/router';
+import { postLogin } from '@/composables/PostCalls';
+import { getUser } from '@/composables/GetCalls';
+import { useUserStore } from '@/store/user';
+import Panel from 'primevue/panel';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+import Button from 'primevue/button';
 
+const store = useUserStore();
+const username = ref("");
+const password = ref("");
+const responseError = ref("");
 
-export default {
-    setup() {
-        const store = useStore(); // Access the Vuex store
+const login = () => {
+  postLogin(username.value, password.value)
+    .then((response) => {
+      console.log(response)
 
-        // Reactive state using the Composition API
-        const state = reactive({
-            username: '',
-            password: ''
-        });
+      if (response.ok) {
+        getUser(username.value).then((result) => {
+          console.log(result)
 
-        const errorMessage = ref("");
+          store.$patch({
+            id: result.id,
+            name: result.username,
+            emailAddress: result.email
+          })
+        })
 
-        // Login function
-        const login = () => {
-            // Perform authentication logic using Vuex actions
-            store.dispatch('loginUser', {
-                username: state.username,
-                password: state.password
-            }).then(() => {
-                // Redirect to dashboard or another route on successful login
-                // Example: router.push('/dashboard');
+        router.push("/tabs");
+      }
 
-                console.log('Logged in successfully!');
+      return response.json();
+    })
+    .then((result) => {
+      console.log("Result:", result);
 
-                router.push("/tabs");
-            }).catch(error => {
-                // Handle authentication error
-                errorMessage.value = error;
-                console.error('Login failed:', error);
-            });
-        };
-
-        return {
-            state,
-            login,
-            errorMessage
-        };
-    }
-};
+      if (result.error)
+        responseError.value = result.error;
+      if (result.message && result.status !== "200")
+        responseError.value = result.message;
+    })
+    .catch((error) => {
+      console.log("Error:", String(error));
+      responseError.value = String(error);
+    })
+}
 </script>
