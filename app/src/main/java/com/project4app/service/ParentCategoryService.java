@@ -28,7 +28,6 @@ public class ParentCategoryService {
     }
 
     public ParentCategory createParentCategory(ParentCategory parentCategory) {
-        //I have to add a find for find by Type, so we can check if a parentCategory with that type already exists
         return parentCategoryRepository.save(parentCategory);
     }
 
