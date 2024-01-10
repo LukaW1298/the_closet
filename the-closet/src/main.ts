@@ -9,7 +9,7 @@ import { IonicVue } from '@ionic/vue';
 import '@ionic/vue/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-import '@ionic/vue/css/normalize.css';
+//import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';
 import '@ionic/vue/css/typography.css';
 
@@ -36,6 +36,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
 import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'
 
+/* PrimeVue */
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/primevue.min.css';
+
 import 'bootstrap/dist/js/bootstrap.min.js'
 
 import { createPinia } from 'pinia';
@@ -60,6 +64,7 @@ const app = createApp(App)
   .use(store)
   .use(pinia)
   .use(i18n)
+  .use(PrimeVue)
   .component("font-awesome-icon", FontAwesomeIcon);
 
 router.isReady().then(() => {

@@ -10,13 +10,15 @@
           tab="outfits"
           href="/tabs/outfits"
         >
-          <ion-label>Outfits</ion-label>
+          <ion-label class="text-neutral-100">
+            Outfits
+          </ion-label>
         </ion-tab-button>
         <ion-tab-button
           tab="wardrobe"
           href="/tabs/wardrobe"
         >
-          <ion-label v-t="'message.wardrobe'" />
+          <ion-label v-t="'message.wardrobe'" class="text-neutral-100" />
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -29,6 +31,6 @@ import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonPage, IonRouterOutlet } 
 
 <style scoped>
 .tab-selected {
-  background-color: rgb(var(--royal-purple-900));
+  background-color: rgb(var(--royal-purple-700));
 }
 </style>

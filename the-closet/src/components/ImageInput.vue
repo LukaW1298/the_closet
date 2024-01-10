@@ -39,7 +39,7 @@ import { ref, onMounted } from 'vue';
 
 const emit = defineEmits(["input"])
 const props = defineProps<{
-  source: string
+  source?: string
 }>();
 
 const mode = ref("view");

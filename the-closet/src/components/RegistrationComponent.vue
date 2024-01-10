@@ -1,78 +1,72 @@
 <template>
-  <div class="container-md mt-3 p-3 bg-[--bs-body-bg]">
-    <h4 class="pb-3 text-center">
-      {{ $t("message.registration") }}
-    </h4>
+  <Panel class="mt-3 p-3" :header="$t('message.registration')">
     <div>
       <form>
-        <div class="mb-3 px-4">
-          <label for="email" class="form-label">
+        <div class="flex flex-col mb-3 px-4">
+          <label for="email" class="form-label dark:text-neutral-100">
             {{ $t("message.emailAddress") }}
           </label>
-          <input
+          <InputText
             id="email" v-model="emailAddress"
-            type="text" placeholder="mail@example.com"
-            class="form-control" :class="{ '!border-red-800 dark:!border-red-300': emptyEmail }"
+            placeholder="mail@example.com"
+            :class="{ '!border-red-800 dark:!border-red-300': emptyEmail }"
             @blur="emailFocusOut = true"
-          >
+          />
           <div v-if="emptyEmail" class="text-xs text-red-800 dark:text-red-300">
             {{ $t("message.enterEmail") }}
           </div>
         </div>
 
-        <div class="mb-3 px-4">
-          <label for="username" class="form-label">
+        <div class="flex flex-col mb-3 px-4">
+          <label for="username" class="form-label dark:text-neutral-100">
             {{ $t("message.username") }}
           </label>
-          <input
+          <InputText
             id="username" v-model="name"
-            type="text" placeholder="example"
-            class="form-control" :class="{ '!border-red-800 dark:!border-red-300': emptyUsername }"
+            placeholder="example" :class="{ '!border-red-800 dark:!border-red-300': emptyUsername }"
             @blur="() => usernameFocusOut = true"
-          >
+          />
           <div v-if="emptyUsername" class="text-xs text-red-800 dark:text-red-300">
             {{ $t("message.enterUsername") }}
           </div>
         </div>
 
-        <div class="mb-3 px-4">
-          <label for="password" class="form-label">
+        <div class="flex flex-col mb-3 px-4">
+          <label for="password" class="form-label dark:text-neutral-100">
             {{ $t("message.password") }}
           </label>
-          <input
+          <Password
             id="password" v-model="password"
-            type="password" :placeholder="$t('message.password')"
-            class="form-control" :class="{ '!border-red-800 dark:!border-red-300': emptyPassword }"
+            :class="{ '!border-red-800 dark:!border-red-300': emptyPassword }"
             @blur="() => passwordFocusOut = true"
-          >
+          />
           <div v-if="emptyPassword" class="text-xs text-red-800 dark:text-red-300">
             {{ $t("message.enterPwd") }}
           </div>
         </div>
 
-        <div class="mb-3 px-4">
-          <label for="password" class="form-label">
+        <div class="flex flex-col mb-3 px-4">
+          <label for="password" class="form-label dark:text-neutral-100">
             {{ $t("message.retypePwd") }}
           </label>
-          <input
+          <Password
             id="password-retype" v-model="retypedPassword"
-            type="password" :placeholder="$t('message.password')"
-            class="form-control" :class="{ '!border-red-800 dark:!border-red-300': passwordsNotEqual }"
+            :class="{ '!border-red-800 dark:!border-red-300': passwordsNotEqual }"
+            :feedback="false" 
             @blur="retypedPasswordFocusOut = true"
-          >
+          />
           <div v-if="passwordsNotEqual" class="text-xs text-red-800 dark:text-red-300">
             {{ $t("message.retypePwdError") }}
           </div>
         </div>
 
         <div class="mb-3 px-4 d-flex justify-content-center">
-          <button
+          <Button
             type="button" class="btn btn-primary"
             :class="{ 'disabled': disabledRegisterButton }"
+            :label="$t('message.register')"
             @click="submitForm"
-          >
-            {{ $t("message.register") }}
-          </button>
+          />
         </div>
       </form>
     </div>
@@ -85,7 +79,7 @@
       If you still experience this problem with a network connection, <a href="/help">contact our support.</a>
     </div>
     <slot />
-  </div>
+  </Panel>
 </template>
 
 <script setup lang="ts">
@@ -94,6 +88,13 @@ import { storeToRefs } from 'pinia';
 import { postRegister } from '@/composables/PostCalls';
 import { useUserStore } from '@/store/user';
 import { presentToast } from '@/helpers/toastController';
+import Panel from 'primevue/panel';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+import Button from 'primevue/button';
+
+import InputMask from 'primevue/inputmask';
+
 
 const store = useUserStore();
 const { name, emailAddress } = storeToRefs(store);

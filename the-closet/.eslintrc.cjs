@@ -5,29 +5,23 @@ module.exports = {
     browser: true,
     es2024: true
   },
-  plugins: ['@typescript-eslint'],
-  'extends': [
+  plugins: [
+    "vue",
+    '@typescript-eslint'
+  ],
+  extends: [
+    'eslint:recommended',
     'plugin:vue/vue3-essential',
     'plugin:vue/vue3-recommended',
-    'eslint:recommended',
     '@vue/typescript/recommended'
   ],
+  parser: "vue-eslint-parser",
   parserOptions: {
-    ecmaVersion: "latest",
-    parser: require.resolve('@typescript-eslint/parser'),
-    extraFileExtensions: ['.vue'],
-    ecmaFeatures: {
-      jsx: true
-    }
+    parser: '@typescript-eslint/parser',
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/no-deprecated-slot-attribute': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    "vue/block-order": ["warn", {
-      "order": [["script", "template"], "style"]
-    }],
     "vue/block-tag-newline": ["warn", {
       "singleline": "always",
       "multiline": "always"
@@ -59,13 +53,5 @@ module.exports = {
         "max": 2
       }
     }]
-  },
-  overrides: [{
-    files: ['*.ts', '*.tsx'],
-    rules: {
-      // The core 'no-unused-vars' rules (in the eslint:recommeded ruleset)
-      // does not work with type definitions
-      'no-unused-vars': 'off',
-    }
-  }]
+  }
 }

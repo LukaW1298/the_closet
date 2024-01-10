@@ -1,75 +1,92 @@
 <template>
-  <nav class="navbar navbar-light bg-primary">
-    <div class="container-fluid">
-      <div class="navbar-brand d-flex justify-content-between w-100 " href="javascript:void(0)">
-        <div class="text-white max-sm:text-xs flex items-center">
+  <IonToolbar color="primary">
+    <div class="w-full">
+      <div class="flex justify-between items-center w-full " href="javascript:void(0)">
+        <div class="text-neutral-100 max-sm:text-xs flex items-center">
           <img
             src="/resources/favicon-96.png" alt=""
             width="30" height="24"
-            class="d-inline-block align-text-top"
+            class="inline-block align-top"
           >
           The Closet
         </div>
-        <div class="text-white">
+        <div class="text-neutral-100" data-test-id="navbar-text">
           <slot />
         </div>
-        <div class="d-flex align-items-center text-white gap-x-3">
-          <font-awesome-icon icon="fa-moon" />
+        <div class="flex items-center text-neutral-100 gap-x-3 pr-4">
+          <font-awesome-icon icon="fa-moon" class="text-neutral-100" />
           <div class="form-check form-switch mr-[-0.5em]">
-            <input
-              class="form-check-input" 
-              type="checkbox"
-              role="switch"
-              :checked="isThemeLight"
-              @change="toggleColorMode"
-            >
+            <!-- <input
+              class="form-check-input" type="checkbox"
+              role="switch" aria-label="Use lightmode"
+              :checked="isThemeLight" @change="toggleColorMode"
+            > -->
+            <InputSwitch
+              v-model="isThemeLight" :pt="{
+                slider: ({ props }) => ({
+                  class: props.modelValue ? 'bg-royal-purple-800' : 'bg-gray-400'
+                })
+              }"
+            />
           </div>
           <font-awesome-icon icon="fa-sun" />
         </div>
       </div>
     </div>
-  </nav>
+  </IonToolbar>
 </template>
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, watch } from 'vue';
+import { usePrimeVue } from 'primevue/config';
+import InputSwitch from 'primevue/inputswitch';
+import { IonToolbar } from '@ionic/vue';
 
 const isThemeLight = ref(false);
+const primeVue = usePrimeVue();
 
-function toggleColorMode(event: Event) {
-    if (event.target != null && (<HTMLInputElement>event.target).checked){
-        document.documentElement.classList.remove("dark")
-        document.documentElement.setAttribute("data-bs-theme", "light")
-        localStorage.setItem("theme", "light");      
+watch(isThemeLight, async (newValue) => {
+  console.log(newValue)
 
-        console.log("Switched to lightmode.")
-    }
-    else {
-        document.documentElement.classList.add("dark")
-        document.documentElement.setAttribute("data-bs-theme", "dark")
-        localStorage.setItem("theme", "dark");
+  if (newValue) {
+    switchToLightMode();
+  }
+  else {
+    switchToDarkMode();
+  }
+})
 
-        console.log("Switched to darkmode.")
-    }
+function switchToLightMode() {
+  document.documentElement.classList.remove("dark")
+  localStorage.setItem("theme", "light");
+
+  primeVue.changeTheme('lara-dark-purple', 'lara-light-purple', 'theme-link', () => {
+    console.log("Switched to light theme.")
+  });
+}
+
+function switchToDarkMode() {
+  document.documentElement.classList.add("dark")
+  localStorage.setItem("theme", "dark");
+
+  primeVue.changeTheme('lara-light-purple', 'lara-dark-purple', 'theme-link', () => {
+    console.log("Switched to dark theme.")
+  });
 }
 
 onBeforeMount(() => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark')
-        document.documentElement.setAttribute("data-bs-theme", "dark")
-        isThemeLight.value = false;
-    } else {
-        document.documentElement.classList.remove('dark')
-        document.documentElement.setAttribute("data-bs-theme", "light")
-        isThemeLight.value = true;
-    }
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    switchToDarkMode();
+  } else {
+    switchToLightMode();
+  }
 })
 </script>
 
 <style scoped>
 .form-check-input:checked {
-    background-color: rgb(var(--royal-purple-500));
-    border-color: #7030a0;
+  background-color: rgb(var(--royal-purple-500));
+  border-color: #7030a0;
 }
 </style>

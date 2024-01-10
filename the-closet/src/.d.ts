@@ -12,3 +12,4 @@ declare module 'bootstrap';
 declare module '@/components/LoginComponent.vue';
 declare module '@/components/RegistrationComponent.vue';
 declare module '@/App.vue';
+declare module '*.vue';

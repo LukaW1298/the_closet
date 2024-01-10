@@ -23,8 +23,9 @@ export const useMaterialsStore = defineStore("materials", () => {
     const isEmpty = computed(() => materials.value.length == 0);
 
     function fetch() {
-        getMaterials().then((result) => {
+        getMaterials().then((result): void => {
             materials.value = result;
+            console.log("materials:", result)
         })
     }
 
@@ -37,8 +38,10 @@ export const useWashingModeStore = defineStore("washingModes", () => {
     const isEmpty = computed(() => washingModes.value.length == 0);
 
     function fetch() {
-        getWashingModes().then((result) => {
+        getWashingModes().then((result): void => {
             washingModes.value = result;
+
+            console.log("washing modes", result)
         })
     }
 

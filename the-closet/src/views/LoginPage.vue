@@ -4,22 +4,11 @@
       <nav-bar />
     </ion-header>
     <ion-content>
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">
-            {{ $t("message.login") }}
-          </ion-title>
-        </ion-toolbar>
-      </ion-header>
-
       <div v-if="pageMode == 'login'">
         <login-form>
-          <p class="text-center pt-5">
+          <p class="dark:text-neutral-100 text-center pt-5">
             {{ $t("message.notYetRegistered") }}
-            <a
-              class="text-royal-purple-500 no-underline cursor-pointer"
-              @click="changeToRegistration"
-            >
+            <a class="text-royal-purple-500 no-underline cursor-pointer" @click="changeToRegistration">
               {{ $t("message.signUpHere") }}
             </a>
           </p>
@@ -28,12 +17,9 @@
 
       <div v-else>
         <registration-form>
-          <p class="text-center pt-5">
+          <p class="dark:text-neutral-100 text-center pt-5">
             {{ $t("message.alreadyHaveAnAcc") }}
-            <a
-              class="text-royal-purple-500 no-underline cursor-pointer"
-              @click="changeToLogin"
-            >
+            <a class="text-royal-purple-500 no-underline cursor-pointer" @click="changeToLogin">
               {{ $t("message.logInHere") }}
             </a>
           </p>
@@ -44,7 +30,7 @@
 </template>
   
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage, IonHeader, IonContent } from '@ionic/vue';
 import LoginForm from '@/components/LoginComponent.vue';
 import RegistrationForm from '@/components/RegistrationComponent.vue'
 import { ref } from 'vue';

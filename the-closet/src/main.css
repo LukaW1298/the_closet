@@ -1,21 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer custom-normalize, primevue, tailwind-base, tailwind-utilities, tailwind-variants;
+
+@import url("normalize.css");
 
 :root {
-    --royal-purple-50: 250 246 254;
-    --royal-purple-100: 243 234 253;
-    --royal-purple-200: 234 217 251;
-    --royal-purple-300: 217 187 247;
-    --royal-purple-400: 194 144 240;
-    --royal-purple-500: 171 101 231;
-    --royal-purple-600: 149 69 216;
-    --royal-purple-700: 128 51 189;
-    --royal-purple-800: 112 48 160;
-    --royal-purple-900: 89 39 124;
-    --royal-purple-950: 60 16 91;
-    
-    
+    --royal-purple-50: 248 246 254;
+    --royal-purple-100: 238 232 252;
+    --royal-purple-200: 228 218 251;
+    --royal-purple-300: 204 186 248;
+    --royal-purple-400: 175 146 242;
+    --royal-purple-500: 137 90 246;
+    --royal-purple-600: 122 84 212;
+    --royal-purple-700: 104 68 187;
+    --royal-purple-800: 87 58 156;
+    --royal-purple-900: 75 50 129;
+    --royal-purple-950: 47 29 88;
+}
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
+@layer tailwind-variants {
+    @tailwind variants;
 }
 
 @layer components {
@@ -23,7 +34,27 @@
         @apply !text-royal-purple-700 dark:!text-royal-purple-400 bg-royal-purple-50 dark:bg-royal-purple-950  ring-1 ring-inset ring-royal-purple-400 dark:ring-royal-purple-800;
     }
 
+    .badge-default {
+        @apply ring-1 ring-inset  sm:!text-13 !font-medium;
+    }
+
     .badge-sky {
         @apply ring-1 ring-inset bg-sky-50 dark:bg-sky-950  !text-sky-700 dark:!text-sky-400;
+    }
+
+    .badge-gray {
+        @apply ring-1 ring-inset  bg-gray-50 dark:bg-gray-700  !text-gray-700 dark:!text-gray-100 ring-gray-300 dark:ring-gray-950 sm:!text-13 !font-medium;
+    }
+
+    .badge-gray-clickable {
+        @apply badge-gray cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800
+    }
+
+    .badge-royal-purple-selected {
+        @apply badge-default bg-royal-purple-700  !text-white;
+    }
+
+    .badge-royal-purple-selected-clickable {
+        @apply badge-royal-purple-selected hover:bg-royal-purple-800;
     }
 }

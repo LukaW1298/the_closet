@@ -4,9 +4,10 @@
     v-if="clickedClothingItem" id="modalClothingItem"
     class="modal fade show in" :style="{ 'display': modalDisplay }"
   >
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
+          <span v-if="viewingMode">{{ clickedClothingItem.name }}</span>
           <button
             type="button" class="btn-close"
             aria-label="Close" @click="closeModal"
@@ -15,20 +16,15 @@
         <div class="modal-body">
           <form>
             <div class="custom-file mb-3 px-4 row">
-              <div class=" col-sm-3">
-                <label class="custom-file-label" for="customFile">
-                  {{ $t("message.picture") }}
-                </label>
-              </div>
-              <div class=" col-sm-9">
+              <div class="flex justify-center">
                 <ImageViewer v-if="mode == 'view'" :source="clickedClothingItem.imageURL" />
                 <ImageInput v-else-if="mode == 'new'" />
                 <ImageInput v-else :source="clickedClothingItem.imageURL" />
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div v-if="!viewingMode" class="mb-3 px-4 row">
               <div class=" col-sm-4">
-                <label for="name">Name</label>
+                <label for="name" class="text-woodsmoke-600">Name</label>
               </div>
               <div v-if="mode == 'view'" class="col-sm-8">
                 <span>{{ clickedClothingItem.name }}</span>
@@ -43,42 +39,20 @@
             </div>
             <div class="mb-3 px-4 row">
               <div class="col-sm-4">
-                <label v-t="'message.category'" for="inputState" />
+                <label
+                  v-t="'message.category'" for="inputState"
+                  class="text-woodsmoke-500 max-sm:text-sm"
+                />
               </div>
 
               <div v-if="viewingMode" class="col-md-8">
                 {{ clickedClothingItem.category }}
               </div>
 
-              <div v-else-if="mode == 'new'" class="col-md-8">
-                <select
-                  id="parentCategory" name="parentCategory"
-                  class="col-sm-6 form-control"
-                  @change="changeChildCategories"
-                >
-                  <option
-                    v-for="category in categories" :key="category.id"
-                    :value="category.id"
-                  >
-                    {{ category.name }}
-                  </option>
-                </select>
+              <div v-else>
+                <CategorySelect :list="categories" />
               </div>
 
-              <div v-else class="col-md-8">
-                <select
-                  id="parentCategory" v-model="selectedParentCategoryId"
-                  name="parentCategory"
-                  class="col-sm-6 form-control" @change="changeChildCategories"
-                >
-                  <option
-                    v-for="category in categories" :key="category.id"
-                    :value="category.id"
-                  >
-                    {{ category.name }}
-                  </option>
-                </select>
-              </div>
             </div>
             <div class="mb-3 px-4 row">
               <div class="col-sm-4">
@@ -103,28 +77,18 @@
                 </select>
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class="col-sm-4">
                 <label v-t="'message.brand'" for="inputState" />
               </div>
-              <div v-if="viewingMode" class="col-sm-8">
-                {{ clickedClothingItem.brand }}
-              </div>
-              <div v-else class="col-sm-8">
-                <select
-                  id="brand" name="brand"
-                  class="col-sm-6 form-control"
-                >
-                  <option
-                    v-for="brand in brandsStore.brands" :key="brand.id"
-                    :value="brand.id"
-                  >
-                    {{ brand.name }}
-                  </option>
-                </select>
+              <div class="col-sm-8">
+                <BrandAutocompleteSelect
+                  :list="brandsStore.brands" text-key="name"
+                  :multiple="false"
+                />
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class=" col-sm-4">
                 <label v-t="'message.size'" for="formGroupExampleInput" />
               </div>
@@ -139,7 +103,7 @@
                 >
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class=" col-sm-4">
                 <label v-t="'message.price'" for="formGroupExampleInput" />
               </div>
@@ -154,7 +118,7 @@
                 >
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class=" col-sm-4">
                 <label v-t="'message.material'" />
               </div>
@@ -162,7 +126,7 @@
                 {{ materialText }}
               </div>
               <div v-else class="col-sm-8">
-                <div
+                <!-- <div
                   v-for="material in materialsStore.materials" :key="material.id"
                   class="form-check"
                 >
@@ -174,10 +138,12 @@
                   <label class="form-check-label">
                     {{ material.material }}
                   </label>
-                </div>
+                </div> -->
+
+                <MaterialAutocompleteSelect :list="materialsStore.materials" multiple />
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class=" col-sm-4">
                 <label v-t="'message.washingMode'" for="washing-mode" />
               </div>
@@ -203,7 +169,7 @@
                 </div>
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class=" col-sm-4">
                 <label for="status">Status</label>
               </div>
@@ -211,7 +177,7 @@
                 <InputStatus v-model="status" />
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class=" col-sm-4">
                 <label v-t="'message.color'" for="formGroupExampleInput" />
               </div>
@@ -225,7 +191,7 @@
                 />
               </div>
             </div>
-            <div class="mb-3 px-4 row">
+            <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
               <div class=" col-sm-4">
                 <label>Notizen</label>
               </div>
@@ -265,6 +231,9 @@ import { ref, onMounted, computed, onBeforeMount, inject, Ref } from "vue";
 import ImageInput from '@/components/ImageInput.vue';
 import ImageViewer from "./ImageViewer.vue";
 import InputStatus from "./InputStatus.vue";
+import BrandAutocompleteSelect from "./BrandAutocompleteSelect.vue";
+import MaterialAutocompleteSelect from "./MaterialAutocompleteSelect.vue";
+import CategorySelect from "./CategorySelect.vue";
 import masterdata from '../../resources/test_data/masterdata.json'
 import ColorPicker from '@/components/ColorPicker.vue';
 import ColorIndicator from "./ColorIndicator.vue";
