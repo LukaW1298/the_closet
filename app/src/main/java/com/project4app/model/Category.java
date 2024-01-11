@@ -7,29 +7,32 @@ public class Category {
     @Id
     private int id;
     private String type;
-    private int ID_parent_category;
+
+    @OneToOne
+    @JoinColumn(name = "ID_parent_category")
+    private ParentCategory parentCategory;
 
     public int getId() {
         return id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public int getParentID() {
-        return ID_parent_category;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
 
-    public void setParentID(int id) {
-        this.ID_parent_category = id;
+    public ParentCategory getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(ParentCategory parentCategory) {
+        this.parentCategory = parentCategory;
     }
 }

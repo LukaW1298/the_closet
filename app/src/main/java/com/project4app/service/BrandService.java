@@ -28,7 +28,6 @@ public class BrandService {
     }
 
     public Brand createBrand(Brand brand) {
-        //I have to add a find for find by Name, so we can check if a brand with that name already exists
         return brandRepository.save(brand);
     }
 

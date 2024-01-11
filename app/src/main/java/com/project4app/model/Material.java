@@ -8,6 +8,9 @@ public class Material {
     private int id;
     private String material;
 
+    @ManyToMany(mappedBy = "materials")
+    private Clothing clothing;
+
     public int getId() {
         return id;
     }
@@ -22,5 +25,9 @@ public class Material {
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public Clothing getClothing() {
+        return clothing;
     }
 }
