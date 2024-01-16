@@ -9,8 +9,7 @@
           <InputText
             id="email" v-model="emailAddress"
             placeholder="mail@example.com"
-            :class="{ '!border-red-800 dark:!border-red-300': emptyEmail }"
-            @blur="emailFocusOut = true"
+            :class="{ '!border-red-800 dark:!border-red-300': emptyEmail }" @blur="emailFocusOut = true"
           />
           <div v-if="emptyEmail" class="text-xs text-red-800 dark:text-red-300">
             {{ $t("message.enterEmail") }}
@@ -23,8 +22,8 @@
           </label>
           <InputText
             id="username" v-model="name"
-            placeholder="example" :class="{ '!border-red-800 dark:!border-red-300': emptyUsername }"
-            @blur="() => usernameFocusOut = true"
+            placeholder="example"
+            :class="{ '!border-red-800 dark:!border-red-300': emptyUsername }" @blur="() => usernameFocusOut = true"
           />
           <div v-if="emptyUsername" class="text-xs text-red-800 dark:text-red-300">
             {{ $t("message.enterUsername") }}
@@ -51,8 +50,7 @@
           </label>
           <Password
             id="password-retype" v-model="retypedPassword"
-            :class="{ '!border-red-800 dark:!border-red-300': passwordsNotEqual }"
-            :feedback="false" 
+            :class="{ '!border-red-800 dark:!border-red-300': passwordsNotEqual }" :feedback="false"
             @blur="retypedPasswordFocusOut = true"
           />
           <div v-if="passwordsNotEqual" class="text-xs text-red-800 dark:text-red-300">
@@ -64,8 +62,7 @@
           <Button
             type="button" class="btn btn-primary"
             :class="{ 'disabled': disabledRegisterButton }"
-            :label="$t('message.register')"
-            @click="submitForm"
+            :label="$t('message.register')" @click="submitForm"
           />
         </div>
       </form>
@@ -74,9 +71,9 @@
       v-if="hasResponseError" class="alert alert-danger mx-4"
       role="alert"
     >
-      {{ $t("message.unsuccessfullRegistration") }}
-      <br><br>
-      If you still experience this problem with a network connection, <a href="/help">contact our support.</a>
+      <InlineMessage severity="error">
+        {{ responseError }}
+      </InlineMessage>
     </div>
     <slot />
   </Panel>
@@ -92,8 +89,7 @@ import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
-
-import InputMask from 'primevue/inputmask';
+import InlineMessage from 'primevue/inlinemessage';
 
 
 const store = useUserStore();
@@ -108,47 +104,50 @@ const retypedPasswordFocusOut = ref(false);
 const responseError = ref("");
 
 const emptyEmail = computed(() => {
-    return emailAddress.value.length === 0 && emailFocusOut.value;
+  return emailAddress.value.length === 0 && emailFocusOut.value;
 })
 
 const emptyUsername = computed(() => {
-    return name.value.length === 0 && usernameFocusOut.value === true;
+  return name.value.length === 0 && usernameFocusOut.value === true;
 })
 
 const emptyPassword = computed(() => {
-    return password.value.length === 0 && passwordFocusOut.value === true;
+  return password.value.length === 0 && passwordFocusOut.value === true;
 })
 
 const passwordsNotEqual = computed(() => {
-    return password.value !== retypedPassword.value && retypedPasswordFocusOut.value;
+  return password.value !== retypedPassword.value && retypedPasswordFocusOut.value;
 })
 
 const disabledRegisterButton = computed(() => {
-    return emailAddress.value.length === 0 ||
-        name.value.length === 0 ||
-        password.value.length === 0 ||
-        password.value !== retypedPassword.value
+  return emailAddress.value.length === 0 ||
+    name.value.length === 0 ||
+    password.value.length === 0 ||
+    password.value !== retypedPassword.value
 })
 
 const hasResponseError = computed(() => {
-    return responseError.value.length > 0;
+  return responseError.value.length > 0;
 })
 
 function submitForm() {
-    postRegister(name.value, emailAddress.value, password.value)
-        .then((response) => {
-            console.log(response.status)
-            console.log(response)
+  postRegister(name.value, emailAddress.value, password.value)
+    .then((response) => {
+      console.log(response.status)
+      console.log(response)
 
-            if (response.ok) {
-                presentToast("Your registration has been successful. You can now log in with your new credentials.")
-            }
+      if (response.ok) {
+        presentToast("Your registration has been successful. You can now log in with your new credentials.")
+      }
 
-            return response.json();
-        }).then((result) => {
-            console.log(result)
-        }).catch((error) => {
-            responseError.value = String(error);
-        });
+      return response.json();
+    }).then((result) => {
+      if (result.error)
+        responseError.value = result.error;
+      if (result.message && result.status !== "200")
+        responseError.value = result.message;
+    }).catch((error) => {
+      responseError.value = String(error);
+    });
 }
 </script>

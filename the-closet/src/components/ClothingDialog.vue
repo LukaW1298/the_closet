@@ -209,7 +209,7 @@ const currentChildCategories = ref<Category[]>(masterdata.categories as Category
 const colorsStore = useColorStore();
 const getColor = computed(() => {
   return colorsStore.colors.find((color) => {
-    return color.id == clothingStore.clothingItem.colorID;
+    return color.id == clothingStore.clothingItem.color.id;
   });
 });
 

@@ -1,5 +1,5 @@
 const address = import.meta.env.VITE_API_ADDRESS;
-let headers = new Headers;
+const headers = new Headers;
 headers.append("Content-Type", "application/json")
 headers.append("Access-Control-Allow-Origin", "*")
 

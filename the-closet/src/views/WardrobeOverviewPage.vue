@@ -6,23 +6,13 @@
     <ion-header>
       <NavBar>
         {{ $t("message.wardrobe") }}
-
-        <!-- <button class="btn btn-primary" @click="mode = 'outfitSelection'">
-          O
-        </button>
-        <button class="btn btn-primary" @click="mode = 'view'">
-          V
-        </button>
-        <Button
-          label="D" outlined
-          @click="toggleDialogVisibility"
-        /> -->
       </NavBar>
     </ion-header>
     <ion-content>
       <div class="grid grid-cols-12 h-full">
         <div
-          class="col-span-12 overflow-auto scrollbar scrollbar-thumb-royal-purple-700 scrollbar-track-royal-purple-400" :class="{
+          class="col-span-12 overflow-auto scrollbar scrollbar-thumb-royal-purple-700 scrollbar-track-royal-purple-400"
+          :class="{
             'sm:col-span-9 h-full ': outfitSelectionMode
           }"
         >
@@ -43,7 +33,10 @@
                       <div id="card-0">
                         <div class=" cursor-pointer max-sm:!px-2">
                           <div class="flex justify-center items-center flex-col h-full gap-y-8">
-                            <FontAwesomeIcon icon="fas fa-plus" class="text-8xl sm:h-24 opacity-50 text-royal-purple-400" />
+                            <FontAwesomeIcon
+                              icon="fas fa-plus"
+                              class="text-8xl sm:h-24 opacity-50 text-royal-purple-400"
+                            />
                           </div>
                         </div>
                       </div>
@@ -56,7 +49,7 @@
                   </Card>
                 </div>
 
-                <div 
+                <div
                   v-for="(item) of items" :key="item.id"
                   class="col-span-4 md:col-span-3 xl:col-span-2 max-sm:!px-1 max-sm:!mt-4"
                 >
@@ -76,7 +69,7 @@
                         >
                           <div class="flex justify-center">
                             <img
-                              :src="item.imageURL" :alt="item.name"
+                              :src="item.image.url" :alt="item.name"
                               class="card-img-top clothing-card-img"
                             >
                           </div>
@@ -98,7 +91,7 @@
         </div>
         <div
           v-if="outfitSelectionMode"
-          class="col-sm-3 bg-white dark:!bg-zinc-800 flex items-center flex-col justify-between fixed right-0 bottom-0 sm:top-16  flex-nowrap"
+          class="col-span-3 bg-white dark:!bg-zinc-800 flex items-center flex-col justify-between fixed right-0 bottom-0 sm:top-16  flex-nowrap"
         >
           <div class="flex justify-between pt-3 w-full">
             <h5 v-t="'message.newOutfit'" class="max-sm:hidden dark:text-white" />
@@ -128,7 +121,7 @@
                     <FontAwesomeIcon icon="fas fa-xmark" class="max-sm:text-xs" />
                   </button>
                   <div class="flex justify-center">
-                    <img :src="item.imageURL" class="card-img-top max-h-36 max-sm:max-h-12 clothing-card-img">
+                    <img :src="item.image.url" class="card-img-top max-h-36 max-sm:max-h-12 clothing-card-img">
                   </div>
                 </div>
               </div>
@@ -146,265 +139,44 @@
         </div>
       </div>
     </ion-content>
-    <Dialog v-model:visible="visible">
-      <form>
-        <div class="custom-file mb-3 px-4 row">
-          <div class="flex justify-center">
-            <!-- <ImageViewer v-if="mode == 'view'" /> -->
-            <ImageInput v-if="dialogMode == 'new'" />
-            <ImageInput v-else :source="clickedClothingItem?.imageURL" />
-          </div>
-        </div>
-        <div v-if="!viewingMode" class="mb-3 px-4 row">
-          <div class=" col-sm-4">
-            <label for="name" class="text-woodsmoke-600">Name</label>
-          </div>
-          <div v-if="mode == 'view'" class="col-sm-8">
-            <span>{{ clickedClothingItem?.name }}</span>
-          </div>
-          <div v-else class=" col-sm-8">
-            <input
-              id="name" type="text"
-              class="form-control" placeholder="e.g. Short pants"
-              :value="dialogMode == 'edit' ? clickedClothingItem?.name : ''"
-            >
-          </div>
-        </div>
-        <div class="mb-3 px-4 row">
-          <div class="col-sm-4">
-            <label
-              v-t="'message.category'" for="inputState"
-              class="text-woodsmoke-500 max-sm:text-sm"
-            />
-          </div>
-
-          <div v-if="viewingMode" class="col-md-8">
-            {{ clickedClothingItem?.category }}
-          </div>
-
-          <div v-else>
-            <!-- <CategorySelect :list="categories" /> -->
-          </div>
-        </div>
-        <div class="mb-3 px-4 row">
-          <div class="col-sm-4">
-            <label v-t="'message.subCategory'" for="inputState" />
-          </div>
-          <div v-if="viewingMode" class="col-sm-8">
-            {{ clickedClothingItem?.subCategory }}
-          </div>
-          <div v-else class="col-sm-8">
-            <!-- <select
-                  id="childCategory" v-model="selectedChildCategoryId"
-                  name="childCategory"
-                  class="col-sm-6 form-control"
-                >
-                  <option
-                    v-for="category in currentChildCategories" :key="category.id"
-                    :value="category.id"
-                  >
-                    {{ category.name
-                    }}
-                  </option>
-                </select> -->
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class="col-sm-4">
-            <label v-t="'message.brand'" for="inputState" />
-          </div>
-          <div class="col-sm-8">
-            <!-- <BrandAutocompleteSelect
-              :list="brandsStore.brands" text-key="name"
-              :multiple="false"
-            /> -->
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class=" col-sm-4">
-            <label v-t="'message.size'" for="formGroupExampleInput" />
-          </div>
-          <div v-if="viewingMode" class="col-sm-8">
-            {{ clickedClothingItem?.size }}
-          </div>
-          <div v-else class=" col-sm-8">
-            <input
-              id="size" type="text"
-              class="form-control" placeholder="e.g. M"
-              :value="dialogMode == 'edit' ? clickedClothingItem?.size : ''"
-            >
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class=" col-sm-4">
-            <label v-t="'message.price'" for="formGroupExampleInput" />
-          </div>
-          <div v-if="viewingMode" class="col-sm-8">
-            {{ clickedClothingItem?.price }}
-          </div>
-          <div v-else class="col-sm-8">
-            <input
-              id="price" type="text"
-              class="form-control" placeholder="e.g. 19,99"
-              :value="dialogMode == 'edit' ? clickedClothingItem?.price : ''"
-            >
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class=" col-sm-4">
-            <label v-t="'message.material'" />
-          </div>
-          <div v-if="viewingMode" class="col-sm-8">
-            <!-- {{ materialText }} -->
-          </div>
-          <div v-else class="col-sm-8">
-            <!-- <div
-                  v-for="material in materialsStore.materials" :key="material.id"
-                  class="form-check"
-                >
-                  <input
-                    class="form-check-input" type="checkbox"
-                    :value="material.id"
-                    :checked="clickedClothingItem.materialIdList.includes(material.id)"
-                  >
-                  <label class="form-check-label">
-                    {{ material.material }}
-                  </label>
-                </div> -->
-
-            <!-- <MaterialAutocompleteSelect :list="materialsStore.materials" multiple /> -->
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class=" col-sm-4">
-            <label v-t="'message.washingMode'" for="washing-mode" />
-          </div>
-          <div v-if="viewingMode" class="col-sm-8">
-            {{ washingModeStore.washingModes.filter((el) => el.id ==
-              clickedClothingItem?.washingModeID)[0].washingMode }}
-          </div>
-          <div v-else class="col-sm-8">
-            <div
-              v-for="washingMode in washingModeStore.washingModes" id="washing-mode"
-              :key="washingMode.id"
-              class="form-check"
-            >
-              <!-- <input
-                    class="form-check-input" type="radio"
-                    :value="washingMode.id"
-                    :checked="washingMode.id == clickedClothingItem.washingModeID"
-                    name="washingMode"
-                  > -->
-              <label class="form-check-label">
-                {{ washingMode.washingMode }}
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class=" col-sm-4">
-            <label for="status">Status</label>
-          </div>
-          <div class="col-sm-8">
-            <!-- <InputStatus v-model="status" /> -->
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class=" col-sm-4">
-            <label v-t="'message.color'" for="formGroupExampleInput" />
-          </div>
-          <div v-if="viewingMode" class="col-sm-8">
-            <!-- <ColorIndicator :color="getColor" /> -->
-          </div>
-          <div v-else class="col-sm-8">
-            <ColorPicker
-              :colors="colorsStore.colors"
-            />
-          </div>
-        </div>
-        <div class="mb-3 px-4 row border-t-2 pt-2 border-gray-100">
-          <div class=" col-sm-4">
-            <label>Notizen</label>
-          </div>
-          <div class="col-sm-8">
-            <textarea class="form-control" rows="2" />
-          </div>
-        </div>
-      </form>
-      <template #footer>
-        <Button
-          label="Ok" icon="pi pi-check"
-          autofocus @click="visible = false"
-        />
-      </template>
-    </Dialog>
+    <ClothingDialog v-model="visible" />
   </ion-page>
 </template>
 
 <script lang="ts" setup>
-import { ref, provide, computed, onBeforeMount, onMounted } from 'vue';
+import { ref, provide, computed, onMounted, unref } from 'vue';
 import { IonPage, IonHeader, IonContent } from '@ionic/vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useMediaQuery, useElementSize } from '@vueuse/core';
-import Dialog from 'primevue/dialog';
 
+// primevue
 import Card from 'primevue/card';
-
 import Button from 'primevue/button';
 
-import NavBar from '@/components/NavBar.vue'
-import testdata from '../../resources/test_data/clothing_items.json'
-//import ClothingItemDialog from '@/components/ClothingItemDialog.vue';
-// import AddClothingItemDialog from '@/components/ModalDialogAddClothingItem.vue';
-import { ClothingItem, Category } from '@/custom_types';
-import masterdata from '../../resources/test_data/masterdata.json'
-
 // custom components
-import ImageViewer from '@/components/ImageViewer.vue';
-import ImageInput from '@/components/ImageInput.vue';
-import ColorPicker from 'primevue/colorpicker';
+import NavBar from '@/components/NavBar.vue';
+import testdata from '../../resources/test_data/clothing_items.json';
+import { ClothingItem, Category, Brand } from '@/custom_types';
+import ClothingDialog from '@/components/ClothingDialog.vue';
 
 // stores
-import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore }
-from '@/store/masterdata';
-
-const brandsStore = useBrandsStore();
+import { useClothingItemStore } from '@/store/clothingItem';
 
 
 
-const materialsStore = useMaterialsStore();
-const washingModeStore = useWashingModeStore();
-const statusListStore = useStatusStore();
-const colorsStore = useColorStore();
+
+
 
 const items = ref<Array<ClothingItem>>([]);
 
-const clickedClothingItem = ref<ClothingItem>();
-
-const dialogMode = ref("edit");
-
-washingModeStore.fetch();
-
-const categories = ref<Category[]>(masterdata.categories as Category[]);
-const currentChildCategories = ref<Category[]>(masterdata.categories as Category[]);
-
-//const mode = ref("edit")
+// const mode = ref("edit")
 
 // cards
-const card = ref();
-const { width, height } = useElementSize(card)
 
 // dialog
 const visible = ref<boolean>(true);
-function toggleDialogVisibility() {
-  if (visible.value)
-    visible.value = false;
-  else
-    visible.value = true;
-}
 
-provide("clickedClothingItem", clickedClothingItem)
-const mode = ref<"view" | "outfitSelection">("view")
+const mode = ref<"view" | "outfitSelection">("view");
 const checkedItems = ref<Record<number | string, ClothingItem>>({});
 
 const isMobileDevice = useMediaQuery('not all and (min-width: 640px)');
@@ -417,50 +189,37 @@ function onItemSelection(event: Event, item: ClothingItem) {
     removeFromCheckedItems(item.id);
 }
 
-// const getColor = computed(() => {
-//   return colorsStore.colors.filter((color) => color.id == clickedClothingItem?.value.colorID)[0];
-// })
 
-function getStatusBadgeClass(clothingItem: any) {
-  let badgeClass = "badge rounded-pill ";
+// clicked clothing item
 
-  if (clothingItem.status == "dirty")
-    badgeClass += "bg-danger";
-  else if (clothingItem.status == "okay")
-    badgeClass += "bg-warning";
-  else
-    badgeClass += "bg-success";
+const clothingItemStore = useClothingItemStore();
 
-  return badgeClass;
-}
 
 function showModal(clothingItem: any) {
-  // if (clothingItemDialog.value != null)
-  //   clothingItemDialog.value.openModal();
 
-  console.log("show modal")
+  console.log("show modal");
 
   visible.value = true;
-
-  clickedClothingItem.value = clothingItem;
+  clothingItemStore.updateClothingItem(clothingItem);
 }
 
 function addToCheckedItems(item: ClothingItem) {
   checkedItems.value[String(item.id)] = item;
-  console.log("checkedItems", checkedItems.value)
+  console.log("checkedItems", checkedItems.value);
 }
 
 function removeFromCheckedItems(id: number) {
-  if (typeof checkedItems.value[String(id)] != "undefined")
+  if (checkedItems.value[String(id)] !== undefined)
     delete checkedItems.value[String(id)];
-  console.log("checkedItems", checkedItems.value)
+  console.log("checkedItems", checkedItems.value);
 }
 
 function isInCheckedItems(id: number) {
-  return (typeof checkedItems.value[String(id)] != "undefined")
+  return (checkedItems.value[String(id)] !== undefined);
 }
 
 function getClothingItems() {
+
   // api call...
 
   items.value = (testdata as ClothingItem[]);
@@ -472,35 +231,11 @@ getClothingItems();
 
 const outfitSelectionMode = computed(() => {
   return mode.value == "outfitSelection";
-})
+});
 
 const viewingMode = computed(() => {
   return mode.value == "view";
-})
-
-onMounted(() => {
-  if (brandsStore.isEmpty) {
-    brandsStore.fetch();
-  }
-
-  if (materialsStore.isEmpty) {
-    materialsStore.fetch();
-  }
-
-  //if (washingModeStore.isEmpty) {
-    washingModeStore.fetch();
-  //}
-
-  if (statusListStore.isEmpty) {
-    statusListStore.fetch();
-  }
-
-  if (colorsStore.isEmpty) {
-    colorsStore.fetch();
-  }
-
-  console.log("washing mode store", washingModeStore.washingModes)
-})
+});
 </script>
   
 <style scoped>
