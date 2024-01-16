@@ -3,24 +3,24 @@ package com.project4app.model;
 import jakarta.persistence.*;
 
 @Entity
-public class ParentCategory {
+public class Image {
     @Id
     private int id;
-    private String type;
+    private String url;
 
     public int getId() {
         return id;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

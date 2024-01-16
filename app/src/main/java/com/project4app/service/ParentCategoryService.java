@@ -28,7 +28,6 @@ public class ParentCategoryService {
     }
 
     public ParentCategory createParentCategory(ParentCategory parentCategory) {
-        //I have to add a find for find by Name, so we can check if a parentCategory with that name already exists
         return parentCategoryRepository.save(parentCategory);
     }
 
@@ -36,7 +35,7 @@ public class ParentCategoryService {
         Optional<ParentCategory> existingParentCategory = parentCategoryRepository.findById(id);
         if (existingParentCategory.isPresent()) {
             ParentCategory parentCategoryToUpdate = existingParentCategory.get();
-            parentCategoryToUpdate.setName(updatedParentCategory.getName());
+            parentCategoryToUpdate.setType(updatedParentCategory.getType());
 
             return Optional.of(parentCategoryRepository.save(parentCategoryToUpdate));
         } else {
