@@ -1221,5 +1221,19 @@
             "id": 5,
             "name": "party"
         }
+    ],
+    "status": [
+        {
+            "id": 0,
+            "status": "clean"
+        },
+        {
+            "id": 1,
+            "status": "okay"
+        },
+        {
+            "id": 2,
+            "status": "dirty"
+        }
     ]
 }

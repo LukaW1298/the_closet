@@ -1,5 +1,3 @@
-
-
 export interface Category {
     name: string,
     id: number,
@@ -16,34 +14,58 @@ export class Material {
     }
 }
 
+export type MaterialSelected = {
+    [key: number]: boolean
+};
+
+export type CategorySelected = {
+    [key: number]: boolean
+};
+
+export type ChildCategory = {
+    "id": number,
+    "type": string,
+    "parentCategory": {
+        "id": number,
+        "type": string
+    }
+};
+
+export type User = {
+    id: number,
+    username: string
+};
+
 export type ClothingItem = {
     id: number,
-    userID: number,
     name: string,
-    brand: string,
+    brand: Brand,
     size: string,
-    colorID: number,
-    materialIdList: number[]
-    materialList: string[],
-    status: string,
-    categoryID: number,
-    category: string,
-    subCategoryID: number,
-    subCategory: string,
+    status: Status,
+    category: ChildCategory,
     price: number,
-    imageURL: string,
-    washingModeID: number
-}
+    notes: string,
+    user: User,
+    washingMode: WashingMode,
+    image: Image,
+    materials: Material[],
+    color: Color
+};
+
+export type Image = {
+    id: number,
+    url: string
+};
 
 export type WashingMode = {
     id: number,
     washingMode: string
-}
+};
 
 export type Brand = {
     id: number,
     name: string
-}
+};
 
 export class Color {
     id: number;

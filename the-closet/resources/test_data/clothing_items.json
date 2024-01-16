@@ -1,160 +1,52 @@
 [
     {
-        "id": 1,
-        "userID": 1,
-        "name": "Black t-shirt",
-        "brand": "Asos",
-        "size": "M",
-        
-        "colorID": 6,
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "status": "dirty",
-        "categoryID": 1,
-        "category": "Oberteil",
-        "subCategoryID": 3,
-        "subCategory": "V-Ausschnitt-T-Shirt",
-        "price": 17.99,
-        "imageURL": "/resources/test_items/clothing0.png",
-        "washingModeID": 1
-    },
-    {
         "id": 2,
         "userID": 1,
         "name": "Denim jacket",
-        "brand": "H&M",
+  
         "size": "S",
         "colorID": 2,
         "materialIdList": [10],
-        "materialList": ["Denim"],
-        "status": "okay",
-        "categoryID": 1,
-        "category": "Oberteil",
-        "subCategoryID": 3,
-        "subCategory": "Jeansjacke",
+        "notes": "Lorem ispum",
         "price": 19.99,
-        "imageURL": "/resources/test_items/clothing1.png",
-        "washingModeID": 2
-    },
-    {
-        "id": 3,
-        "userID": 1,
-        "name": "Red summer dress",
-        "brand": "Hessnatur",
-        "size": "38",
-        "colorID": 1,
-        "color": "#000000",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "status": "okay",
-        "categoryID": 20,
-        "category": "Kleid",
-        "subCategoryID": 3,
-        "subCategory": "Sommerkleid",
-        "price": 24.99,
-        "imageURL": "/resources/test_items/clothing2.png",
-        "washingModeID": 1
-    },
-    {
-        "id": 4,
-        "userID": 1,
-        "name": "Turquoise t-shirt",
-        "brand": "Amisu",
-        "size": "L",
-        "colorID": 12,
-        "color": "#000000",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "status": "clean",
-        "categoryID": 1,
-        "category": "Oberteil",
-        "subCategoryID": 3,
-        "subCategory": "T-Shirt",
-        "price": 7.99,
-        "imageURL": "/resources/test_items/clothing3.png",
-        "washingModeID": 1
-    },
-    {
-        "id": 5,
-        "userID": 1,
-        "name": "Blue jeans",
-        "brand": "Levi's",
-        "size": "W31 L28",
-        "colorID": 2,
-        "color": "#000000",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "status": "clean",
-        "categoryID": 2,
-        "category": "Hose",
-        "subCategoryID": 3,
-        "subCategory": "Jeans",
-        "price": 29.99,
-        "imageURL": "/resources/test_items/clothing4.png",
-        "washingModeID": 1
-    },
-    {
-        "id": 6,
-        "userID": 1,
-        "name": "Boyfriend jeans",
-        "brand": "Review",
-        "size": "W30 L30",
-        "colorID": 2,
-        "color": "#000000",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "status": "clean",
-        "categoryID": 2,
-        "category": "Hose",
-        "subCategoryID": 3,
-        "subCategory": "Jeans",
-        "price": 19.99,
-        "imageURL": "/resources/test_items/clothing5.png",
-        "washingModeID": 1
-    },
-    {
-        "id": 7,
-        "name": "Maxi skirt",
-        "colorID": 15,
-        "imageURL": "/resources/test_items/maxiskirt.png",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "washingModeID": 2
-    },
-    {
-        "id": 8,
-        "name": "Hoodie",
-        "colorID": 19,
-        "imageURL": "/resources/test_items/hoodie.png",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "washingModeID": 1
-    },
-    {
-        "id": 9,
-        "name": "Cardigan",
-        "colorID": 21,
-        "imageURL": "/resources/test_items/strickjacke.png",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "washingModeID": 1
-    },
-    {
-        "id": 10,
-        "name": "Blouse",
-        "colorID": 18,
-        "imageURL": "/resources/test_items/blouse.png",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "washingModeID": 1
-    },
-    {
-        "id": 11,
-        "name": "Trench coat",
-        "colorID": 21,
-        "imageURL": "/resources/test_items/trenchcoat.jpg",
-        "materialIdList": [1, 2],
-        "materialList": ["Baumwolle", "Elasthan"],
-        "washingModeID": 1
+        "brand": {
+            "id": 1,
+            "name": "UpdatedBrand"
+        },
+        "category": {
+            "id": 200,
+            "type": "knit dress",
+            "parentCategory": {
+                "id": 2,
+                "type": "top"
+            }
+        },
+        "status": {
+            "id": 3,
+            "status": "dirty"
+        },
+        "washingMode": {
+            "id": 1,
+            "washingMode": "40 degrees, colors"
+        },
+        "user": {
+            "id": 1,
+            "username": "test"
+        },
+        "image": {
+            "id": 1,
+            "url": "/resources/test_items/clothing1.png"
+        },
+        "materials": [
+            {
+                "id": 10,
+                "material": "Denim"
+            }
+        ],
+        "color": {
+            "id": 0,
+            "name": "red",
+            "hex_code": "#ff0000"
+        }
     }
 ]
