@@ -3,17 +3,22 @@
     <div class="grid grid-cols-12 pt-2">
       <label for="parent-categories" class="col-span-4 text-neutral-200">Parent category</label>
       <div id="parent-categories" class="col-span-8 gap-2 flex flex-wrap max-h-40 overflow-auto">
-        <div
+          <Chip  v-for="parentCategory in parentCategories" :key="parentCategory.id"  class="badge rounded-pill badge-gray-clickable sm:!text-13 !font-medium"
+          :class="{ 'bg-royal-purple-700 text-white': isSelectedParentCategoryID(parentCategory.id) }"
+          @click="() => selectParentCategory(parentCategory)" :label="capitalize(parentCategory.name)">
+          <font-awesome-icon v-if="isSelectedParentCategoryID(parentCategory.id)" icon="fas fa-check" />
+          </Chip>
+        <!-- <div
           v-for="parentCategory in parentCategories" :key="parentCategory.id"
           class="badge rounded-pill badge-gray-clickable sm:!text-13 !font-medium"
           :class="{ 'bg-royal-purple-700 text-white': isSelectedParentCategoryID(parentCategory.id) }"
-          @click="() => selectParentCategory(parentCategory)"
+          @click="() => selectParentCategory(parentCategory)" :label="capitalize(parentCategory.name)"
         >
           {{ capitalize(parentCategory.name) }}
           <span v-if="isSelectedParentCategoryID(parentCategory.id)"> &nbsp;</span>
 
           <font-awesome-icon v-if="isSelectedParentCategoryID(parentCategory.id)" icon="fas fa-check" />
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="grid grid-cols-12 pt-2">
@@ -38,6 +43,7 @@ import { computed, ref, defineModel, onMounted } from 'vue';
 import { sortObjectsAlphabetically } from '@/helpers/arrayFunctions';
 import { Category } from '@/custom_types';
 import { capitalize } from '@/helpers/stringFunctions';
+import Chip from 'primevue/chip'
 const props = defineProps<{
     list: Category[]
 }>()

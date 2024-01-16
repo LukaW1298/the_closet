@@ -71,3 +71,17 @@ router.isReady().then(() => {
   app.mount('#app');
 });
 
+// use global stores
+
+import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore }
+  from '@/store/masterdata';
+
+const brandStore = useBrandsStore();
+const materialsStore = useMaterialsStore();
+const statusStore = useStatusStore();
+const washingModeStore = useWashingModeStore();
+const colorStore = useColorStore();
+
+for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore]) {
+  store.fetch();
+}
