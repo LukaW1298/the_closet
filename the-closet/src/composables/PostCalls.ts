@@ -4,7 +4,7 @@ headers.append("Content-Type", "application/json")
 headers.append("Access-Control-Allow-Origin", "*")
 
 export function postRegister(userName: string, emailAddress: string, password: string) {
-    return fetch(address + "/api/register",
+    return fetch(address + "/api/auth/register",
         {
             method: "POST",
             mode: "cors",

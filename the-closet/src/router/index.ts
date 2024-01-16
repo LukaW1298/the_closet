@@ -31,10 +31,6 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'outfits',
         component: () => import('@/views/OutfitsPage.vue')
-      },
-      {
-        path: 'registration', 
-        component: () => import('@/views/RegisterPage.vue')
       }
     ]
   },

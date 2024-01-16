@@ -22,7 +22,7 @@
           />
         </div>
         <div class="mb-3 px-4 d-flex justify-content-center">
-          <Button :label="$t('message.logIn')" type="submit"/>
+          <Button :label="$t('message.logIn')" type="submit" />
         </div>
       </form>
     </div>
@@ -30,9 +30,9 @@
       v-if="responseError.length > 0" class="alert alert-danger mx-4"
       role="alert"
     >
-      {{ $t("message.unsuccessfulLogin") }}
-      <br><br>
-      {{ $t("message.errorMsg") }}: {{ responseError }}
+      <InlineMessage severity="error">
+        {{ responseError }}
+      </InlineMessage>  
     </div>
     <slot />
   </Panel>
@@ -48,6 +48,7 @@ import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
+import InlineMessage from 'primevue/inlinemessage';
 
 const store = useUserStore();
 const username = ref("");
