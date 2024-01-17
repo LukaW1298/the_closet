@@ -133,7 +133,7 @@ public class Clothing {
         this.image = image;
     }
 
-    public Set<Material> geMaterial() {
+    public Set<Material> getMaterial() {
         return materials;
     }
 }
