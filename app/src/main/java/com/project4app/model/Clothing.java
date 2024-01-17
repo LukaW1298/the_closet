@@ -9,9 +9,12 @@ public class Clothing {
     @Id
     private int id;
     private String name;
-    private String color;
     private float price;
     private String notes;
+
+    @OneToOne
+    @JoinColumn(name = "ID_color")
+    private Color color;
 
     @OneToOne
     @JoinColumn(name = "ID_brand")
@@ -61,11 +64,11 @@ public class Clothing {
         this.name = name;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
