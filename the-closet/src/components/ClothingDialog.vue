@@ -1,5 +1,9 @@
 <template>
-  <Dialog v-model:visible="visible" modal>
+  <Dialog
+    v-model:visible="visible" modal
+    :draggable="false"
+    class="w-[90dvw] sm:!w-[70dvw] lg:!w-[50dvw] xl:!w-[30dvw]"
+  >
     <form>
       <div class="custom-file mb-3 px-4 w-full">
         <div class="flex justify-center">
@@ -18,6 +22,7 @@
         <div v-else class=" col-span-8">
           <InputText
             id="name" name="name"
+            class="w-full"
             :value="clothingStore.clothingItem.name" placeholder="e.g. Short pants"
           />
         </div>
@@ -47,6 +52,7 @@
         <div class="col-span-12 sm:col-span-8">
           <AutoComplete
             v-model="clothingStore.clothingItem.brand" option-label="name"
+            class="w-full"
             :suggestions="brandSuggestions" :disabled="viewMode"
             @complete="filterBrandList"
           />
@@ -60,7 +66,10 @@
           {{ clothingStore.clothingItem.size }}
         </div>
         <div v-else class=" col-span-8">
-          <InputText v-model="clothingStore.clothingItem.size" placeholder="e.g. M" />
+          <InputText
+            v-model="clothingStore.clothingItem.size" placeholder="e.g. M"
+            class="w-full" 
+          />
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full border-t-2 pt-2 border-gray-100">
@@ -73,6 +82,7 @@
         <div v-else class="col-span-8">
           <InputNumber
             v-model="clothingStore.clothingItem.price" placeholder="€"
+            class="w-full"
           />
         </div>
       </div>
@@ -85,7 +95,7 @@
           <MultiSelect
             v-model="clothingStore.clothingItem.materials" :options="materialsStore.materials"
             option-label="material" placeholder="Select materials"
-            display="chip" class="w-full"
+            display="chip" class="w-full max-w-full"
             :disabled="viewMode"
           />
         </div>
