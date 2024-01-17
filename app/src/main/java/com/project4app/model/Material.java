@@ -1,5 +1,7 @@
 package com.project4app.model;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,7 +11,7 @@ public class Material {
     private String material;
 
     @ManyToMany(mappedBy = "materials")
-    private Clothing clothing;
+    private Set<Clothing> clothing;
 
     public int getId() {
         return id;
@@ -27,7 +29,7 @@ public class Material {
         this.material = material;
     }
 
-    public Clothing getClothing() {
+    public Set<Clothing> getClothing() {
         return clothing;
     }
 }

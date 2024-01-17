@@ -80,12 +80,18 @@ CREATE TABLE Image(
     PRIMARY KEY (ID)
 );
 
+CREATE TABLE Color(
+    ID int NOT NULL AUTO_INCREMENT,
+    hex_code varchar(255),
+    name varchar(255)
+);
+
 CREATE TABLE Clothing (
     ID int NOT NULL AUTO_INCREMENT,
     name varchar(255),
     ID_brand int,
     ID_category int,
-    color varchar(255),
+    ID_color int,
     price float,
     size varchar(255),
     notes varchar(255),
@@ -99,7 +105,8 @@ CREATE TABLE Clothing (
     FOREIGN KEY (ID_status) REFERENCES Status (ID),
     FOREIGN KEY (ID_washing_mode) REFERENCES Washing_mode (ID),
     FOREIGN KEY (ID_user) REFERENCES User (ID),
-    FOREIGN KEY (ID_image) REFERENCES Image (ID)
+    FOREIGN KEY (ID_image) REFERENCES Image (ID),
+    FOREIGN KEY (ID_color) REFERENCES Color (ID)
 );
 
 CREATE TABLE Clothing_Material(
