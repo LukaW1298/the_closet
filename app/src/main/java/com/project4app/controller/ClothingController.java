@@ -23,4 +23,6 @@ public class ClothingController {
     public Optional<Clothing> getClothingById(@PathVariable(name = "id") int id) {
         return clothingService.getClothingById(id);
     }
+
+    
 }
