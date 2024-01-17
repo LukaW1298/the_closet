@@ -8,19 +8,18 @@
           <ImageInput v-else :source="clothingStore.clothingItem.image.url" />
         </div>
       </div>
-      <div v-if="!dialogViewMode" class="mb-3 px-4 grid grid-cols-12 w-full">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full">
         <div class=" col-span-12 sm:col-span-4">
           <label for="name" class="text-woodsmoke-600">Name</label>
         </div>
-        <div v-if="dialogViewMode" class="col-span-8">
+        <div v-if="viewMode" class="col-span-8">
           <span>{{ clothingStore.clothingItem.name }}</span>
         </div>
         <div v-else class=" col-span-8">
-          <input
-            id="name" type="text"
-            class="form-control" placeholder="e.g. Short pants"
-            :value="dialogMode == 'edit' ? clothingStore.clothingItem.name : ''"
-          >
+          <InputText
+            id="name" name="name"
+            :value="clothingStore.clothingItem.name" placeholder="e.g. Short pants"
+          />
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full">
@@ -36,6 +35,7 @@
             v-model="clothingStore.clothingItem.category" :options="categoriesTree"
             selection-mode="single"
             class="w-full"
+            :disabled="viewMode"
             @change="console.log(unref(clothingStore.clothingItem.category))"
           />
         </div>
@@ -47,7 +47,8 @@
         <div class="col-span-12 sm:col-span-8">
           <AutoComplete
             v-model="clothingStore.clothingItem.brand" option-label="name"
-            :suggestions="brandSuggestions" @complete="filterBrandList"
+            :suggestions="brandSuggestions" :disabled="viewMode"
+            @complete="filterBrandList"
           />
         </div>
       </div>
@@ -55,7 +56,7 @@
         <div class=" col-span-12 sm:col-span-4">
           <label v-t="'message.size'" for="formGroupExampleInput" />
         </div>
-        <div v-if="dialogViewMode" class="col-span-8">
+        <div v-if="viewMode" class="col-span-8">
           {{ clothingStore.clothingItem.size }}
         </div>
         <div v-else class=" col-span-8">
@@ -66,14 +67,12 @@
         <div class=" col-span-12 sm:col-span-4">
           <label v-t="'message.price'" for="formGroupExampleInput" />
         </div>
-        <div v-if="dialogViewMode" class="col-span-8">
+        <div v-if="viewMode" class="col-span-8">
           {{ clothingStore.clothingItem.price }}
         </div>
         <div v-else class="col-span-8">
           <InputNumber
             v-model="clothingStore.clothingItem.price" placeholder="€"
-            mode="currency" currency="EUR"
-            locale="de-AT"
           />
         </div>
       </div>
@@ -81,12 +80,13 @@
         <div class=" col-span-12 sm:col-span-4">
           <label v-t="'message.material'" />
         </div>
-        <div v-if="dialogViewMode" class="col-span-8" />
+        <div v-if="viewMode" class="col-span-8" />
         <div v-else class="col-span-8">
           <MultiSelect
             v-model="clothingStore.clothingItem.materials" :options="materialsStore.materials"
             option-label="material" placeholder="Select materials"
             display="chip" class="w-full"
+            :disabled="viewMode"
           />
         </div>
       </div>
@@ -94,12 +94,13 @@
         <div class=" col-span-12 sm:col-span-4">
           <label v-t="'message.washingMode'" for="washing-mode" />
         </div>
-        <div v-if="dialogViewMode" class="col-span-8" />
+        <div v-if="viewMode" class="col-span-8" />
         <div v-else class="col-span-8">
           <Dropdown
             v-model="clothingStore.clothingItem.washingMode" :options="washingModeStore.washingModes"
             option-label="washingMode" placeholder="Select washing mode"
             class="w-full"
+            :disabled="viewMode"
           />
         </div>
       </div>
@@ -112,6 +113,7 @@
             v-model="clothingStore.clothingItem.status" :options="masterdata.status"
             option-label="status" placeholder="Select status"
             class="w-full"
+            :disabled="viewMode"
           />
         </div>
       </div>
@@ -119,21 +121,21 @@
         <div class=" col-span-12 sm:col-span-4">
           <label v-t="'message.color'" for="formGroupExampleInput" />
         </div>
-        <div v-if="dialogViewMode" class="col-span-8">
-          <ColorIndicator :color="getColor" />
-        </div>
-        <div v-else class="col-span-8">
-          <ColorPicker :colors="colorsStore.colors" />
+        
+        <div class="col-span-8">
+          <!-- <ColorPicker :colors="colorsStore.colors" :disabled="viewMode" /> -->
+          <ColorSelect :options="colorsStore.colors" />
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full border-t-2 pt-2 border-gray-100">
         <div class=" col-span-12 sm:col-span-4">
-          <label>Notizen</label>
+          <label>Notes</label>
         </div>
         <div class="col-span-8">
           <Textarea
             v-model="clothingStore.clothingItem.notes" rows="1"
             class="w-full"
+            :disabled="viewMode"
           />
         </div>
       </div>
@@ -173,10 +175,12 @@ import { ClothingItem, Category, Brand } from '@/custom_types';
 import masterdata from '../../resources/test_data/masterdata.json';
 import ImageInput from '@/components/ImageInput.vue';
 import ColorPicker from 'primevue/colorpicker';
+import ColorSelect from '@/components/ColorSelect.vue';
+
 
 // stores
 import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore }
-  from '@/store/masterdata';
+    from '@/store/masterdata';
 import { useClothingItemStore } from '@/store/clothingItem';
 import { sortObjectsAlphabetically } from '@/helpers/arrayFunctions';
 
@@ -187,8 +191,13 @@ import categoriesTree from "../../resources/test_data/categories";
 
 const visible = defineModel({ type: Boolean });
 const dialogMode = ref("edit");
-const dialogViewMode = computed(() => {
-  return dialogMode.value == "view";
+
+const viewMode = computed(() => {
+    return dialogMode.value == "view";
+});
+
+const editMode = computed(() => {
+    return dialogMode.value == "edit";
 });
 
 // current clothing item
@@ -208,9 +217,9 @@ const currentChildCategories = ref<Category[]>(masterdata.categories as Category
 
 const colorsStore = useColorStore();
 const getColor = computed(() => {
-  return colorsStore.colors.find((color) => {
-    return color.id == clothingStore.clothingItem.color.id;
-  });
+    return colorsStore.colors.find((color) => {
+        return color.id == clothingStore.clothingItem.color.id;
+    });
 });
 
 // brands
@@ -219,9 +228,9 @@ const brandsStore = useBrandsStore();
 const brandSuggestions = ref(brandsStore.brands);
 
 function filterBrandList(event: AutoCompleteCompleteEvent): void {
-  brandSuggestions.value = [...sortObjectsAlphabetically<Brand>(brandsStore.brands as Brand[], "name")].filter((listElement) => {
-    return listElement.name.toUpperCase().includes(event.query.toUpperCase());
-  });
+    brandSuggestions.value = [...sortObjectsAlphabetically<Brand>(brandsStore.brands as Brand[], "name")].filter((listElement) => {
+        return listElement.name.toUpperCase().includes(event.query.toUpperCase());
+    });
 }
 
 // materials

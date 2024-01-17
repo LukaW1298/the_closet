@@ -48,5 +48,55 @@
             "name": "red",
             "hex_code": "#ff0000"
         }
+    },
+    {
+        "id": 3,
+        "userID": 1,
+        "name": "Red dress",
+  
+        "size": "S",
+        "colorID": 2,
+        "materialIdList": [10],
+        "notes": "Lorem ispum",
+        "price": 19.99,
+        "brand": {
+            "id": 1,
+            "name": "UpdatedBrand"
+        },
+        "category": {
+            "id": 200,
+            "type": "knit dress",
+            "parentCategory": {
+                "id": 2,
+                "type": "top"
+            }
+        },
+        "status": {
+            "id": 3,
+            "status": "dirty"
+        },
+        "washingMode": {
+            "id": 1,
+            "washingMode": "40 degrees, colors"
+        },
+        "user": {
+            "id": 1,
+            "username": "test"
+        },
+        "image": {
+            "id": 1,
+            "url": "/resources/test_items/clothing2.png"
+        },
+        "materials": [
+            {
+                "id": 10,
+                "material": "Denim"
+            }
+        ],
+        "color": {
+            "id": 0,
+            "name": "red",
+            "hex_code": "#ff0000"
+        }
     }
 ]

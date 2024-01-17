@@ -94,6 +94,7 @@ module.exports = {
 
         // unicorn plugin
         'unicorn/filename-case': "off",
+        'unicorn/prevent-abbreviations': "off",
 
         // vue/ts specific rules
         'vue/no-deprecated-slot-attribute': 'off',

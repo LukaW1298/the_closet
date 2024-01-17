@@ -128,13 +128,13 @@
             </div>
           </div>
           <div class="  bg-[--bs-card-bg] p-3 w-full flex justify-center">
-            <button
+            <Button
               v-if="isMobileDevice" v-t="'message.close'"
               aria-label="Close"
               class="btn btn-default m-auto !text-royal-purple-800 dark:text-royal-purple-400"
             />
 
-            <button v-t="'message.saveOutfit'" class="btn btn-primary m-auto" />
+            <Button v-t="'message.saveOutfit'" class="btn btn-primary m-auto" />
           </div>
         </div>
       </div>
@@ -144,10 +144,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, provide, computed, onMounted, unref } from 'vue';
+import { ref, computed, unref } from 'vue';
 import { IonPage, IonHeader, IonContent } from '@ionic/vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { useMediaQuery, useElementSize } from '@vueuse/core';
+import { useMediaQuery } from '@vueuse/core';
 
 // primevue
 import Card from 'primevue/card';
@@ -156,86 +156,95 @@ import Button from 'primevue/button';
 // custom components
 import NavBar from '@/components/NavBar.vue';
 import testdata from '../../resources/test_data/clothing_items.json';
-import { ClothingItem, Category, Brand } from '@/custom_types';
+import { ClothingItem } from '@/custom_types';
 import ClothingDialog from '@/components/ClothingDialog.vue';
 
 // stores
 import { useClothingItemStore } from '@/store/clothingItem';
 
 
-
-
-
-
+// ====================================================== //
+// ================= show clothing items ================ //
+// ====================================================== //
 const items = ref<Array<ClothingItem>>([]);
 
-// const mode = ref("edit")
+function getClothingItems() {
 
-// cards
+    // api call...
 
-// dialog
+    items.value = (testdata as ClothingItem[]);
+}
+
+getClothingItems();
+
+// ====================================================== //
+// ======================= dialog ======================= //
+// ====================================================== //
 const visible = ref<boolean>(true);
 
+// ====================================================== //
+// ================= wardrobe page mode ================= //
+// ====================================================== //
 const mode = ref<"view" | "outfitSelection">("view");
 const checkedItems = ref<Record<number | string, ClothingItem>>({});
 
-const isMobileDevice = useMediaQuery('not all and (min-width: 640px)');
+const outfitSelectionMode = computed(() => {
+    return mode.value == "outfitSelection";
+});
 
-function onItemSelection(event: Event, item: ClothingItem) {
-
-  if ((event.target as HTMLInputElement).checked)
-    addToCheckedItems(item);
-  else
-    removeFromCheckedItems(item.id);
-}
+const viewingMode = computed(() => {
+    return mode.value == "view";
+});
 
 
-// clicked clothing item
+// ====================================================== //
+// ================ clicked clothing item =============== //
+// ====================================================== //
 
 const clothingItemStore = useClothingItemStore();
 
 
 function showModal(clothingItem: any) {
 
-  console.log("show modal");
+    console.log("show modal");
 
-  visible.value = true;
-  clothingItemStore.updateClothingItem(clothingItem);
+    visible.value = true;
+    clothingItemStore.updateClothingItem(clothingItem);
+
+    console.log(unref(clothingItem))
+    console.log(unref(clothingItemStore.clothingItem))
+}
+
+// ====================================================== //
+// ================== outfit selection ================== //
+// ====================================================== //
+function onItemSelection(event: Event, item: ClothingItem) {
+
+    if ((event.target as HTMLInputElement).checked)
+        addToCheckedItems(item);
+    else
+        removeFromCheckedItems(item.id);
 }
 
 function addToCheckedItems(item: ClothingItem) {
-  checkedItems.value[String(item.id)] = item;
-  console.log("checkedItems", checkedItems.value);
+    checkedItems.value[String(item.id)] = item;
+    console.log("checkedItems", checkedItems.value);
 }
 
 function removeFromCheckedItems(id: number) {
-  if (checkedItems.value[String(id)] !== undefined)
-    delete checkedItems.value[String(id)];
-  console.log("checkedItems", checkedItems.value);
+    if (checkedItems.value[String(id)] !== undefined)
+        delete checkedItems.value[String(id)];
+    console.log("checkedItems", checkedItems.value);
 }
 
 function isInCheckedItems(id: number) {
-  return (checkedItems.value[String(id)] !== undefined);
+    return (checkedItems.value[String(id)] !== undefined);
 }
 
-function getClothingItems() {
-
-  // api call...
-
-  items.value = (testdata as ClothingItem[]);
-}
-
-getClothingItems();
-
-// computed properties
-
-const outfitSelectionMode = computed(() => {
-  return mode.value == "outfitSelection";
-});
-
-const viewingMode = computed(() => {
-  return mode.value == "view";
-});
+// ====================================================== //
+// ==================== card styling ==================== //
+// ====================================================== //
+const isMobileDevice = useMediaQuery('not all and (min-width: 640px)');
 </script>
   
 <style scoped>

@@ -56,7 +56,7 @@
                 <img
                   v-for="clothing in getOutfitClothings(outfit.clothingIdList)"
                   :key="clothing.id"
-                  :src="clothing.imageURL"
+                  :src="clothing.image.url"
                   class="rounded max-h-24"
                 >
               </div>

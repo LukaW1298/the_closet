@@ -34,7 +34,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck, faSquare } from '@fortawesome/free-solid-svg-icons'
 
 /* PrimeVue */
 import PrimeVue from 'primevue/config';
@@ -54,7 +54,7 @@ const i18n = createI18n({
   messages
 })
 
-library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck);
+library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck, faSquare);
 
 const pinia = createPinia();
 
@@ -65,7 +65,7 @@ const app = createApp(App)
   .use(pinia)
   .use(i18n)
   .use(PrimeVue)
-  .component("font-awesome-icon", FontAwesomeIcon);
+  .component("FontAwesomeIcon", FontAwesomeIcon);
 
 router.isReady().then(() => {
   app.mount('#app');
