@@ -1,5 +1,7 @@
 package com.project4app.model;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -41,7 +43,7 @@ public class Clothing {
         joinColumns = @JoinColumn(name = "ID_clothing"),
         inverseJoinColumns =  @JoinColumn(name = "ID_material")
     )
-    private Material materials;
+    private Set<Material> materials;
 
     public int getId() {
         return id;
@@ -131,7 +133,7 @@ public class Clothing {
         this.image = image;
     }
 
-    public Material geMaterial() {
+    public Set<Material> geMaterial() {
         return materials;
     }
 }
