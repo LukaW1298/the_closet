@@ -83,7 +83,8 @@ CREATE TABLE Image(
 CREATE TABLE Color(
     ID int NOT NULL AUTO_INCREMENT,
     hex_code varchar(255),
-    name varchar(255)
+    name varchar(255),
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Clothing (
