@@ -1,16 +1,22 @@
 package com.project4app.model;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
 @Entity
 public class Clothing {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private float price;
     private String notes;
+    private String size;
 
     @OneToOne
     @JoinColumn(name = "ID_color")
@@ -40,13 +46,9 @@ public class Clothing {
     @JoinColumn(name = "ID_image")
     private Image image;
 
-    @ManyToMany
-    @JoinTable(
-        name ="Clothing_Material",
-        joinColumns = @JoinColumn(name = "ID_clothing"),
-        inverseJoinColumns =  @JoinColumn(name = "ID_material")
-    )
-    private Set<Material> materials;
+    @OneToMany(mappedBy = "clothing", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnoreProperties("clothing") 
+    private List<ClothingMaterial> clothingMaterials = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -136,7 +138,19 @@ public class Clothing {
         this.image = image;
     }
 
-    public Set<Material> getMaterial() {
-        return materials;
+    public List<ClothingMaterial> getClothingMaterials() {
+        return clothingMaterials;
+    }
+
+    public void setClothingMaterials(List<ClothingMaterial> clothingMaterials) {
+        this.clothingMaterials = clothingMaterials;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }
