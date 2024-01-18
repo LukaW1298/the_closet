@@ -28,7 +28,7 @@
             >
               <div class="grid grid-cols-12 gap-3 align-items-center gy-5 max-sm:!px-2">
                 <div class="col-span-4 md:col-span-3 xl:col-span-2 max-sm:!px-1 max-sm:!mt-4">
-                  <Card class="h-80 pb-2">
+                  <Card class="h-80 pb-2 cursor-pointer" @click="showEmptyModal">
                     <template #content>
                       <div id="card-0">
                         <div class=" cursor-pointer max-sm:!px-2">
@@ -50,26 +50,26 @@
                 </div>
 
                 <div
-                  v-for="(item) of items" :key="item.id"
+                  v-for="(clothing) of clothingListStore.clothings" :key="clothing.id"
                   class="col-span-4 md:col-span-3 xl:col-span-2 max-sm:!px-1 max-sm:!mt-4"
                 >
-                  <Card class="sm:h-80" @click="showModal">
+                  <Card class="sm:h-80 cursor-pointer" @click="() => showModal(clothing)">
                     <template #content>
-                      <div :id="`card-${item.id}`" class="!h-44 sm:!h-76">
+                      <div :id="`card-${clothing.id}`" class="!h-44 sm:!h-76">
                         <input
-                          v-if="outfitSelectionMode" :id="`clothing-checkbox-${item.id}`"
-                          :checked="isInCheckedItems(item.id)" type="checkbox"
+                          v-if="outfitSelectionMode" :id="`clothing-checkbox-${clothing.id}`"
+                          :checked="isInCheckedItems(clothing.id)" type="checkbox"
                           class="form-check-input absolute !w-8 !h-8 !rounded-full right-1"
-                          @change="(event) => onItemSelection(event, item)"
+                          @change="(event) => onItemSelection(event, clothing)"
                         >
 
                         <div
                           class="cursor-pointer justify-between flex flex-col max-sm:!px-2 overflow-y-clip max-h-full"
-                          @click="() => showModal(item)"
+                          @click="() => showModal(clothing)"
                         >
                           <div class="flex justify-center">
                             <img
-                              :src="item.image.url" :alt="item.name"
+                              :src="clothing.image.url" :alt="clothing.name"
                               class="card-img-top clothing-card-img"
                             >
                           </div>
@@ -79,7 +79,7 @@
                     <template #footer>
                       <div class=" bottom-0 left-0 w-full px-2 rounded-b-md">
                         <h6 class="text-xs sm:text-base text-center">
-                          {{ item.name }}
+                          {{ clothing.name }}
                         </h6>
                       </div>
                     </template>
@@ -105,23 +105,23 @@
               class="overflow-auto  scrollbar scrollbar-thumb-royal-purple-700 scrollbar-track-royal-purple-400 flex w-auto max-sm:gap-2 flex-nowrap max-sm:pb-2"
             >
               <div
-                v-for="item in checkedItems" :id="`outfit-card-${item.id}`"
-                :key="item.id"
+                v-for="cothing in checkedItems" :id="`outfit-card-${cothing.id}`"
+                :key="cothing.id"
                 class="card sm:!h-48 sm:m-3 max-sm:!h-20 max-sm:!w-16 max-sm:shrink-0"
               >
                 <div
                   class="card-body cursor-pointer justify-between flex flex-col max-sm:!px-2 overflow-y-clip max-h-full"
-                  @click="() => showModal(item)"
+                  @click="() => showModal(cothing)"
                 >
                   <button
                     type="button"
                     class="!rounded-full flex justify-center items-center absolute right-1 top-1 w-7 h-7 max-sm:w-5 max-sm:h-5 text-center dark:bg-neutral-700 dark:hover:bg-neutral-900 bg-neutral-100 hover:bg-neutral-200"
-                    aria-label="Remove clothing item" @click="() => removeFromCheckedItems(item.id)"
+                    aria-label="Remove clothing cothing" @click="() => removeFromCheckedItems(cothing.id)"
                   >
                     <FontAwesomeIcon icon="fas fa-xmark" class="max-sm:text-xs" />
                   </button>
                   <div class="flex justify-center">
-                    <img :src="item.image.url" class="card-img-top max-h-36 max-sm:max-h-12 clothing-card-img">
+                    <img :src="cothing.image.url" class="card-img-top max-h-36 max-sm:max-h-12 clothing-card-img">
                   </div>
                 </div>
               </div>
@@ -160,27 +160,20 @@ import { ClothingItem } from '@/custom_types';
 import ClothingDialog from '@/components/ClothingDialog.vue';
 
 // stores
-import { useClothingItemStore } from '@/store/clothingItem';
+import { useClothingStore, useClothingListStore } from '@/store/clothingItem';
 
 
 // ====================================================== //
 // ================= show clothing items ================ //
 // ====================================================== //
-const items = ref<Array<ClothingItem>>([]);
+const clothingListStore = useClothingListStore();
 
-function getClothingItems() {
 
-    // api call...
-
-    items.value = (testdata as ClothingItem[]);
-}
-
-getClothingItems();
 
 // ====================================================== //
 // ======================= dialog ======================= //
 // ====================================================== //
-const visible = ref<boolean>(true);
+const visible = ref<boolean>(false);
 
 // ====================================================== //
 // ================= wardrobe page mode ================= //
@@ -198,36 +191,44 @@ const viewingMode = computed(() => {
 
 
 // ====================================================== //
-// ================ clicked clothing item =============== //
+// ================ clicked clothing cothing =============== //
 // ====================================================== //
 
-const clothingItemStore = useClothingItemStore();
+const clothingItemStore = useClothingStore();
 
 
-function showModal(clothingItem: any) {
+function showModal(clothingItem: ClothingItem) {
+
+    
+
+    console.log("update");
+    clothingItemStore.updateClothingItem(clothingItem);
+
 
     console.log("show modal");
 
     visible.value = true;
-    clothingItemStore.updateClothingItem(clothingItem);
+}
 
-    console.log(unref(clothingItem))
-    console.log(unref(clothingItemStore.clothingItem))
+function showEmptyModal() {
+    console.log("clear");
+    clothingItemStore.clear();
+    visible.value = true;
 }
 
 // ====================================================== //
 // ================== outfit selection ================== //
 // ====================================================== //
-function onItemSelection(event: Event, item: ClothingItem) {
+function onItemSelection(event: Event, cothing: ClothingItem) {
 
     if ((event.target as HTMLInputElement).checked)
-        addToCheckedItems(item);
+        addToCheckedItems(cothing);
     else
-        removeFromCheckedItems(item.id);
+        removeFromCheckedItems(cothing.id);
 }
 
-function addToCheckedItems(item: ClothingItem) {
-    checkedItems.value[String(item.id)] = item;
+function addToCheckedItems(cothing: ClothingItem) {
+    checkedItems.value[String(cothing.id)] = cothing;
     console.log("checkedItems", checkedItems.value);
 }
 

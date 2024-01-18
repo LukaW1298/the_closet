@@ -4,7 +4,7 @@
       v-for="color in props.colors"
       :key="color.id"
       class="flex color-box border-2 w-7 h-7 justify-center items-center cursor-pointer"
-      :style="{ backgroundColor: color.hex_code }"
+      :style="{ backgroundColor: color.hexCode }"
       :title="color.name"
       :value="color.id"
       :class="{ active: color.id == modelValue }"

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { Brand, Material, WashingMode, Status, Color } from "@/custom_types";
-import { getBrands, getMaterials, getWashingModes, getStatus, getColors } from "@/composables/GetCalls";
+import { Brand, Material, WashingMode, Status, Color, Category, ParentCategory } from "@/custom_types";
+import { getBrands, getMaterials, getWashingModes, getStatus, getColors, getCategories } from "@/composables/GetCalls";
 import testdata from '@/../resources/test_data/masterdata.json';
 
 export const useBrandsStore = defineStore("brands", () => {
@@ -75,12 +75,9 @@ export const useStatusStore = defineStore("statusList", () => {
     });
 
     function fetch() {
-
-        /* getStatus().then((result) => {
+        getStatus().then((result) => {
             statusList.value = result;
-        });*/
-
-        statusList.value = testdata.status;
+        });
     }
 
     return {
@@ -99,16 +96,65 @@ export const useColorStore = defineStore("colors", () => {
     });
 
     function fetch() {
-        /*getColors().then((result) => {
+        getColors().then((result) => {
             colors.value = result;
-        });*/
-
-        colors.value = testdata.colors;
+        });
     }
 
     return {
         colors,
         isEmpty,
         fetch 
+    };
+});
+
+
+export const useCategoryStore = defineStore("category", () => {
+    const categories = ref<Category[]>([]);
+
+    const isEmpty = computed(() => {
+        return categories.value.length === 0;
+    });
+
+    const tree = computed(() => {
+        // eslint-disable-next-line unicorn/no-array-reduce
+        return categories.value.reduce((accumulator: ParentCategory[], curVal) => {
+            const parentCategoryElement: ParentCategory | undefined = accumulator.find((el: ParentCategory) => {
+                return el.id == curVal.parentCategory.id;
+            });
+        
+            if (parentCategoryElement === undefined) {
+                const obj = curVal.parentCategory;
+                obj["children"] = [curVal];
+                obj.name = obj.type;
+        
+                accumulator.push(obj);
+            }
+            else if (parentCategoryElement.children === undefined) {
+                parentCategoryElement.children = [curVal];
+                parentCategoryElement.name = parentCategoryElement.type;
+            }
+            else {
+                parentCategoryElement.children.push(curVal);
+                parentCategoryElement.name = parentCategoryElement.type;
+            }
+
+        
+        
+            return accumulator;
+        }, []);
+    });
+
+    function fetch() {
+        getCategories().then((result) => {
+            categories.value = result;
+        });
+    }
+
+    return {
+        categories,
+        isEmpty,
+        fetch,
+        tree
     };
 });

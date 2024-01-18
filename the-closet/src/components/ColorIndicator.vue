@@ -2,7 +2,7 @@
   <div class="color-box-container flex flex-wrap gap-1">
     <div
       class="flex color-box border-2 w-7 h-7 justify-center items-center cursor-pointer"
-      :style="{ backgroundColor: props.color.hex_code }"
+      :style="{ backgroundColor: props.color.hexCode }"
       :title="props.color.name"
       :value="props.color.id"
     />

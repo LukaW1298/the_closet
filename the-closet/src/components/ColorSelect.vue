@@ -8,7 +8,7 @@
       <div v-if="slotProps.value">
         <FontAwesomeIcon
           icon="fas fa-square" :style="{
-            color: slotProps.value.hex_code
+            color: slotProps.value.hexCode
           }"
         />
         <span>&nbsp;&nbsp;{{ slotProps.value.name }}</span>
@@ -17,7 +17,7 @@
     <template #option="slotProps">
       <FontAwesomeIcon
         icon="fas fa-square" :style="{
-          color: slotProps.option.hex_code
+          color: slotProps.option.hexCode
         }"
       />
       <span>&nbsp;&nbsp;{{ slotProps.option.name }}</span>
