@@ -28,7 +28,6 @@ public class MaterialService {
     }
 
     public Material createMaterial(Material material) {
-        //I have to add a find for find by Name, so we can check if a material with that name already exists
         return materialRepository.save(material);
     }
 
