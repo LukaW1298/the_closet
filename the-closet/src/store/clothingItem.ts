@@ -61,7 +61,7 @@ const emptyClothingObject: ClothingItem = {
     },
     image: {
         id: -1,
-        url: "/resources/test_items/clothing1.png"
+        url: ""
     },
     material: [
         {

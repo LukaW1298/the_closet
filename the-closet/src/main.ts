@@ -31,7 +31,7 @@ import 'vue-swatches/dist/vue-swatches.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 /* import font awesome icon component */
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome';
 
 /* import specific icons */
 import { faPen,
@@ -56,7 +56,8 @@ import { faPen,
     faJugDetergent,
     faTag,
     faEuroSign,
-    faQuoteLeft} from '@fortawesome/free-solid-svg-icons';
+    faQuoteLeft,
+    faImage} from '@fortawesome/free-solid-svg-icons';
 
 /* PrimeVue */
 import PrimeVue from 'primevue/config';
@@ -100,7 +101,8 @@ library.add(faPen,
     faShirt,
     faTag,
     faEuroSign,
-    faQuoteLeft);
+    faQuoteLeft,
+    faImage);
 
 const pinia = createPinia();
 
@@ -111,7 +113,9 @@ const app = createApp(App)
     .use(pinia)
     .use(i18n)
     .use(PrimeVue)
-    .component("FontAwesomeIcon", FontAwesomeIcon);
+    .component("FontAwesomeIcon", FontAwesomeIcon)
+    .component("FontAwesomeLayers", FontAwesomeLayers)
+    .component("FontAwesomeLayersText", FontAwesomeLayersText);
 
 router.isReady().then(() => {
     app.mount('#app');

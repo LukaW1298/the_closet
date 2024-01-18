@@ -15,9 +15,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-quote-left" />
-          <label for="name">Name</label>
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-quote-left" class="opacity-60" />
+              <label for="name">Name</label>
+            </div>
+          </Chip>
         </div>
         <div v-if="viewMode" class="col-span-8">
           <span>{{ clothingStore.clothingItem.name }}</span>
@@ -31,10 +35,10 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="col-span-12 sm:col-span-4">
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
           <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
-              <FontAwesomeIcon icon="fas fa-shirt" class="opacity-60"/>
+              <FontAwesomeIcon icon="fas fa-shirt" class="opacity-60" />
               <label
                 v-t="'message.category'" for="inputState"
                 class=" max-sm:text-sm"
@@ -57,9 +61,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-copyright" />
-          <label v-t="'message.brand'" for="inputState" />
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-copyright" class="opacity-60" />
+              <label v-t="'message.brand'" for="inputState" />
+            </div>
+          </Chip>
         </div>
         <div class="col-span-12 sm:col-span-8">
           <p v-if="viewMode">
@@ -80,9 +88,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-tag" />
-          <label v-t="'message.size'" for="formGroupExampleInput" />
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-tag" class="opacity-60" />
+              <label v-t="'message.size'" for="formGroupExampleInput" />
+            </div>
+          </Chip>
         </div>
         <div class=" col-span-8">
           <p v-if="viewMode">
@@ -96,9 +108,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-euro-sign" />
-          <label v-t="'message.price'" for="formGroupExampleInput" />
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-euro-sign" class="opacity-60" />
+              <label v-t="'message.price'" for="formGroupExampleInput" />
+            </div>
+          </Chip>
         </div>
         <div v-if="viewMode" class="col-span-8">
           € {{ clothingStore.clothingItem.price.toFixed(2) }}
@@ -111,9 +127,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-rug" />
-          <label v-t="'message.material'" />
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-rug" class="opacity-60" />
+              <label v-t="'message.material'" />
+            </div>
+          </Chip>
         </div>
         <div class="col-span-12 sm:col-span-8">
           <p v-if="viewMode" class="flex gap-x-2">
@@ -132,9 +152,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-jug-detergent" /> 
-          <label v-t="'message.washingMode'" for="washing-mode" />
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-jug-detergent" class="opacity-60" /> 
+              <label v-t="'message.washingMode'" for="washing-mode" />
+            </div>
+          </Chip>
         </div>
        
         <div class="col-span-12 sm:col-span-8">
@@ -151,9 +175,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-soap" />
-          <label for="status">Status</label>
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-soap" class="opacity-60" />
+              <label for="status">Status</label>
+            </div>
+          </Chip>
         </div>
         <div class="col-span-12 sm:col-span-8">
           <p v-if="viewMode">
@@ -191,10 +219,14 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4">
-          <FontAwesomeIcon icon="fas fa-palette" />
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-palette" class="opacity-60" />
             
-          <label v-t="'message.color'" for="formGroupExampleInput" />
+              <label v-t="'message.color'" for="formGroupExampleInput" />
+            </div>
+          </Chip>
         </div>
         
         <div class="col-span-8">
@@ -214,9 +246,13 @@
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="label-royal-purple col-span-12 sm:col-span-4 ">
-          <FontAwesomeIcon icon="fas fa-comment-dots" />
-          <label>Notes</label>
+        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
+          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+            <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
+              <FontAwesomeIcon icon="fas fa-comment-dots" class="opacity-60" />
+              <label>Notes</label>
+            </div>
+          </Chip>
         </div>
         <div class="col-span-8">
           <p v-if="viewMode">
