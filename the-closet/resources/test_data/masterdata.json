@@ -1058,112 +1058,112 @@
         {
             "id": 1,
             "name": "red",
-            "hex_code": "#b5251b"
+            "hexCode": "#b5251b"
         },
         {
             "id": 10,
             "name": "orange",
-            "hex_code": "#FF8838"
+            "hexCode": "#FF8838"
         },
         {
             "id": 11,
             "name": "yellow",
-            "hex_code": "#E7E31E"
+            "hexCode": "#E7E31E"
         },
         {
             "id": 19,
             "name": "light green",
-            "hex_code": "#90EE90"
+            "hexCode": "#90EE90"
         },
         {
             "id": 3,
             "name": "green",
-            "hex_code": "#1f911d"
+            "hexCode": "#1f911d"
         },
         {
             "id": 20,
             "name": "dark green",
-            "hex_code": "#00693E"
+            "hexCode": "#00693E"
         },
         {
             "id": 12,
             "name": "turquoise",
-            "hex_code": "#10C09A"
+            "hexCode": "#10C09A"
         },
         {
             "id": 13,
             "name": "teal",
-            "hex_code": "#067467"
+            "hexCode": "#067467"
         },
         {
             "id": 18,
             "name": "light blue",
-            "hex_code": "#89CFF0"
+            "hexCode": "#89CFF0"
         },
         {
             "id": 2,
             "name": "blue",
-            "hex_code": "#2074bd"
+            "hexCode": "#2074bd"
         },
         {
             "id": 17,
             "name": "navy",
-            "hex_code": "#000080"
+            "hexCode": "#000080"
         },
         {
             "id": 4,
             "name": "violet",
-            "hex_code": "#771cb0"
+            "hexCode": "#771cb0"
         },
         {
             "id": 5,
             "name": "white",
-            "hex_code": "#ffffff"
+            "hexCode": "#ffffff"
         },
         {
             "id": 6,
             "name": "black",
-            "hex_code": "#000000"
+            "hexCode": "#000000"
         },
         {
             "id": 14,
             "name": "grey",
-            "hex_code": "#515151"
+            "hexCode": "#515151"
         },
         {
             "id": 15,
             "name": "brown",
-            "hex_code": "#59260B"
+            "hexCode": "#59260B"
         },
         {
             "id": 16,
             "name": "rose",
-            "hex_code": "#FF6FCA"
+            "hexCode": "#FF6FCA"
         },
         {
             "id": 21,
             "name": "beige",
-            "hex_code": "#DBD7D2"
+            "hexCode": "#DBD7D2"
         },
         {
             "id": 22,
             "name": "light grey",
-            "hex_code": "#BEBFC5"
+            "hexCode": "#BEBFC5"
         },
         {
             "id": 23,
             "name": "burgundy",
-            "hex_code": "#800020"
+            "hexCode": "#800020"
         },
         {
             "id": 24,
             "name": "magenta",
-            "hex_code": "#8D0A59"
+            "hexCode": "#8D0A59"
         },
         {
             "id": 25,
             "name": "light brown",
-            "hex_code": "#C18363"
+            "hexCode": "#C18363"
         }
     ],
     "weather": [

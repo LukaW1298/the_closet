@@ -1,7 +1,7 @@
-import { createApp } from 'vue'
-import App from '@/App.vue'
+import { createApp } from 'vue';
+import App from '@/App.vue';
 import router from './router';
-import store from './store'
+import store from './store';
 
 import { IonicVue } from '@ionic/vue';
 
@@ -9,7 +9,7 @@ import { IonicVue } from '@ionic/vue';
 import '@ionic/vue/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-//import '@ionic/vue/css/normalize.css';
+// import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';
 import '@ionic/vue/css/typography.css';
 
@@ -23,24 +23,47 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import '../scss/custom.scss'
+import '../scss/custom.scss';
 
-import 'vue-swatches/dist/vue-swatches.css'
+import 'vue-swatches/dist/vue-swatches.css';
 
 /* import the fontawesome core */
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 /* import font awesome icon component */
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 /* import specific icons */
-import { faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck, faSquare } from '@fortawesome/free-solid-svg-icons'
+import { faPen,
+    faShirt,
+    faPlus,
+    faCirclePlus,
+    faCircle,
+    faBorderAll,
+    faSun,
+    faMoon,
+    faSoap,
+    faCircleCheck,
+    faXmark,
+    faCheck,
+    faSquare,
+    faThumbsUp,
+    faExclamationCircle, 
+    faRug,
+    faCopyright,
+    faPalette,
+    faCommentDots,
+    faJugDetergent,
+    faTag,
+    faEuroSign,
+    faQuoteLeft} from '@fortawesome/free-solid-svg-icons';
 
 /* PrimeVue */
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/primevue.min.css';
+import 'primeicons/primeicons.css'
 
-import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 import { createPinia } from 'pinia';
 
@@ -48,40 +71,66 @@ import { createI18n } from 'vue-i18n';
 import { messages } from './messages';
 
 const i18n = createI18n({
-  legacy: false,
-  locale: 'en',
-  fallbackLocale: 'de',
-  messages
-})
+    legacy: false,
+    locale: 'en',
+    fallbackLocale: 'de',
+    messages
+});
 
-library.add(faPen, faShirt, faPlus, faCirclePlus, faCircle, faBorderAll, faSun, faMoon, faSoap, faCircleCheck, faXmark, faCheck, faSquare);
+library.add(faPen,
+    faShirt,
+    faPlus,
+    faCirclePlus,
+    faCircle,
+    faBorderAll,
+    faSun,
+    faMoon,
+    faSoap,
+    faCircleCheck,
+    faXmark,
+    faCheck,
+    faSquare,
+    faThumbsUp,
+    faExclamationCircle,
+    faRug,
+    faCopyright,
+    faPalette,
+    faCommentDots,
+    faJugDetergent,
+    faShirt,
+    faTag,
+    faEuroSign,
+    faQuoteLeft);
 
 const pinia = createPinia();
 
 const app = createApp(App)
-  .use(IonicVue)
-  .use(router)
-  .use(store)
-  .use(pinia)
-  .use(i18n)
-  .use(PrimeVue)
-  .component("FontAwesomeIcon", FontAwesomeIcon);
+    .use(IonicVue)
+    .use(router)
+    .use(store)
+    .use(pinia)
+    .use(i18n)
+    .use(PrimeVue)
+    .component("FontAwesomeIcon", FontAwesomeIcon);
 
 router.isReady().then(() => {
-  app.mount('#app');
+    app.mount('#app');
 });
 
 // use global stores
 
-import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore }
-  from '@/store/masterdata';
+import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore, useCategoryStore }
+    from '@/store/masterdata';
+import { useClothingListStore } from './store/clothingItem';
 
 const brandStore = useBrandsStore();
 const materialsStore = useMaterialsStore();
 const statusStore = useStatusStore();
 const washingModeStore = useWashingModeStore();
 const colorStore = useColorStore();
+const categoryStore = useCategoryStore();
+const clothingListStore = useClothingListStore();
 
-for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore]) {
-  store.fetch();
+for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore, categoryStore, clothingListStore]) {
+    store.fetch();
 }

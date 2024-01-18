@@ -1,17 +1,12 @@
 export interface Category {
-    name: string,
     id: number,
-    parentCategoryID?: number,
+    type: string,
+    parentCategory: ParentCategory,
 }
 
-export class Material {
+export type Material = {
     material: string;
     id: number; 
-
-    constructor(material: string, id: number) {
-        this.material = material;
-        this.id = id;
-    }
 }
 
 export type MaterialSelected = {
@@ -31,6 +26,16 @@ export type ChildCategory = {
     }
 };
 
+export type ParentCategory = {
+    id: number,
+    type: string,
+    name?: string,
+    children?: {
+        id: number,
+        type: string
+    }[]
+}
+
 export type User = {
     id: number,
     username: string
@@ -48,7 +53,7 @@ export type ClothingItem = {
     user: User,
     washingMode: WashingMode,
     image: Image,
-    materials: Material[],
+    material: Material[],
     color: Color
 };
 
@@ -72,7 +77,7 @@ export type Brand = {
 export type Color = {
     id: number,
     name: string, 
-    hex_code: string
+    hexCode: string
 }
 
 export class Status {
