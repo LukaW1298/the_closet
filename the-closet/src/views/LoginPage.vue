@@ -8,7 +8,7 @@
         <login-form>
           <p class="dark:text-neutral-100 text-center pt-5">
             {{ $t("message.notYetRegistered") }}
-            <a class="text-royal-purple-500 no-underline cursor-pointer" @click="changeToRegistration">
+            <a class="text-royal-purple-500 dark:!text-royal-purple-400 no-underline cursor-pointer" @click="changeToRegistration">
               {{ $t("message.signUpHere") }}
             </a>
           </p>
@@ -19,7 +19,7 @@
         <registration-form>
           <p class="dark:text-neutral-100 text-center pt-5">
             {{ $t("message.alreadyHaveAnAcc") }}
-            <a class="text-royal-purple-500 no-underline cursor-pointer" @click="changeToLogin">
+            <a class="text-royal-purple-500 dark:!text-royal-purple-400 no-underline cursor-pointer" @click="changeToLogin">
               {{ $t("message.logInHere") }}
             </a>
           </p>

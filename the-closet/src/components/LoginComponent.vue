@@ -1,9 +1,9 @@
 <template>
-  <Panel class="mt-3 p-3" :header="$t('message.login')">
+  <Panel class="mt-3 p-3 sm:w-9/12 lg:w-1/2 m-auto" :header="$t('message.login')">
     <div>
       <form @submit.prevent="login">
         <div class="mb-3 px-4 flex flex-col gap-x-3">
-          <label for="username" class="form-label dark:text-neutral-100">
+          <label for="username" class="dark:text-neutral-100">
             {{ $t("message.username") }}
           </label>
           <InputText
@@ -11,17 +11,18 @@
             :placeholder="$t('message.username')"
           />
         </div>
-        <div class="mb-3 px-4 flex flex-col gap-x-3">
-          <label for="password" class="form-label dark:text-neutral-100">
+        <div class="mb-3 px-4 flex flex-col gap-x-3 w-full">
+          <label for="password" class="dark:text-neutral-100">
             {{ $t("message.password") }}
           </label>
           <Password
             id="password" v-model="password"
+            input-class="w-full"
             :placeholder="$t('message.password')"
             :feedback="false"
           />
         </div>
-        <div class="mb-3 px-4 d-flex justify-content-center">
+        <div class="mb-3 px-4">
           <Button :label="$t('message.logIn')" type="submit" />
         </div>
       </form>
@@ -58,18 +59,18 @@ const responseError = ref("");
 const login = () => {
   postLogin(username.value, password.value)
     .then((response) => {
-      console.log(response)
+      console.log(response);
 
       if (response.ok) {
         getUser(username.value).then((result) => {
-          console.log(result)
+          console.log(result);
 
           store.$patch({
             id: result.id,
             name: result.username,
             emailAddress: result.email
-          })
-        })
+          });
+        });
 
         router.push("/tabs");
       }
@@ -87,6 +88,6 @@ const login = () => {
     .catch((error) => {
       console.log("Error:", String(error));
       responseError.value = String(error);
-    })
-}
+    });
+};
 </script>

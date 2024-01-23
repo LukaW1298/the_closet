@@ -46,7 +46,7 @@ const isThemeLight = ref(false);
 const primeVue = usePrimeVue();
 
 watch(isThemeLight, async (newValue) => {
-  console.log(newValue)
+  console.log(newValue);
 
   if (newValue) {
     switchToLightMode();
@@ -54,34 +54,39 @@ watch(isThemeLight, async (newValue) => {
   else {
     switchToDarkMode();
   }
-})
+});
 
 function switchToLightMode() {
-  document.documentElement.classList.remove("dark")
+  document.documentElement.classList.remove("dark");
   localStorage.setItem("theme", "light");
 
   primeVue.changeTheme('lara-dark-purple', 'lara-light-purple', 'theme-link', () => {
-    console.log("Switched to light theme.")
+    console.log("Switched to light theme.");
   });
+
+  isThemeLight.value = true;
 }
 
 function switchToDarkMode() {
-  document.documentElement.classList.add("dark")
+  document.documentElement.classList.add("dark");
   localStorage.setItem("theme", "dark");
 
   primeVue.changeTheme('lara-light-purple', 'lara-dark-purple', 'theme-link', () => {
-    console.log("Switched to dark theme.")
+    console.log("Switched to dark theme.");
   });
+
+  isThemeLight.value = false;
 }
 
 onBeforeMount(() => {
   if (localStorage.theme === 'dark' || (!('theme' in localStorage) &&
       window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     switchToDarkMode();
-  } else {
+  }
+  else {
     switchToLightMode();
   }
-})
+});
 </script>
 
 <style scoped>
