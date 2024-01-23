@@ -7,6 +7,14 @@
       <NavBar>
         {{ $t("message.wardrobe") }}
       </NavBar>
+      
+      <span class="p-input-icon-left p-2">
+        <i class="pi pi-search" />
+        <InputText
+          v-model="filterClothingName" placeholder="Search"
+          size="small"
+        />
+      </span>
     </ion-header>
     <ion-content>
       <div class="grid grid-cols-12 h-full">
@@ -50,7 +58,7 @@
                 </div>
 
                 <div
-                  v-for="(clothing) of clothingListStore.clothings" :key="clothing.id"
+                  v-for="(clothing) of filteredClothing" :key="clothing.id"
                   class="col-span-4 md:col-span-3 xl:col-span-2 max-sm:!px-1 max-sm:!mt-4"
                 >
                   <Card class="sm:h-80 cursor-pointer" @click="() => showModal(clothing)">
@@ -152,6 +160,7 @@ import { useMediaQuery } from '@vueuse/core';
 // primevue
 import Card from 'primevue/card';
 import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
 
 // custom components
 import NavBar from '@/components/NavBar.vue';
@@ -168,6 +177,14 @@ import { useClothingStore, useClothingListStore } from '@/store/clothingItem';
 // ====================================================== //
 const clothingListStore = useClothingListStore();
 
+// filter clothing items
+const filterClothingName = ref("");
+
+const filteredClothing = computed(() => {
+  return clothingListStore.clothings.filter((clothing) => {
+    return clothing.name.toUpperCase().includes(filterClothingName.value.toUpperCase());
+  });
+});
 
 
 // ====================================================== //
@@ -182,11 +199,11 @@ const mode = ref<"view" | "outfitSelection">("view");
 const checkedItems = ref<Record<number | string, ClothingItem>>({});
 
 const outfitSelectionMode = computed(() => {
-    return mode.value == "outfitSelection";
+  return mode.value == "outfitSelection";
 });
 
 const viewingMode = computed(() => {
-    return mode.value == "view";
+  return mode.value == "view";
 });
 
 
@@ -201,19 +218,19 @@ function showModal(clothingItem: ClothingItem) {
 
     
 
-    console.log("update");
-    clothingItemStore.updateClothingItem(clothingItem);
+  console.log("update");
+  clothingItemStore.updateClothingItem(clothingItem);
 
 
-    console.log("show modal");
+  console.log("show modal");
 
-    visible.value = true;
+  visible.value = true;
 }
 
 function showEmptyModal() {
-    console.log("clear");
-    clothingItemStore.clear();
-    visible.value = true;
+  console.log("clear");
+  clothingItemStore.clear();
+  visible.value = true;
 }
 
 // ====================================================== //
@@ -221,25 +238,25 @@ function showEmptyModal() {
 // ====================================================== //
 function onItemSelection(event: Event, cothing: ClothingItem) {
 
-    if ((event.target as HTMLInputElement).checked)
-        addToCheckedItems(cothing);
-    else
-        removeFromCheckedItems(cothing.id);
+  if ((event.target as HTMLInputElement).checked)
+    addToCheckedItems(cothing);
+  else
+    removeFromCheckedItems(cothing.id);
 }
 
 function addToCheckedItems(cothing: ClothingItem) {
-    checkedItems.value[String(cothing.id)] = cothing;
-    console.log("checkedItems", checkedItems.value);
+  checkedItems.value[String(cothing.id)] = cothing;
+  console.log("checkedItems", checkedItems.value);
 }
 
 function removeFromCheckedItems(id: number) {
-    if (checkedItems.value[String(id)] !== undefined)
-        delete checkedItems.value[String(id)];
-    console.log("checkedItems", checkedItems.value);
+  if (checkedItems.value[String(id)] !== undefined)
+    delete checkedItems.value[String(id)];
+  console.log("checkedItems", checkedItems.value);
 }
 
 function isInCheckedItems(id: number) {
-    return (checkedItems.value[String(id)] !== undefined);
+  return (checkedItems.value[String(id)] !== undefined);
 }
 
 // ====================================================== //

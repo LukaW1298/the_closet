@@ -4,64 +4,67 @@
       <NavBar>Outfits</NavBar>
     </ion-header>
     <ion-content>
-      <div class="row p-2">
-        <div class=" col-md-6 col-lg-4 p-2">
-          <div class="card !bg-royal-purple-100 dark:!bg-[#0b0c0e] !h-44 sm:!h-60 cursor-pointer">
-            <div class="card-body">
+      <div class="grid grid-cols-12 p-2">
+        <div class="md:col-span-6 lg:col-span-4 p-2">
+          <Card class="max-sm!h-44 sm:!h-64 cursor-pointer">
+            <template #content>
               <div class="flex justify-center items-center flex-col h-full gap-y-8">
                 <FontAwesomeIcon
+                  size="6x"
                   icon="fas fa-plus"
-                  class="h-16 sm:h-24 opacity-50 text-royal-purple-400"
+                  class="sm:h-24 opacity-50 text-royal-purple-400"
                 />
                 <p v-t="'message.addNewOutfit'" class="card-text text-center text-xs sm:text-base" />
               </div>
-            </div>
-          </div>
+            </template>
+          </Card>
         </div>
         <div
           v-for="outfit of outfits"
           :key="outfit.id"
-          class=" col-md-6 col-lg-4 p-2"
+          class="md:col-span-6 lg:col-span-4 p-2"
         >
-          <div class="card !h-36 sm:!h-60 cursor-pointer">
-            <h5 class="card-header">
+          <Card class="max-sm:!h-44 sm:!h-64 cursor-pointer">
+            <template #title>
               {{ outfit.name }}
-            </h5>
-            <div class="card-body">
-              <div class="card-text flex">
+            </template>
+            <template #content>
+              <div class="flex">
+                <img
+                  v-for="clothing in getOutfitClothings(outfit.clothingIdList)"
+                  :key="clothing.id"
+                  :src="clothing.image.url"
+                  class="rounded max-h-24 px-2"
+                >
+              </div>
+            </template>
+            <template #footer>
+              <div class="flex">
                 <div
                   v-for="occasion in getOutfitOccasions(outfit.occasionList)"
                   :key="occasion.id"
                   class="p-1"
                 >
-                  <span
-                    class="badge rounded-pill badge-royal-purple"
+                  <Tag
+                    class="badge-royal-purple"
                   >
                     {{ occasion.name }}
-                  </span>
+                  </Tag>
                 </div>
                 <div
                   v-for="weather in getOutfitWeather(outfit.weatherList)"
                   :key="weather.id"
                   class="p-1"
                 >
-                  <span
-                    class="badge rounded-pill badge-sky"
+                  <Tag
+                    class="badge-sky"
                   >
                     {{ weather.name }}
-                  </span>
+                  </Tag>
                 </div>
               </div>
-              <div class="flex">
-                <img
-                  v-for="clothing in getOutfitClothings(outfit.clothingIdList)"
-                  :key="clothing.id"
-                  :src="clothing.image.url"
-                  class="rounded max-h-24"
-                >
-              </div>
-            </div>
-          </div>
+            </template>
+          </Card>
         </div>
       </div>
     </ion-content>
@@ -71,21 +74,36 @@
 <script setup lang="ts">
 import { IonPage, IonHeader, IonContent } from '@ionic/vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+// primevue
+
+import Card from 'primevue/card';
+
+import Tag from 'primevue/tag';
+
+
+
 import NavBar from '@/components/NavBar.vue';
 import outfits from '../../resources/test_data/outfits.json';
 import clothingItems from '../../resources/test_data/clothing_items.json';
-import masterdata from '../../resources/test_data/masterdata.json'
+import masterdata from '../../resources/test_data/masterdata.json';
 
 function getOutfitWeather(weatherIdList: number[]) {
-  return masterdata.weather.filter((weather) => weatherIdList.includes(weather.id));
+  return masterdata.weather.filter((weather) => {
+    return weatherIdList.includes(weather.id);
+  });
 }
 
 function getOutfitClothings(clothingIdList: number[]) {
-  return clothingItems.filter((item) => clothingIdList.includes(item.id))
+  return clothingItems.filter((item) => {
+    return clothingIdList.includes(item.id);
+  });
 }
 
 function getOutfitOccasions(occasionIdList: number[]) {
-  return masterdata.occasion.filter((item) => occasionIdList.includes(item.id));
+  return masterdata.occasion.filter((item) => {
+    return occasionIdList.includes(item.id);
+  });
 }
 </script>
   
