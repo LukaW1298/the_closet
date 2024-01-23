@@ -178,5 +178,6 @@
             "start": "# ",
             "end": " #"
         }
-    }
+    },
+    "editor.tabSize": 2
 }

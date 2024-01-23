@@ -10,8 +10,14 @@
     <form>
       <div class="custom-file mb-3 px-4 w-full">
         <div class="flex justify-center">
-          <ImageInput v-if="dialogMode == 'new'" />
-          <ImageInput v-else :source="clothingStore.clothingItem.image.url" />
+          <ImageInput
+            v-if="dialogMode == 'new'" 
+            @input="saveImage"
+          />
+          <ImageInput
+            v-else :source="clothingStore.clothingItem.image.url" 
+            @input="saveImage"
+          />
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
@@ -53,7 +59,7 @@
           </p>
           <TreeSelect
             v-else
-            v-model="clothingStore.clothingItem.category" :options="categoryStore.tree"
+            v-model="clothingStore.categoryTreeValue" :options="categoryStore.tree"
             selection-mode="single"
             class="w-full"
             :disabled="viewMode"
@@ -138,16 +144,17 @@
         <div class="col-span-12 sm:col-span-8">
           <p v-if="viewMode" class="flex gap-x-2">
             <Chip
-              v-for="material in clothingStore.clothingItem.material" :key="material.id"
-              :label="material.material"
+              v-for="material in clothingStore.clothingItem.clothingMaterials" :key="material.material.id"
+              :label="material.material.material"
             />
           </p>
           <MultiSelect
             v-else
-            v-model="clothingStore.clothingItem.material" :options="materialsStore.materials"
+            v-model="clothingStore.materialSelectValue" :options="materialsStore.materials"
             option-label="material" placeholder="Select materials"
             display="chip" class="w-full max-w-full"
             :disabled="viewMode"
+            @change="console.log(clothingStore.materialSelectValue)"
           />
         </div>
       </div>
@@ -285,7 +292,7 @@
         <Button
           v-else
           label="Save" icon="pi pi-check"
-          autofocus @click="dialogMode = 'view'"
+          autofocus @click="save"
         />
       </div>
     </template>
@@ -305,6 +312,7 @@ import Dropdown from 'primevue/dropdown';
 import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
 import Chip from 'primevue/chip';
+import { useToast } from 'primevue/usetoast';
 
 // custom components
 import { Category, Brand } from '@/custom_types';
@@ -315,24 +323,28 @@ import ColorSelect from '@/components/ColorSelect.vue';
 
 // stores
 import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore, useCategoryStore }
-    from '@/store/masterdata';
-import { useClothingStore } from '@/store/clothingItem';
+  from '@/store/masterdata';
+import { useClothingStore, useImageStore } from '@/store/clothingItem';
 import { sortObjectsAlphabetically } from '@/helpers/arrayFunctions';
+import { postClothing } from '@/composables/PostCalls';
 
-// test data
-// import categoriesTree from "../../resources/test_data/categories";
+// toast controller
+const toast = useToast();
+
 
 // dialog visibility
 
-const visible = defineModel({ type: Boolean });
+const visible = defineModel({
+  type: Boolean 
+});
 const dialogMode = ref("edit");
 
 const viewMode = computed(() => {
-    return dialogMode.value == "view";
+  return dialogMode.value == "view";
 });
 
 const editMode = computed(() => {
-    return dialogMode.value == "edit";
+  return dialogMode.value == "edit";
 });
 
 // current clothing item
@@ -341,27 +353,18 @@ const clothingStore = useClothingStore();
 
 // categories
 
-// ====================================================== //
-// ====================================================== //
-// ====================================================== //
-
-// ====================================================== //
-// ======================== Test ======================== //
-// ====================================================== //
 
 const categoryStore = useCategoryStore();
 
-
-
-
+console.log(categoryStore.tree);
 
 // colors
 
 const colorsStore = useColorStore();
 const getColor = computed(() => {
-    return colorsStore.colors.find((color) => {
-        return color.id == clothingStore.clothingItem.color.id;
-    });
+  return colorsStore.colors.find((color) => {
+    return color.id == clothingStore.clothingItem.color.id;
+  });
 });
 
 // brands
@@ -370,9 +373,9 @@ const brandsStore = useBrandsStore();
 const brandSuggestions = ref(brandsStore.brands);
 
 function filterBrandList(event: AutoCompleteCompleteEvent): void {
-    brandSuggestions.value = [...sortObjectsAlphabetically<Brand>(brandsStore.brands as Brand[], "name")].filter((listElement) => {
-        return listElement.name.toUpperCase().includes(event.query.toUpperCase());
-    });
+  brandSuggestions.value = [...sortObjectsAlphabetically<Brand>(brandsStore.brands as Brand[], "name")].filter((listElement) => {
+    return listElement.name.toUpperCase().includes(event.query.toUpperCase());
+  });
 }
 
 // materials
@@ -388,20 +391,88 @@ const washingModeStore = useWashingModeStore();
 const statusListStore = useStatusStore();
 
 function getStatusIcon(statusText: string) {
-    if (statusText == "clean")
-        return "fas fa-soap";
-    if (statusText == "okay")
-        return "fas fa-thumbs-up";
+  if (statusText == "clean")
+    return "fas fa-soap";
+  if (statusText == "okay")
+    return "fas fa-thumbs-up";
 
-    return "fas fa-circle-exclamation";
+  return "fas fa-circle-exclamation";
 }
 
 function getStatusColor(statusText: string) {
-    if (statusText == "clean")
-        return "#41823c";
-    if (statusText == "okay")
-        return "#e39a1b";
+  if (statusText == "clean")
+    return "#41823c";
+  if (statusText == "okay")
+    return "#e39a1b";
 
-    return "#bf415b";
+  return "#bf415b";
+}
+
+// save image
+const imageStore = useImageStore();
+
+function saveImage(input: File) {
+  console.log(input);
+
+  imageStore.setImage(input);
+  imageStore.post().then((response) => {
+    console.log(response);
+
+    if (response.ok) {
+      
+
+      toast.add({
+        severity: "success",
+        summary: "Saved image",
+        closable: true,
+        life: 5000
+      });
+    }
+    else {
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "An internal server error occured when trying to save the image.",
+        closable: true,
+        life: 5000
+      });
+    }
+
+    return response.json();
+
+  }).then((result) => {
+    console.log(result);
+
+    clothingStore.updateImage({
+      id: result.id,
+      url: result.url
+    });
+  });
+
+
+}
+
+// save clothing
+
+function save() {
+  postClothing().then((result) => {
+    if (result.ok) {
+      dialogMode.value = "view";
+    }
+    else {
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "An internal server error occured when trying to save the clothing item.",
+        closable: true,
+        life: 5000
+      });
+    }
+
+    console.log(result);
+    console.dir(result);
+  });
+
+  
 }
 </script>

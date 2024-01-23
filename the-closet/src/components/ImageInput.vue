@@ -5,9 +5,19 @@
     :style="{ 'background-image': `url(${imageData})` }"
     @click="chooseImage"
   >
-    <span v-if="!imageData" class="placeholder">
-      Foto wählen
-    </span>
+    <div v-if="!imageData" class="placeholder">
+      <FontAwesomeLayers class="text-9xl">
+        <FontAwesomeIcon icon="fas fa-image" class="text-royal-purple-300 hover:text-royal-purple-400 dark:text-royal-purple-800 hover:dark:text-royal-purple-900" />
+        <FontAwesomeIcon
+          icon="fas fa-circle" transform="shrink-8 down-4 right-6"
+          class="text-white dark:text-royal-purple-300"
+        />
+        <FontAwesomeIcon
+          icon="fas fa-circle-plus" transform="shrink-8 down-4 right-6"
+          class="text-royal-purple-400 hover:text-royal-purple-500 dark:text-royal-purple-700 hover:dark:text-royal-purple-800"
+        />
+      </FontAwesomeLayers>
+    </div>
     <input
       ref="fileInput"
       class="file-input"
@@ -49,7 +59,7 @@ import { ref, onMounted } from 'vue';
 
 const emit = defineEmits(["input"]);
 const props = defineProps<{
-    source?: string
+  source?: string
 }>();
 
 const mode = ref("view");
@@ -57,31 +67,31 @@ const imageData = ref();
 const fileInput = ref<any>(null);
 
 function chooseImage() {
-    if (fileInput.value != undefined)
-        fileInput.value.click();
+  if (fileInput.value != undefined)
+    fileInput.value.click();
 }
 
 function onSelectFile() {
-    console.log("onSelectFile");
+  console.log("onSelectFile");
 
-    const files = fileInput.value.files;
+  const files = fileInput.value.files;
 
-    if (files && files[0]) {
-        const reader = new FileReader;
+  if (files && files[0]) {
+    const reader = new FileReader;
 
-        reader.addEventListener('load', (e) => {
-            imageData.value = e.target?.result;
-        });
+    reader.addEventListener('load', (e) => {
+      imageData.value = e.target?.result;
+    });
 
-        reader.readAsDataURL(files[0]);
-        emit("input", files[0]);
-        mode.value = "edit";
-    }
+    reader.readAsDataURL(files[0]);
+    emit("input", files[0]);
+    mode.value = "edit";
+  }
 }
 
 onMounted(() => {
-    if (props.source !== undefined)
-        imageData.value = props.source;
+  if (props.source !== undefined)
+    imageData.value = props.source;
 });
 </script>
 
