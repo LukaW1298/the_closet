@@ -25,7 +25,7 @@
           }"
         >
           <div
-            class="lg:container  max-sm:mb-32 p-3" :class="{
+            class="lg:container  max-sm:mb-32 sm:p-3" :class="{
               'pr-0': outfitSelectionMode
             }"
           >
@@ -34,24 +34,34 @@
                 '!mr-[-24px]': outfitSelectionMode
               }"
             >
-              <div class="grid grid-cols-12 gap-3 align-items-center gy-5 max-sm:!px-2">
-                <div class="col-span-4 md:col-span-3 xl:col-span-2 max-sm:!px-1 max-sm:!mt-4">
-                  <Card class="h-80 pb-2 cursor-pointer" @click="showEmptyModal">
+              <div class="grid grid-cols-12 gap-2 sm:gap-3 align-items-center sm:gy-5 max-sm:!px-2">
+                <div class="col-span-4 md:col-span-3 xl:col-span-2">
+                  <Card
+                    class="sm:h-80 pb-2 cursor-pointer" :pt="{
+                      content: {
+                        class: 'max-sm:p-0'
+                      },
+                      footer: {
+                        class: 'max-sm:p-0'
+                      }
+                    }"
+                    @click="showEmptyModal"
+                  >
                     <template #content>
-                      <div id="card-0">
+                      <div id="card-0" class="!h-16 sm:!h-76">
                         <div class=" cursor-pointer max-sm:!px-2">
                           <div class="flex justify-center items-center flex-col h-full gap-y-8">
                             <FontAwesomeIcon
                               icon="fas fa-plus"
-                              class="text-8xl sm:h-24 opacity-50 text-royal-purple-400"
+                              class="text-6xl sm:text-8xl sm:h-24 opacity-50 text-royal-purple-400"
                             />
                           </div>
                         </div>
                       </div>
                     </template>
                     <template #footer>
-                      <div class=" bottom-0 left-0 w-full px-2 pb-4 rounded-b-md">
-                        <p v-t="'message.addClothing'" class="text-center text-xs sm:text-base" />
+                      <div class=" bottom-0 left-0 w-full sm:px-2 sm:pb-4 rounded-b-md">
+                        <p v-t="isMobileDevice ? 'message.addClothingShort' : 'message.addClothing'" class="text-center text-xs sm:text-base" />
                       </div>
                     </template>
                   </Card>
@@ -59,11 +69,18 @@
 
                 <div
                   v-for="(clothing) of filteredClothing" :key="clothing.id"
-                  class="col-span-4 md:col-span-3 xl:col-span-2 max-sm:!px-1 max-sm:!mt-4"
+                  class="col-span-4 md:col-span-3 xl:col-span-2"
                 >
-                  <Card class="sm:h-80 cursor-pointer" @click="() => showModal(clothing)">
+                  <Card
+                    class="sm:h-80 cursor-pointer" :pt="{
+                      content: {
+                        class: 'max-sm:p-0'
+                      }
+                    }"
+                    @click="() => showModal(clothing)"
+                  >
                     <template #content>
-                      <div :id="`card-${clothing.id}`" class="!h-44 sm:!h-76">
+                      <div :id="`card-${clothing.id}`" class="!h-16 sm:!h-76">
                         <input
                           v-if="outfitSelectionMode" :id="`clothing-checkbox-${clothing.id}`"
                           :checked="isInCheckedItems(clothing.id)" type="checkbox"
@@ -85,7 +102,7 @@
                       </div>
                     </template>
                     <template #footer>
-                      <div class=" bottom-0 left-0 w-full px-2 rounded-b-md">
+                      <div class=" bottom-0 left-0 w-full sm:px-2 rounded-b-md">
                         <h6 class="text-xs sm:text-base text-center">
                           {{ clothing.name }}
                         </h6>
