@@ -3,7 +3,7 @@
     <div>
       <form @submit.prevent="login">
         <div class="mb-3 px-4 flex flex-col gap-x-3">
-          <label for="username" class="dark:text-neutral-100">
+          <label for="username" class="dark:text-neutral-100 pb-2">
             {{ $t("message.username") }}
           </label>
           <InputText
@@ -11,8 +11,8 @@
             :placeholder="$t('message.username')"
           />
         </div>
-        <div class="mb-3 px-4 flex flex-col gap-x-3 w-full">
-          <label for="password" class="dark:text-neutral-100">
+        <div class="mb-3 px-4 pt-3 flex flex-col gap-x-3 w-full">
+          <label for="password" class="dark:text-neutral-100 pb-2">
             {{ $t("message.password") }}
           </label>
           <Password
@@ -21,6 +21,18 @@
             :placeholder="$t('message.password')"
             :feedback="false"
           />
+        </div>
+        <div class="mb-3 px-4 pt-2 pb-6">
+          <Checkbox       
+            v-model="stayLoggedIn"  
+            boolean 
+            input-id="stay-logged-in"
+            name="stay-logged-in"
+            value="false"
+          />
+          <label for="stay-logged-in">
+            Stay logged in
+          </label>
         </div>
         <div class="mb-3 px-4">
           <Button :label="$t('message.logIn')" type="submit" />
@@ -45,11 +57,17 @@ import router from '@/router';
 import { postLogin } from '@/composables/PostCalls';
 import { getUser } from '@/composables/GetCalls';
 import { useUserStore } from '@/store/user';
+import { User } from '@/custom_types';
+
+// primary
 import Panel from 'primevue/panel';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
 import InlineMessage from 'primevue/inlinemessage';
+import Checkbox from 'primevue/checkbox';
+
+
 
 const store = useUserStore();
 const username = ref("");
@@ -62,14 +80,10 @@ const login = () => {
       console.log(response);
 
       if (response.ok) {
-        getUser(username.value).then((result) => {
+        getUser(username.value).then((result: Required<User>) => {
           console.log(result);
 
-          store.$patch({
-            id: result.id,
-            name: result.username,
-            emailAddress: result.email
-          });
+          store.login(result);
         });
 
         router.push("/tabs");
@@ -90,4 +104,7 @@ const login = () => {
       responseError.value = String(error);
     });
 };
+
+// stay logged in
+const stayLoggedIn = ref<boolean>(false);
 </script>

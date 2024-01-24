@@ -36,6 +36,7 @@
           </label>
           <Password
             id="password" v-model="password"
+            input-class="w-full"
             :class="{ '!border-red-800 dark:!border-red-300': emptyPassword }"
             @blur="() => passwordFocusOut = true"
           />
@@ -50,6 +51,7 @@
           </label>
           <Password
             id="password-retype" v-model="retypedPassword"
+            input-class="w-full"
             :class="{ '!border-red-800 dark:!border-red-300': passwordsNotEqual }" :feedback="false"
             @blur="retypedPasswordFocusOut = true"
           />

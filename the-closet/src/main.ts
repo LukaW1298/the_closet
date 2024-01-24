@@ -35,29 +35,30 @@ import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fort
 
 /* import specific icons */
 import { faPen,
-    faShirt,
-    faPlus,
-    faCirclePlus,
-    faCircle,
-    faBorderAll,
-    faSun,
-    faMoon,
-    faSoap,
-    faCircleCheck,
-    faXmark,
-    faCheck,
-    faSquare,
-    faThumbsUp,
-    faExclamationCircle, 
-    faRug,
-    faCopyright,
-    faPalette,
-    faCommentDots,
-    faJugDetergent,
-    faTag,
-    faEuroSign,
-    faQuoteLeft,
-    faImage} from '@fortawesome/free-solid-svg-icons';
+  faShirt,
+  faPlus,
+  faCirclePlus,
+  faCircle,
+  faBorderAll,
+  faSun,
+  faMoon,
+  faSoap,
+  faCircleCheck,
+  faXmark,
+  faCheck,
+  faSquare,
+  faThumbsUp,
+  faExclamationCircle, 
+  faRug,
+  faCopyright,
+  faPalette,
+  faCommentDots,
+  faJugDetergent,
+  faTag,
+  faEuroSign,
+  faQuoteLeft,
+  faImage,
+  faUser} from '@fortawesome/free-solid-svg-icons';
 
 /* PrimeVue */
 import PrimeVue from 'primevue/config';
@@ -73,59 +74,60 @@ import { createI18n } from 'vue-i18n';
 import { messages } from './messages';
 
 const i18n = createI18n({
-    legacy: false,
-    locale: 'en',
-    fallbackLocale: 'de',
-    messages
+  legacy: false,
+  locale: 'en',
+  fallbackLocale: 'de',
+  messages
 });
 
 library.add(faPen,
-    faShirt,
-    faPlus,
-    faCirclePlus,
-    faCircle,
-    faBorderAll,
-    faSun,
-    faMoon,
-    faSoap,
-    faCircleCheck,
-    faXmark,
-    faCheck,
-    faSquare,
-    faThumbsUp,
-    faExclamationCircle,
-    faRug,
-    faCopyright,
-    faPalette,
-    faCommentDots,
-    faJugDetergent,
-    faShirt,
-    faTag,
-    faEuroSign,
-    faQuoteLeft,
-    faImage);
+  faShirt,
+  faPlus,
+  faCirclePlus,
+  faCircle,
+  faBorderAll,
+  faSun,
+  faMoon,
+  faSoap,
+  faCircleCheck,
+  faXmark,
+  faCheck,
+  faSquare,
+  faThumbsUp,
+  faExclamationCircle,
+  faRug,
+  faCopyright,
+  faPalette,
+  faCommentDots,
+  faJugDetergent,
+  faShirt,
+  faTag,
+  faEuroSign,
+  faQuoteLeft,
+  faImage,
+  faUser);
 
 const pinia = createPinia();
 
 const app = createApp(App)
-    .use(IonicVue)
-    .use(router)
-    .use(pinia)
-    .use(i18n)
-    .use(PrimeVue)
-    .use(ToastService)
-    .component("FontAwesomeIcon", FontAwesomeIcon)
-    .component("FontAwesomeLayers", FontAwesomeLayers)
-    .component("FontAwesomeLayersText", FontAwesomeLayersText);
+  .use(IonicVue)
+  .use(router)
+  .use(pinia)
+  .use(i18n)
+  .use(PrimeVue)
+  .use(ToastService)
+  .component("FontAwesomeIcon", FontAwesomeIcon)
+  .component("FontAwesomeLayers", FontAwesomeLayers)
+  .component("FontAwesomeLayersText", FontAwesomeLayersText);
 
 router.isReady().then(() => {
-    app.mount('#app');
+  app.mount('#app');
 });
 
 // use global stores
 
 import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore, useCategoryStore }
-    from '@/store/masterdata';
+  from '@/store/masterdata';
 import { useClothingListStore } from './store/clothingItem';
 import Toast from 'primevue/toast';
 
@@ -138,5 +140,5 @@ const categoryStore = useCategoryStore();
 const clothingListStore = useClothingListStore();
 
 for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore, categoryStore, clothingListStore]) {
-    store.fetch();
+  store.fetch();
 }

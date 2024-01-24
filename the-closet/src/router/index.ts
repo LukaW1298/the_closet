@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import TabsPage from '@/views/TabsPage.vue'
+import TabsPage from '@/views/TabsPage.vue';
 import RegisterPage from '@/views/RegisterPage';
+import { useUserStore } from '@/store/user';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,32 +18,59 @@ const routes: Array<RouteRecordRaw> = [
         redirect: '/tabs/wardrobe'
       },
       {
+        name: "Wardrobe",
         path: 'wardrobe',
-        component: () => import('@/views/WardrobeOverviewPage.vue')
+        component: () => {
+          return import('@/views/WardrobeOverviewPage.vue');
+        }
       },
       {
         path: 'washing',
-        component: () => import('@/views/WashingPage.vue')
+        component: () => {
+          return import('@/views/WashingPage.vue');
+        }
       },
       {
         path: 'profile',
-        component: () => import('@/views/ProfilePage.vue')
+        component: () => {
+          return import('@/views/ProfilePage.vue');
+        }
       },
       {
         path: 'outfits',
-        component: () => import('@/views/OutfitsPage.vue')
+        component: () => {
+          return import('@/views/OutfitsPage.vue');
+        }
       }
     ]
   },
   {
+    name: "Login",
     path: '/login',
-    component: () => import('@/views/LoginPage.vue')
+    component: () => {
+      return import('@/views/LoginPage.vue');
+    }
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
-})
+});
 
-export default router
+router.beforeEach(async (to, from) => {
+  const userStore = useUserStore();
+  
+  if (userStore.isLoggedIn) {
+    return to.name == "Login" ? {
+      name: "Wardrobe" 
+    } : true;
+  }
+  else if (to.name !== "Login") {
+    return {
+      name: "Login" 
+    };
+  }
+});
+
+export default router;

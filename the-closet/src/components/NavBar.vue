@@ -13,14 +13,10 @@
         <div class="text-neutral-100" data-test-id="navbar-text">
           <slot />
         </div>
-        <div class="flex items-center text-neutral-100 gap-x-3 pr-4">
-          <font-awesome-icon icon="fa-moon" class="text-neutral-100" />
+        <div class=" text-neutral-100 pr-1">
+          <!-- <font-awesome-icon icon="fa-moon" class="text-neutral-100" />
           <div class="form-check form-switch mr-[-0.5em]">
-            <!-- <input
-              class="form-check-input" type="checkbox"
-              role="switch" aria-label="Use lightmode"
-              :checked="isThemeLight" @change="toggleColorMode"
-            > -->
+           
             <InputSwitch
               v-model="isThemeLight" :pt="{
                 slider: ({ props }) => ({
@@ -29,10 +25,21 @@
               }"
             />
           </div>
-          <font-awesome-icon icon="fa-sun" />
+          <font-awesome-icon icon="fa-sun" /> -->
+          <Button
+            icon="pi pi-user" rounded
+            outlined class="h-10 w-10"
+            @click="showSidebar"
+          />
         </div>
       </div>
     </div>
+    <Sidebar
+      v-model:visible="sidebarVisible" header="Sidebar"
+      position="right"
+    >
+      <p>Lorem ipsum dolor sit amet.</p>
+    </Sidebar>
   </IonToolbar>
 </template>
 
@@ -41,6 +48,10 @@ import { ref, onBeforeMount, watch } from 'vue';
 import { usePrimeVue } from 'primevue/config';
 import InputSwitch from 'primevue/inputswitch';
 import { IonToolbar } from '@ionic/vue';
+import Sidebar from 'primevue/sidebar';
+import Button from 'primevue/button';
+
+
 
 const isThemeLight = ref(false);
 const primeVue = usePrimeVue();
@@ -76,6 +87,18 @@ function switchToDarkMode() {
   });
 
   isThemeLight.value = false;
+}
+
+// profile sidebar
+
+const sidebarVisible = ref<boolean>(false);
+
+function showSidebar () {
+  sidebarVisible.value = true;
+}
+
+function hideSidebar () {
+  sidebarVisible.value = false;
 }
 
 onBeforeMount(() => {
