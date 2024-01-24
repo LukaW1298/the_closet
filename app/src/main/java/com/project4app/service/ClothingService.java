@@ -27,9 +27,10 @@ public class ClothingService {
 
     @Transactional
     public Clothing saveClothing(Clothing clothing) {
-            for (ClothingMaterial clothingMaterial : clothing.getClothingMaterials()) {
-        clothingMaterial.setClothing(clothing);
-    }
+        for (ClothingMaterial clothingMaterial : clothing.getClothingMaterials()) {
+            clothingMaterial.setClothing(clothing);
+        }
+        
         Clothing savedClothing = clothingRepository.save(clothing);
         return savedClothing;
     }
