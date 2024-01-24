@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class WashingMode {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String washing_mode;
 
