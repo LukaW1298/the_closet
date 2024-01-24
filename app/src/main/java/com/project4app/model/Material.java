@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Material {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String material;
 

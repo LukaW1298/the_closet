@@ -3,25 +3,25 @@ package com.project4app.model;
 import jakarta.persistence.*;
 
 @Entity
-public class ParentCategory {
+public class Weather {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String type;
+    private String weather;
 
     public int getId() {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public String getWeather() {
+        return weather;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setWeather(String weather) {
+        this.weather = weather;
     }
 }
