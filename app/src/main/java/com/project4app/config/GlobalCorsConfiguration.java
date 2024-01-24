@@ -12,7 +12,7 @@ public class GlobalCorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8100")
+                .allowedOrigins("http://localhost:8100", "http://10.201.126.168:8100")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowCredentials(true);
     }
