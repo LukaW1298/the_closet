@@ -37,7 +37,7 @@
               <div class="grid grid-cols-12 gap-2 sm:gap-3 align-items-center sm:gy-5 max-sm:!px-2">
                 <div class="col-span-4 md:col-span-3 xl:col-span-2">
                   <Card
-                    class="sm:h-80 pb-2 cursor-pointer" :pt="{
+                    class="max-sm:!h-40 sm:!h-80 pb-2 cursor-pointer  flex flex-col justify-center" :pt="{
                       content: {
                         class: 'max-sm:p-0'
                       },
@@ -53,17 +53,20 @@
                           <div class="flex justify-center items-center flex-col h-full gap-y-8">
                             <FontAwesomeIcon
                               icon="fas fa-plus"
-                              class="text-6xl sm:text-8xl sm:h-24 opacity-50 text-royal-purple-400"
+                              class="text-7xl sm:text-8xl sm:h-24 opacity-50 text-royal-purple-400"
                             />
                           </div>
                         </div>
                       </div>
                     </template>
-                    <template #footer>
-                      <div class=" bottom-0 left-0 w-full sm:px-2 sm:pb-4 rounded-b-md">
-                        <p v-t="isMobileDevice ? 'message.addClothingShort' : 'message.addClothing'" class="text-center text-xs sm:text-base" />
+                    <!-- <template #footer>
+                     
+                      <div class=" bottom-0 left-0 w-full sm:px-2 rounded-b-md text-center pt-3">
+                        <span v-t="isMobileDevice ? 'message.addClothingShort' : 'message.addClothing'"  class="text-base text-center">
+                        
+                        </span>
                       </div>
-                    </template>
+                    </template> -->
                   </Card>
                 </div>
 
@@ -72,7 +75,7 @@
                   class="col-span-4 md:col-span-3 xl:col-span-2"
                 >
                   <Card
-                    class="sm:h-80 cursor-pointer" :pt="{
+                    class="max-sm:!h-40 sm:!h-80 cursor-pointer" :pt="{
                       content: {
                         class: 'max-sm:p-0'
                       }
@@ -80,7 +83,7 @@
                     @click="() => showModal(clothing)"
                   >
                     <template #content>
-                      <div :id="`card-${clothing.id}`" class="!h-16 sm:!h-76">
+                      <div :id="`card-${clothing.id}`" class="max-sm:!h-16 sm:!h-76">
                         <input
                           v-if="outfitSelectionMode" :id="`clothing-checkbox-${clothing.id}`"
                           :checked="isInCheckedItems(clothing.id)" type="checkbox"
@@ -102,10 +105,10 @@
                       </div>
                     </template>
                     <template #footer>
-                      <div class=" bottom-0 left-0 w-full sm:px-2 rounded-b-md">
-                        <h6 class="text-xs sm:text-base text-center">
+                      <div class=" bottom-0 left-0 w-full sm:px-2 rounded-b-md text-center">
+                        <span class="text-base text-center">
                           {{ clothing.name }}
-                        </h6>
+                        </span>
                       </div>
                     </template>
                   </Card>
