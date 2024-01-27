@@ -33,12 +33,10 @@ const emptyClothingObject: Omit<Clothing, "user"> = {
   price: 0,
   notes: "",
   color: {
-    "id": 0,
-    "name": "white",
-    "hexCode": "#ffffff"
+    id: -1
   },
   brand: {
-    "id": 0,
+    "id": -1,
     "name": ""
   },
   category: {

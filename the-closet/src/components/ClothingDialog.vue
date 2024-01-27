@@ -275,6 +275,11 @@
       </div>
     </form>
     <template #footer>
+      <div v-show="showAlert" class="flex justify-center pb-2">
+        <InlineMessage severity="error">
+          {{ alertMessage }}
+        </InlineMessage>
+      </div>
       <div class="flex justify-between">
         <Button
           icon="pi pi-trash" aria-label="Delete"
@@ -296,7 +301,7 @@
   </Dialog>
 </template>
 <script setup lang="ts">
-import { ref, computed, unref } from 'vue';
+import { ref, computed, unref, onUpdated } from 'vue';
 
 // primevue
 import Dialog from 'primevue/dialog';
@@ -310,6 +315,7 @@ import Textarea from 'primevue/textarea';
 import Button from 'primevue/button';
 import Chip from 'primevue/chip';
 import { useToast } from 'primevue/usetoast';
+import InlineMessage from 'primevue/inlinemessage';
 
 // custom components
 import { Category, Brand } from '@/custom_types';
@@ -460,6 +466,10 @@ function saveImage(input: File) {
 // save clothing
 
 function save() {
+
+  if (!validate())
+    return;
+
   postClothing().then((result) => {
     if (result.ok) {
       visible.value = false;
@@ -483,4 +493,45 @@ function save() {
 
   
 }
+
+// alert for failed input validation
+
+const showAlert = ref(false);
+const alertMessage = ref("");
+
+function validate() {
+ 
+  let valid = true;
+
+  const missingValues = [];
+
+  if (clothingStore.clothingItem.image.url === undefined) {
+    missingValues.push("image");
+    valid = false;
+  }
+
+  if (clothingStore.clothingItem.name == "") {
+    missingValues.push("name");
+    valid = false;
+  }
+
+  if (clothingStore.clothingItem.color.id < 0)
+    missingValues.push("color");
+
+  if (clothingStore.clothingItem.brand.id < 0)
+    missingValues.push("brand");
+
+  alertMessage.value = "The following inputs are missing: " + missingValues.join(", ");
+
+  if (!valid) {
+    showAlert.value = true;
+  }
+
+  return valid;
+
+}
+
+onUpdated(() => {
+  showAlert.value = false;
+});
 </script>
