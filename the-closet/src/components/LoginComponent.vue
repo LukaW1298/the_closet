@@ -1,7 +1,7 @@
 <template>
   <Panel class="mt-3 p-3 sm:w-9/12 lg:w-1/2 m-auto" :header="$t('message.login')">
     <div>
-      <form @submit.prevent="login">
+      <form>
         <div class="mb-3 px-4 flex flex-col gap-x-3">
           <label for="username" class="dark:text-neutral-100 pb-2">
             {{ $t("message.username") }}
@@ -35,7 +35,10 @@
           </label>
         </div>
         <div class="mb-3 px-4">
-          <Button :label="$t('message.logIn')" type="submit" />
+          <Button
+            :label="$t('message.logIn')" type="button"
+            @click="login"
+          />
         </div>
       </form>
     </div>
@@ -83,10 +86,9 @@ const login = () => {
         getUser(username.value).then((result: Required<User>) => {
           console.log(result);
 
-          store.login(result);
+          store.login(result, stayLoggedIn.value);
+          router.push("/tabs");
         });
-
-        router.push("/tabs");
       }
 
       return response.json();
@@ -96,7 +98,7 @@ const login = () => {
 
       if (result.error)
         responseError.value = result.error;
-      if (result.message && result.status !== "200")
+      else if (result.message && result.status !== "200")
         responseError.value = result.message;
     })
     .catch((error) => {

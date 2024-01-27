@@ -15,16 +15,19 @@ export const useUserStore = defineStore("user", () => {
     return id.value > -1;
   });
 
-  function login(newUser: Required<User>) {
+  function login(newUser: Required<User>, stayLoggedIn: boolean) {
     id.value = newUser.id;
     name.value = newUser.username;
     emailAddress.value = newUser.email;
 
-    saveToCookie();
+    if (stayLoggedIn)
+      saveToCookie();
   }
 
   function logout() {
-    Cookies.remove("user");
+    Cookies.remove("user", {
+      sameSite: "strict"
+    });
 
     name.value = "";
     emailAddress.value = "";
@@ -38,7 +41,8 @@ export const useUserStore = defineStore("user", () => {
       emailAddress: emailAddress.value,
       id: id.value
     }), {
-      sameSite: "strict"
+      sameSite: "strict",
+      expires: 3
     });
   }
 

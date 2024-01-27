@@ -134,7 +134,7 @@ import Toast from 'primevue/toast';
 const brandStore = useBrandsStore();
 const materialsStore = useMaterialsStore();
 const statusStore = useStatusStore();
-const washingModeStore = useWashingModeStore();
+const washingModeStore = useWashingModeStore(); 
 const colorStore = useColorStore();
 const categoryStore = useCategoryStore();
 const clothingListStore = useClothingListStore();

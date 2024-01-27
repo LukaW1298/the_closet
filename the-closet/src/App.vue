@@ -12,4 +12,5 @@ import Toast from 'primevue/toast';
 
 
 const { t } = useI18n();
+const i18n = useI18n();
 </script>

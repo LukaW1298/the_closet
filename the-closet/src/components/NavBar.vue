@@ -14,31 +14,75 @@
           <slot />
         </div>
         <div class=" text-neutral-100 pr-1">
-          <!-- <font-awesome-icon icon="fa-moon" class="text-neutral-100" />
-          <div class="form-check form-switch mr-[-0.5em]">
-           
-            <InputSwitch
-              v-model="isThemeLight" :pt="{
-                slider: ({ props }) => ({
-                  class: props.modelValue ? 'bg-royal-purple-800' : 'bg-gray-400'
-                })
-              }"
-            />
-          </div>
-          <font-awesome-icon icon="fa-sun" /> -->
           <Button
             icon="pi pi-user" rounded
-            outlined class="h-10 w-10"
+            outlined class="h-8 sm:h-10 w-8 sm:w-10 text-royal-purple-300"
             @click="showSidebar"
+            v-show="userStore.isLoggedIn"
           />
         </div>
       </div>
     </div>
     <Sidebar
-      v-model:visible="sidebarVisible" header="Sidebar"
+      v-model:visible="sidebarVisible" :header="userStore.name"
       position="right"
     >
-      <p>Lorem ipsum dolor sit amet.</p>
+      <template #header>
+        <div class="flex gap-x-3 items-center">
+          <i class="pi pi-user" />
+          <span class="text-xl">
+            {{ userStore.name }}
+          </span>
+        </div>
+      </template>
+      <div class="flex flex-col justify-between h-full">
+        <div>
+          <div class="flex gap-x-3 items-center">
+            <i class="pi pi-envelope" />
+            <span>
+              {{ userStore.emailAddress }}
+            </span>
+          </div>
+
+          <br>
+
+          <h5>Settings</h5>
+
+          <Divider />
+
+          <div class="flex gap-x-2 items-center">
+            <i class="pi pi-moon" />
+            <label>Darkmode</label>
+            <div>
+              <InputSwitch
+                v-model="isThemeDark" :pt="{
+                  slider: ({ props }) => ({
+                    class: props.modelValue ? 'bg-royal-purple-700' : 'bg-gray-400'
+                  })
+                }"
+              />
+            </div>
+          </div>
+
+          <div class="flex gap-x-2 items-center pt-3">
+            <i class="pi pi-language" />
+            <label id="language-label">Language</label>
+          </div>
+
+          <div class="pt-2">
+            <SelectButton
+              v-model="language" :options="languageOptions"
+              option-label="label"
+              option-value="value"
+              aria-labelledby="language-label"
+              @change="console.log(language)"
+            />
+          </div>
+        </div>
+        <div class="self-center">
+          <Button label="Log out" @click="logout" />
+        </div>
+      </div>
     </Sidebar>
   </IonToolbar>
 </template>
@@ -50,20 +94,28 @@ import InputSwitch from 'primevue/inputswitch';
 import { IonToolbar } from '@ionic/vue';
 import Sidebar from 'primevue/sidebar';
 import Button from 'primevue/button';
+import { useUserStore } from '@/store/user';
+import Divider from 'primevue/divider';
+import SelectButton from 'primevue/selectbutton';
+import { I18nD, useI18n } from 'vue-i18n';
+import router from '@/router';
 
 
 
-const isThemeLight = ref(false);
+
+
+const isThemeDark = ref(true);
 const primeVue = usePrimeVue();
 
-watch(isThemeLight, async (newValue) => {
+watch(isThemeDark, async (newValue) => {
   console.log(newValue);
 
   if (newValue) {
-    switchToLightMode();
+    switchToDarkMode();
   }
   else {
-    switchToDarkMode();
+   
+    switchToLightMode();
   }
 });
 
@@ -75,7 +127,7 @@ function switchToLightMode() {
     console.log("Switched to light theme.");
   });
 
-  isThemeLight.value = true;
+  isThemeDark.value = false;
 }
 
 function switchToDarkMode() {
@@ -86,12 +138,18 @@ function switchToDarkMode() {
     console.log("Switched to dark theme.");
   });
 
-  isThemeLight.value = false;
+  isThemeDark.value = true;
 }
 
 // profile sidebar
 
 const sidebarVisible = ref<boolean>(false);
+
+function logout() {
+  userStore.logout();
+  sidebarVisible.value = false;
+  router.push("/login");
+}
 
 function showSidebar () {
   sidebarVisible.value = true;
@@ -100,6 +158,29 @@ function showSidebar () {
 function hideSidebar () {
   sidebarVisible.value = false;
 }
+
+// sidebar user profile
+
+const userStore = useUserStore();
+
+// language
+const i = useI18n({});
+console.log(i);
+console.log(i.locale);
+console.log(i.fallbackLocale);
+
+const language = ref("en");
+
+const languageOptions = [
+  {
+    label: "English",
+    value: "en"
+  },
+  {
+    label: "Deutsch",
+    value: "de"
+  }
+];
 
 onBeforeMount(() => {
   if (localStorage.theme === 'dark' || (!('theme' in localStorage) &&
