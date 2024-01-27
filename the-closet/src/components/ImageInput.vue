@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="mode == 'edit'"
-    class="base-image-input"
+    class="base-image-input w-32 sm:w-48 h-32 sm:h-48"
     :style="{ 'background-image': `url(${imageData})` }"
     @click="chooseImage"
   >
@@ -98,8 +98,6 @@ onMounted(() => {
 <style scoped>
 .base-image-input {
   display: block;
-  width: 200px;
-  height: 200px;
   cursor: pointer;
   background-size: cover;
   background-position: center center;
@@ -115,8 +113,6 @@ onMounted(() => {
   font-size: 18px;
   font-family: Helvetica;
 }
-
-
 
 .file-input {
   display: none;

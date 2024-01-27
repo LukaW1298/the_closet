@@ -80,7 +80,7 @@
                         class: 'max-sm:p-0'
                       }
                     }"
-                    @click="() => showModal(clothing)"
+                    @click="() => showModal(clothing, 'view')"
                   >
                     <template #content>
                       <div :id="`card-${clothing.id}`" class="max-sm:!h-16 sm:!h-76">
@@ -93,7 +93,7 @@
 
                         <div
                           class="cursor-pointer justify-between flex flex-col max-sm:!px-2 overflow-y-clip max-h-full"
-                          @click="() => showModal(clothing)"
+                          @click="() => showModal(clothing, 'view')"
                         >
                           <div class="flex justify-center">
                             <img
@@ -139,7 +139,7 @@
               >
                 <div
                   class="card-body cursor-pointer justify-between flex flex-col max-sm:!px-2 overflow-y-clip max-h-full"
-                  @click="() => showModal(cothing)"
+                 
                 >
                   <button
                     type="button"
@@ -167,7 +167,7 @@
         </div>
       </div>
     </ion-content>
-    <ClothingDialog v-model="visible" />
+    <ClothingDialog v-model="visible" :dialog-mode="dialogMode" />
   </ion-page>
 </template>
 
@@ -228,18 +228,20 @@ const viewingMode = computed(() => {
 
 
 // ====================================================== //
-// ================ clicked clothing cothing =============== //
+// ================ clicked clothing item =============== //
 // ====================================================== //
 
 const clothingItemStore = useClothingStore();
+const dialogMode = ref<"new" | "view">("new");
 
 
-function showModal(clothingItem: ClothingItem) {
+function showModal(clothingItem: ClothingItem, newDialogMode: "new" | "view") {
 
     
 
   console.log("update");
   clothingItemStore.updateClothingItem(clothingItem);
+  dialogMode.value = newDialogMode;
 
 
   console.log("show modal");
@@ -250,6 +252,7 @@ function showModal(clothingItem: ClothingItem) {
 function showEmptyModal() {
   console.log("clear");
   clothingItemStore.clear();
+  dialogMode.value = "new";
   visible.value = true;
 }
 

@@ -8,10 +8,10 @@
       <span />
     </template>
     <form>
-      <div class="custom-file mb-3 px-4 w-full">
+      <div class="custom-file mb-3 px-4 pb-5 w-full">
         <div class="flex justify-center">
           <ImageInput
-            v-if="dialogMode == 'new'" 
+            v-if="newMode" 
             @input="saveImage"
           />
           <ImageInput
@@ -20,29 +20,29 @@
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-quote-left" class="opacity-60" />
               <label for="name">Name</label>
             </div>
           </Chip>
         </div>
-        <div v-if="viewMode" class="col-span-8">
+        <div v-if="viewMode" class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
           <span>{{ clothingStore.clothingItem.name }}</span>
         </div>
-        <div v-else class=" col-span-8">
+        <div v-else class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
           <InputText
-            id="name" name="name"
-            class="w-full"
-            :value="clothingStore.clothingItem.name" placeholder="e.g. Short pants"
+            id="name" v-model="clothingStore.clothingItem.name"
+            name="name"
+            class="w-full" placeholder="e.g. Short pants"
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-shirt" class="opacity-60" />
               <label
@@ -53,10 +53,10 @@
           </Chip>
         </div>
 
-        <div class="col-span-12 sm:col-span-8">  
-          <p v-if="viewMode">
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">  
+          <span v-if="viewMode">
             {{ clothingStore.clothingItem.category.type }}
-          </p>
+          </span>
           <TreeSelect
             v-else
             v-model="clothingStore.categoryTreeValue" :options="categoryStore.tree"
@@ -66,19 +66,19 @@
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-copyright" class="opacity-60" />
               <label v-t="'message.brand'" for="inputState" />
             </div>
           </Chip>
         </div>
-        <div class="col-span-12 sm:col-span-8">
-          <p v-if="viewMode">
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
+          <span v-if="viewMode">
             {{ clothingStore.clothingItem.brand.name }}
-          </p>
+          </span>
           <AutoComplete
             v-else
             v-model="clothingStore.clothingItem.brand" option-label="name"
@@ -93,19 +93,19 @@
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-tag" class="opacity-60" />
               <label v-t="'message.size'" for="formGroupExampleInput" />
             </div>
           </Chip>
         </div>
-        <div class=" col-span-8">
-          <p v-if="viewMode">
-            {{ clothingStore.clothingItem.size }} M
-          </p>
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
+          <span v-if="viewMode">
+            {{ clothingStore.clothingItem.size }}
+          </span>
           <InputText
             v-else
             v-model="clothingStore.clothingItem.size" placeholder="e.g. M"
@@ -113,41 +113,41 @@
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-euro-sign" class="opacity-60" />
               <label v-t="'message.price'" for="formGroupExampleInput" />
             </div>
           </Chip>
         </div>
-        <div v-if="viewMode" class="col-span-8">
+        <div v-if="viewMode" class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
           € {{ clothingStore.clothingItem.price.toFixed(2) }}
         </div>
-        <div v-else class="col-span-12 sm:col-span-8">
+        <div v-else class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
           <InputNumber
             v-model="clothingStore.clothingItem.price" placeholder="€"
             class="w-full"
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full  items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-rug" class="opacity-60" />
               <label v-t="'message.material'" />
             </div>
           </Chip>
         </div>
-        <div class="col-span-12 sm:col-span-8">
-          <p v-if="viewMode" class="flex gap-x-2">
-            <Chip
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
+          <span v-if="viewMode" class="flex gap-x-2">
+            <Chip 
               v-for="material in clothingStore.clothingItem.clothingMaterials" :key="material.material.id"
               :label="material.material.material"
             />
-          </p>
+          </span>
           <MultiSelect
             v-else
             v-model="clothingStore.materialSelectValue" :options="materialsStore.materials"
@@ -158,9 +158,9 @@
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-jug-detergent" class="opacity-60" /> 
               <label v-t="'message.washingMode'" for="washing-mode" />
@@ -168,10 +168,10 @@
           </Chip>
         </div>
        
-        <div class="col-span-12 sm:col-span-8">
-          <p v-if="viewMode">
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
+          <span v-if="viewMode">
             {{ clothingStore.clothingItem.washingMode.washingMode }}
-          </p>
+          </span>
           <Dropdown
             v-else
             v-model="clothingStore.clothingItem.washingMode" :options="washingModeStore.washingModes"
@@ -181,17 +181,17 @@
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-soap" class="opacity-60" />
               <label for="status">Status</label>
             </div>
           </Chip>
         </div>
-        <div class="col-span-12 sm:col-span-8">
-          <p v-if="viewMode">
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
+          <span v-if="viewMode">
             <FontAwesomeIcon
               :icon="getStatusIcon(clothingStore.clothingItem.status.status)" :style="{
                 color: getStatusColor(clothingStore.clothingItem.status.status)
@@ -199,7 +199,7 @@
             />
                 &nbsp;
             {{ clothingStore.clothingItem.status.status }}
-          </p>
+          </span>
           <Dropdown
             v-else
             v-model="clothingStore.clothingItem.status" :options="statusListStore.statusList"
@@ -225,9 +225,9 @@
           </Dropdown>
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-palette" class="opacity-60" />
             
@@ -236,8 +236,8 @@
           </Chip>
         </div>
         
-        <div class="col-span-8">
-          <p v-if="viewMode">
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
+          <span v-if="viewMode">
             <FontAwesomeIcon
               icon="fas fa-square" :style="{
                 color: clothingStore.clothingItem.color.hexCode
@@ -245,26 +245,26 @@
             />
             &nbsp;
             {{ clothingStore.clothingItem.color.name }}
-          </p>
+          </span>
           <ColorSelect
             v-else v-model="clothingStore.clothingItem.color"
             :options="colorsStore.colors"
           />
         </div>
       </div>
-      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center">
-        <div class="col-span-12 sm:col-span-4 sm:justify-self-end pr-5">
-          <Chip class="p-2 bg-royal-purple-100 dark:bg-royal-purple-900">
+      <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
+        <div class="col-span-12 sm:col-span-5 sm:justify-self-end pr-5">
+          <Chip class="p-1 px-2 bg-royal-purple-100 dark:bg-royal-purple-900">
             <div class="flex gap-x-2 text-royal-purple-800 dark:text-royal-purple-200">
               <FontAwesomeIcon icon="fas fa-comment-dots" class="opacity-60" />
               <label>Notes</label>
             </div>
           </Chip>
         </div>
-        <div class="col-span-8">
-          <p v-if="viewMode">
+        <div class="col-span-12 sm:col-span-7 max-sm:pt-2 max-sm:pb-1">
+          <span v-if="viewMode">
             {{ clothingStore.clothingItem.notes }}
-          </p>
+          </span>
           <Textarea
             v-else
             v-model="clothingStore.clothingItem.notes" rows="1"
@@ -279,18 +279,15 @@
         <Button
           icon="pi pi-trash" aria-label="Delete"
           class="w-12"
+          :class="{
+            'invisible': newMode
+          }"
           severity="danger"
           rounded
           outlined
         />
         <Button
-          v-if="viewMode"
-          label="Edit" icon="pi pi-pencil"
-          @click="dialogMode = 'edit'"
-        />
-        <!-- <Button label="View mode" @click="dialogMode = 'view'" /> -->
-        <Button
-          v-else
+          v-show="newMode"
           label="Save" icon="pi pi-check"
           autofocus @click="save"
         />
@@ -324,7 +321,7 @@ import ColorSelect from '@/components/ColorSelect.vue';
 // stores
 import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore, useCategoryStore }
   from '@/store/masterdata';
-import { useClothingStore, useImageStore } from '@/store/clothingItem';
+import { useClothingStore, useImageStore, useClothingListStore } from '@/store/clothingItem';
 import { sortObjectsAlphabetically } from '@/helpers/arrayFunctions';
 import { postClothing } from '@/composables/PostCalls';
 
@@ -337,14 +334,19 @@ const toast = useToast();
 const visible = defineModel({
   type: Boolean 
 });
-const dialogMode = ref("edit");
+
+const props = defineProps<{
+  dialogMode: 'new' | 'view'
+}>();
+
+// const dialogMode = ref<"new" | "view">("new");
 
 const viewMode = computed(() => {
-  return dialogMode.value == "view";
+  return props.dialogMode == "view";
 });
 
-const editMode = computed(() => {
-  return dialogMode.value == "edit";
+const newMode = computed(() => {
+  return props.dialogMode == "new";
 });
 
 // current clothing item
@@ -410,6 +412,7 @@ function getStatusColor(statusText: string) {
 
 // save image
 const imageStore = useImageStore();
+const clothingListStore = useClothingListStore();
 
 function saveImage(input: File) {
   console.log(input);
@@ -447,6 +450,8 @@ function saveImage(input: File) {
       id: result.id,
       url: result.url
     });
+
+    
   });
 
 
@@ -457,7 +462,10 @@ function saveImage(input: File) {
 function save() {
   postClothing().then((result) => {
     if (result.ok) {
-      dialogMode.value = "view";
+      visible.value = false;
+
+      // update wardrobe view after saving new clothing item
+      clothingListStore.fetch();
     }
     else {
       toast.add({
