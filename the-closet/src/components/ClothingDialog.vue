@@ -290,6 +290,7 @@
           severity="danger"
           rounded
           outlined
+          @click="deleteItem"
         />
         <Button
           v-show="newMode"
@@ -299,9 +300,12 @@
       </div>
     </template>
   </Dialog>
+  <ConfirmDialog />
 </template>
 <script setup lang="ts">
 import { ref, computed, unref, onUpdated } from 'vue';
+import { presentToast } from '@/helpers/toastController';
+
 
 // primevue
 import Dialog from 'primevue/dialog';
@@ -316,6 +320,9 @@ import Button from 'primevue/button';
 import Chip from 'primevue/chip';
 import { useToast } from 'primevue/usetoast';
 import InlineMessage from 'primevue/inlinemessage';
+import ConfirmDialog from 'primevue/confirmdialog';
+
+import { useConfirm } from "primevue/useconfirm";
 
 // custom components
 import { Category, Brand } from '@/custom_types';
@@ -330,6 +337,7 @@ import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore,
 import { useClothingStore, useImageStore, useClothingListStore } from '@/store/clothingItem';
 import { sortObjectsAlphabetically } from '@/helpers/arrayFunctions';
 import { postClothing } from '@/composables/PostCalls';
+import { deleteClothing } from '@/composables/DeleteCalls';
 
 // toast controller
 const toast = useToast();
@@ -534,4 +542,41 @@ function validate() {
 onUpdated(() => {
   showAlert.value = false;
 });
+
+// ====================================================== //
+// ================ Delete clothing item ================ //
+// ====================================================== //
+
+const confirm = useConfirm();
+
+function deleteItem() {
+  confirm.require({
+    header: "Are you sure?",
+    message: "Do you really want to delete this clothing item?",
+    acceptLabel: "Delete",
+    acceptClass: "p-button-danger",
+    rejectLabel: "Cancel",
+    accept: () => {
+      console.log("accepted");
+      deleteClothing(clothingStore.clothingItem.id).then((response) => {
+        if (response.ok) {
+          
+
+          // close dialog and update wardrobe view after deleting clothing item
+          visible.value = false;
+          clothingListStore.fetch();
+
+          presentToast("Successfully deleted clothing item.");
+
+        }
+        else
+          presentToast("Could not delete clothing item.");
+      });
+    },
+    reject: () => {
+      console.log("rejected");
+    }
+  });
+
+}
 </script>

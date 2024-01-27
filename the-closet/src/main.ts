@@ -65,6 +65,7 @@ import PrimeVue from 'primevue/config';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 
 import 'bootstrap/dist/js/bootstrap.min.js';
 
@@ -116,6 +117,7 @@ const app = createApp(App)
   .use(i18n)
   .use(PrimeVue)
   .use(ToastService)
+  .use(ConfirmationService)
   .component("FontAwesomeIcon", FontAwesomeIcon)
   .component("FontAwesomeLayers", FontAwesomeLayers)
   .component("FontAwesomeLayersText", FontAwesomeLayersText);
@@ -129,7 +131,7 @@ router.isReady().then(() => {
 import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore, useCategoryStore }
   from '@/store/masterdata';
 import { useClothingListStore } from './store/clothingItem';
-import Toast from 'primevue/toast';
+import Toast from 'primevue/toast'; 
 
 const brandStore = useBrandsStore();
 const materialsStore = useMaterialsStore();
