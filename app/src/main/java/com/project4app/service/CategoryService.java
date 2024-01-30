@@ -27,6 +27,10 @@ public class CategoryService {
         return CategoryRepository.findById(id);
     }
 
+    public List<Category> getCategoryByParentId(@PathVariable Long ID_parent_category) {
+        return CategoryRepository.findByParentCategory_Id(ID_parent_category);
+    }
+
     public Category createCategory(Category Category) {
         return CategoryRepository.save(Category);
     }

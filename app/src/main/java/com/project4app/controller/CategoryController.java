@@ -34,6 +34,11 @@ public class CategoryController {
         return CategoryService.getCategoryById(id);
     }  
  
+    @GetMapping("/getByParent/{ID_parent_category}")
+    public List<Category> getCategoryByParentId(@PathVariable(name = "ID_parent_category") Long ID_parent_category) {
+        return CategoryService.getCategoryByParentId(ID_parent_category);
+    }
+
     @PostMapping
     public Category createCategory(@RequestBody Category Category) {
         return CategoryService.createCategory(Category);

@@ -27,11 +27,19 @@ public class ImageService {
         return imageRepository.findById(id);
     }
 
+    public Image saveImage(String name, String contentType, byte[] data) {
+        Image image = new Image();
+        image.setName(name);
+        image.setContentType(contentType);
+        image.setLargeBinaryData(data);
+        return imageRepository.save(image);
+    }
+
     public Image createImage(Image image) {
         return imageRepository.save(image);
     }
 
-    public Optional<Image> updateImage(Long id, Image updatedImage) {
+    /*public Optional<Image> updateImage(Long id, Image updatedImage) {
         Optional<Image> existingImage = imageRepository.findById(id);
         if (existingImage.isPresent()) {
             Image imageToUpdate = existingImage.get();
@@ -41,5 +49,5 @@ public class ImageService {
         } else {
             return Optional.empty();
         }
-    }
+    }*/
 }
