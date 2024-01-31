@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/statuss")
+@RequestMapping("/api/status")
 public class StatusController {
     private final StatusService statusService;
 

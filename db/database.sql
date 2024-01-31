@@ -76,7 +76,9 @@ CREATE TABLE Outfit(
 
 CREATE TABLE Image(
     ID int NOT NULL AUTO_INCREMENT,
-    url varchar(255),
+    large_binary_data LONGBLOB,
+    name varchar(255),
+    content_type varchar(255),
     PRIMARY KEY (ID)
 );
 
