@@ -128,7 +128,7 @@ router.isReady().then(() => {
 
 // use global stores
 
-import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore, useCategoryStore }
+import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore, useColorStore, useCategoryStore, useOutfitTypeStore, useOccasionStore, useWeatherStore }
   from '@/store/masterdata';
 import { useClothingListStore } from './store/clothingItem';
 import Toast from 'primevue/toast'; 
@@ -140,7 +140,10 @@ const washingModeStore = useWashingModeStore();
 const colorStore = useColorStore();
 const categoryStore = useCategoryStore();
 const clothingListStore = useClothingListStore();
+const outfitTypeStore = useOutfitTypeStore();
+const occasionStore = useOccasionStore();
+const weatherStore = useWeatherStore();
 
-for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore, categoryStore, clothingListStore]) {
+for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore, categoryStore, clothingListStore, outfitTypeStore, occasionStore, weatherStore]) {
   store.fetch();
 }

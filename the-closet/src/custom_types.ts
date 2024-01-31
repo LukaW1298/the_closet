@@ -114,7 +114,8 @@ export type Clothing = {
   brand: ClothingBrand,
   image: ClothingImage,
   color: ClothingColor,
-  clothingMaterials: ClothingMaterial[]
+  clothingMaterials: ClothingMaterial[],
+  checkedForOutfit?: boolean
 
 };
 
@@ -149,4 +150,34 @@ export class Status {
     this.id = id;   
     this.status = status;
   }
+}
+
+export type Occasion = {
+  id: number,
+  occasion?: string
+};
+
+export type Weather = {
+  id: number,
+  weather?: string
+};
+
+export type OutftitType = {
+  id: number,
+  outfitType?: string
+};
+
+export type Outfit = {
+  date: string | number,
+  user: User,
+  weather: Weather,
+  outfitType: OutftitType,
+  outfitOccasions: {
+    occasion: Occasion
+  }[],
+  clothingOutfits: {
+    clothing: {
+      id: number
+    }
+  }[]
 }

@@ -7,7 +7,8 @@
       <NavBar>
         {{ $t("message.wardrobe") }}
       </NavBar>
-      
+    </ion-header>
+    <ion-content>
       <span class="p-input-icon-left p-2">
         <i class="pi pi-search" />
         <InputText
@@ -15,8 +16,13 @@
           size="small"
         />
       </span>
-    </ion-header>
-    <ion-content>
+      <Button @click="wardrobeStore.changeToOutfitSelection">
+        O
+      </Button>
+      <Button @click="wardrobeStore.changeToView">
+        V
+      </Button>
+      <span v-if="outfitSelectionMode">test</span>
       <div class="grid grid-cols-12 h-full">
         <div
           class="col-span-12 overflow-auto scrollbar scrollbar-thumb-royal-purple-700 scrollbar-track-royal-purple-400"
@@ -29,11 +35,7 @@
               'pr-0': outfitSelectionMode
             }"
           >
-            <div
-              class="row" :class="{
-                '!mr-[-24px]': outfitSelectionMode
-              }"
-            >
+            <div>
               <div class="grid grid-cols-12 gap-2 sm:gap-3 align-items-center sm:gy-5 max-sm:!px-2">
                 <div class="col-span-4 md:col-span-3 xl:col-span-2">
                   <Card
@@ -48,7 +50,7 @@
                     @click="showEmptyModal"
                   >
                     <template #content>
-                      <div id="card-0" class="!h-16 sm:!h-76">
+                      <div id="card-0" class="!h-16 sm:!h-64">
                         <div class=" cursor-pointer max-sm:!px-2">
                           <div class="flex justify-center items-center flex-col h-full gap-y-8">
                             <FontAwesomeIcon
@@ -59,14 +61,6 @@
                         </div>
                       </div>
                     </template>
-                    <!-- <template #footer>
-                     
-                      <div class=" bottom-0 left-0 w-full sm:px-2 rounded-b-md text-center pt-3">
-                        <span v-t="isMobileDevice ? 'message.addClothingShort' : 'message.addClothing'"  class="text-base text-center">
-                        
-                        </span>
-                      </div>
-                    </template> -->
                   </Card>
                 </div>
 
@@ -77,20 +71,21 @@
                   <Card
                     class="max-sm:!h-40 sm:!h-80 cursor-pointer" :pt="{
                       content: {
-                        class: 'max-sm:p-0'
+                        class: 'max-sm:p-0 sm:max-h-56'
                       }
                     }"
                     @click="() => showModal(clothing, 'view')"
                   >
+                    <template #header>
+                      <input
+                        v-if="outfitSelectionMode" :id="`clothing-checkbox-${clothing.id}`"
+                        :checked="isInCheckedItems(clothing.id)" type="checkbox"
+                        class="absolute !w-8 !h-8 !rounded-full"
+                        @change="(event) => onItemSelection(event, clothing)"
+                      >
+                    </template>
                     <template #content>
-                      <div :id="`card-${clothing.id}`" class="max-sm:!h-16 sm:!h-76">
-                        <input
-                          v-if="outfitSelectionMode" :id="`clothing-checkbox-${clothing.id}`"
-                          :checked="isInCheckedItems(clothing.id)" type="checkbox"
-                          class="form-check-input absolute !w-8 !h-8 !rounded-full right-1"
-                          @change="(event) => onItemSelection(event, clothing)"
-                        >
-
+                      <div :id="`card-${clothing.id}`" class="max-sm:!h-16 sm:!h-64">
                         <div
                           class="cursor-pointer justify-between flex flex-col max-sm:!px-2 overflow-y-clip max-h-full"
                           @click="() => showModal(clothing, 'view')"
@@ -98,7 +93,7 @@
                           <div class="flex justify-center">
                             <img
                               :src="clothing.image.url" :alt="clothing.name"
-                              class="card-img-top clothing-card-img"
+                              class="card-img-top clothing-card-img sm:max-h-40"
                             >
                           </div>
                         </div>
@@ -119,55 +114,74 @@
         </div>
         <div
           v-if="outfitSelectionMode"
-          class="col-span-3 bg-white dark:!bg-zinc-800 flex items-center flex-col justify-between fixed right-0 bottom-0 sm:top-16  flex-nowrap"
+          class="w-full sm:w-1/4 bg-white dark:!bg-zinc-900 flex items-center flex-col justify-between fixed right-0 bottom-0 sm:top-16  flex-nowrap"
         >
-          <div class="flex justify-between pt-3 w-full">
+          <div class="flex justify-between p-3 w-full">
             <h5 v-t="'message.newOutfit'" class="max-sm:hidden dark:text-white" />
-            <button
-              v-if="!isMobileDevice" type="button"
-              class="btn-close text-reset" aria-label="Close"
+            <Button
+              v-if="!isMobileDevice" icon="pi pi-times"
+              text rounded
+              aria-label="Cancel"
             />
           </div>
-          <div class="shrink max-sm:w-full">
+          <div class="shrink w-full sm:overflow-auto">
             <div
-              class="overflow-auto  scrollbar scrollbar-thumb-royal-purple-700 scrollbar-track-royal-purple-400 flex w-auto max-sm:gap-2 flex-nowrap max-sm:pb-2"
+              class="flex sm:flex-col overflow-auto  scrollbar scrollbar-thumb-royal-purple-700 scrollbar-track-royal-purple-400  w-auto max-sm:gap-2 flex-nowrap max-sm:pb-2 sm:items-center"
             >
-              <div
-                v-for="cothing in checkedItems" :id="`outfit-card-${cothing.id}`"
-                :key="cothing.id"
-                class="card sm:!h-48 sm:m-3 max-sm:!h-20 max-sm:!w-16 max-sm:shrink-0"
+              <Card
+                v-for="clothing in checkedItems" :id="`outfit-card-${clothing.id}`"
+                :key="clothing.id"
+                class="card sm:!h-48 sm:m-3 max-sm:!h-20 max-sm:!w-16 max-sm:shrink-0 sm:w-48"
+                :pt="{
+                  content: {
+                    class: 'relative'
+                  },
+                  body: {
+                    class: 'p-1 sm:p-3'
+                  }
+                }"
               >
-                <div
-                  class="card-body cursor-pointer justify-between flex flex-col max-sm:!px-2 overflow-y-clip max-h-full"
-                 
-                >
-                  <button
-                    type="button"
-                    class="!rounded-full flex justify-center items-center absolute right-1 top-1 w-7 h-7 max-sm:w-5 max-sm:h-5 text-center dark:bg-neutral-700 dark:hover:bg-neutral-900 bg-neutral-100 hover:bg-neutral-200"
-                    aria-label="Remove clothing cothing" @click="() => removeFromCheckedItems(cothing.id)"
+                <template #content>
+                  <div
+                    class="cursor-pointer justify-between flex flex-col max-sm:!px-2 overflow-y-clip max-h-full"
                   >
-                    <FontAwesomeIcon icon="fas fa-xmark" class="max-sm:text-xs" />
-                  </button>
-                  <div class="flex justify-center">
-                    <img :src="cothing.image.url" class="card-img-top max-h-36 max-sm:max-h-12 clothing-card-img">
+                    <div />
+                   
+                    <div class="flex justify-center">
+                      <img :src="clothing.image.url" class="card-img-top max-h-36 max-sm:max-h-12 clothing-card-img">
+                    </div>
                   </div>
-                </div>
-              </div>
+                  <Button
+                    icon="pi pi-times" 
+                    severity="secondary"
+                    rounded aria-label="Remove clothing item"
+                    class="absolute top-[-5px] right-[-5px] w-6 sm:w-8 h-6 sm:h-8 p-0"
+                    size="small"
+                    :pt="{
+                      icon: {
+                        class: 'max-sm:!text-xs'
+                      }
+                    }"
+                    @click="() => removeFromCheckedItems(clothing.id)"
+                  />
+                </template>
+              </Card>
             </div>
           </div>
-          <div class="  bg-[--bs-card-bg] p-3 w-full flex justify-center">
+          <div class="p-3 w-full flex justify-center">
             <Button
               v-if="isMobileDevice" v-t="'message.close'"
               aria-label="Close"
-              class="btn btn-default m-auto !text-royal-purple-800 dark:text-royal-purple-400"
+              class="m-auto"
             />
 
-            <Button v-t="'message.saveOutfit'" class="btn btn-primary m-auto" />
+            <Button v-t="'message.saveOutfit'" class="m-auto" />
           </div>
         </div>
       </div>
     </ion-content>
     <ClothingDialog v-model="visible" :dialog-mode="dialogMode" />
+    <OutfitDialog />
   </ion-page>
 </template>
 
@@ -176,20 +190,25 @@ import { ref, computed, unref } from 'vue';
 import { IonPage, IonHeader, IonContent } from '@ionic/vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useMediaQuery } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
 
 // primevue
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
+import Checkbox from 'primevue/checkbox';
+
 
 // custom components
 import NavBar from '@/components/NavBar.vue';
 import testdata from '../../resources/test_data/clothing_items.json';
 import { ClothingItem } from '@/custom_types';
 import ClothingDialog from '@/components/ClothingDialog.vue';
+import OutfitDialog from '@/components/OutfitDialog.vue';
 
 // stores
 import { useClothingStore, useClothingListStore } from '@/store/clothingItem';
+import { useWardrobeModeStore } from '@/store/outfitStore';
 
 
 // ====================================================== //
@@ -215,17 +234,9 @@ const visible = ref<boolean>(false);
 // ====================================================== //
 // ================= wardrobe page mode ================= //
 // ====================================================== //
-const mode = ref<"view" | "outfitSelection">("view");
-const checkedItems = ref<Record<number | string, ClothingItem>>({});
 
-const outfitSelectionMode = computed(() => {
-  return mode.value == "outfitSelection";
-});
-
-const viewingMode = computed(() => {
-  return mode.value == "view";
-});
-
+const { viewingMode, outfitSelectionMode } = storeToRefs(useWardrobeModeStore());
+const wardrobeStore = useWardrobeModeStore();
 
 // ====================================================== //
 // ================ clicked clothing item =============== //
@@ -237,16 +248,17 @@ const dialogMode = ref<"new" | "view">("new");
 
 function showModal(clothingItem: ClothingItem, newDialogMode: "new" | "view") {
 
-    
+  if (viewingMode.value) {
 
-  console.log("update");
-  clothingItemStore.updateClothingItem(clothingItem);
-  dialogMode.value = newDialogMode;
+    console.log("update");
+    clothingItemStore.updateClothingItem(clothingItem);
+    dialogMode.value = newDialogMode;
 
 
-  console.log("show modal");
+    console.log("show modal");
 
-  visible.value = true;
+    visible.value = true;
+  }
 }
 
 function showEmptyModal() {
@@ -259,16 +271,22 @@ function showEmptyModal() {
 // ====================================================== //
 // ================== outfit selection ================== //
 // ====================================================== //
-function onItemSelection(event: Event, cothing: ClothingItem) {
+const checkedItems = ref<Record<number | string, ClothingItem>>({});
+
+
+
+function onItemSelection(event: any, clothing: ClothingItem) {
+
+  console.log(event);
 
   if ((event.target as HTMLInputElement).checked)
-    addToCheckedItems(cothing);
+    addToCheckedItems(clothing);
   else
-    removeFromCheckedItems(cothing.id);
+    removeFromCheckedItems(clothing.id);
 }
 
-function addToCheckedItems(cothing: ClothingItem) {
-  checkedItems.value[String(cothing.id)] = cothing;
+function addToCheckedItems(clothing: ClothingItem) {
+  checkedItems.value[String(clothing.id)] = clothing;
   console.log("checkedItems", checkedItems.value);
 }
 
@@ -281,6 +299,10 @@ function removeFromCheckedItems(id: number) {
 function isInCheckedItems(id: number) {
   return (checkedItems.value[String(id)] !== undefined);
 }
+
+// save outfit
+
+const showOutfitDialog = ref(false);
 
 // ====================================================== //
 // ==================== card styling ==================== //

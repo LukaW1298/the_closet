@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed, unref } from "vue";
-import { Brand, Material, WashingMode, Status, Color, Category, ParentCategory } from "@/custom_types";
-import { getBrands, getMaterials, getWashingModes, getStatus, getColors, getCategories } from "@/composables/GetCalls";
+import { Brand, Material, WashingMode, Status, Color, Category, OutfitType, Occasion, Weather } from "@/custom_types";
+import { getBrands, getMaterials, getWashingModes, getStatus, getColors, getCategories, getWeathers, getOccasions, getOutfitTypes } from "@/composables/GetCalls";
 import testdata from '@/../resources/test_data/masterdata.json';
 
 export const useBrandsStore = defineStore("brands", () => {
@@ -159,4 +159,68 @@ export const useCategoryStore = defineStore("category", () => {
     fetch,
     tree
   };
+});
+
+
+export const useWeatherStore = defineStore("weather", () => {
+  const weathers = ref<Weather[]>([]);
+
+  const isEmpty = computed(() => {
+    return weathers.value.length === 0;
+  });
+
+  function fetch() {
+    getWeathers().then((result) => {
+      weathers.value = result;
+    });
+  }
+
+  return {
+    weathers,
+    fetch,
+    isEmpty
+  };
+});
+
+
+export const useOccasionStore = defineStore("occasion", () => {
+  const occasions = ref<Occasion[]>([]);
+
+  const isEmpty = computed(() => {
+    return occasions.value.length === 0;
+  });
+
+  function fetch() {
+    getOccasions().then((result) => {
+      occasions.value = result;
+    });
+  }
+
+  return {
+    occasions,
+    isEmpty,
+    fetch
+  };
+});
+
+
+export const useOutfitTypeStore = defineStore("outfitType", () => {
+  const outfitTypes = ref<OutfitType[]>([]);
+
+  const isEmpty = computed(() => {
+    return outfitTypes.value.length === 0;
+  });
+
+  function fetch() {
+    getOutfitTypes().then((result) => {
+      outfitTypes.value = result;
+    });
+  }
+
+  return {
+    outfitTypes,
+    isEmpty,
+    fetch
+  };
+
 });

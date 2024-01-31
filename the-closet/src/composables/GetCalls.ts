@@ -1,12 +1,5 @@
-import { ref } from 'vue';
-import { Category, Material } from '@/custom_types';
-
 const address = import.meta.env.VITE_API_ADDRESS;
-const requestOptions = {
-  method: "GET",
-  mode: "cors",
-  redirect: "follow"
-};
+
 console.log("address", address);
 
 export async function getMaterials() {
@@ -123,6 +116,39 @@ export async function getClothing(id: number) {
 
 export async function getImage(id: number) {
   return fetch(address + "/api/images/" + id, {
+    method: "GET",
+    mode: "cors",
+    redirect: "follow"
+  })
+    .then(response => {
+      return response.json();
+    });
+}
+
+export async function getWeathers() {
+  return fetch(address + "/api/weathers", {
+    method: "GET",
+    mode: "cors",
+    redirect: "follow"
+  })
+    .then(response => {
+      return response.json();
+    });
+}
+
+export async function getOccasions() {
+  return fetch(address + "/api/occasions", {  
+    method: "GET",
+    mode: "cors",
+    redirect: "follow"
+  })  
+    .then(response => {   
+      return response.json();
+    });
+}
+
+export async function getOutfitTypes() {
+  return fetch(address + "/api/outfitTypes", {
     method: "GET",
     mode: "cors",
     redirect: "follow"
