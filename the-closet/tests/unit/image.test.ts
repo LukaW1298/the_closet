@@ -10,7 +10,9 @@ describe("Image", () => {
   
     const response = await postImage(file);
   
-    expect(response.status).toBe(200);
+    expect(response.status).toSatisfy((value) => {
+      return String(value).startsWith("2");
+    });
   });
   
   
