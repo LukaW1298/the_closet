@@ -37,19 +37,19 @@ export function postLogin(userName: string, password: string) {
   );
 }
 
-export function postImage(url: string) {
-  return fetch(address + "/api/images",
-    {
-      method: "POST",
-      mode: "cors",
-      redirect: "follow",
-      headers: headers,
-      body: JSON.stringify({
-        "url": url
-      })
-    }
-  );
-}
+// export function postImage(url: string) {
+//   return fetch(address + "/api/images",
+//     {
+//       method: "POST",
+//       mode: "cors",
+//       redirect: "follow",
+//       headers: headers,
+//       body: JSON.stringify({
+//         "url": url
+//       })
+//     }
+//   );
+// }
 
 
 export function postClothing() {
@@ -64,4 +64,15 @@ export function postClothing() {
       body: JSON.stringify(clothingItem.value)
     }
   );
+}
+
+
+export function postImage(image: File | Blob) {
+  const formData = new FormData();
+  formData.append("file", image);
+
+  return fetch(address + "/api/images/upload", {
+    method: "POST",
+    body: formData
+  });
 }

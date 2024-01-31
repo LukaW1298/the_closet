@@ -114,16 +114,16 @@ export async function getClothing(id: number) {
     );
 }
 
-export async function getImage(id: number) {
-  return fetch(address + "/api/images/" + id, {
-    method: "GET",
-    mode: "cors",
-    redirect: "follow"
-  })
-    .then(response => {
-      return response.json();
-    });
-}
+// export async function getImage(id: number) {
+//   return fetch(address + "/api/images/" + id, {
+//     method: "GET",
+//     mode: "cors",
+//     redirect: "follow"
+//   })
+//     .then(response => {
+//       return response.json();
+//     });
+// }
 
 export async function getWeathers() {
   return fetch(address + "/api/weathers", {
@@ -155,5 +155,17 @@ export async function getOutfitTypes() {
   })
     .then(response => {
       return response.json();
+    });
+}
+
+
+export async function getImage(id: number) {
+  return fetch(address + "/api/images/" + id, {
+    method: "GET",
+    mode: "cors",
+    redirect: "follow"
+  })
+    .then(response => {
+      return response.blob;
     });
 }
