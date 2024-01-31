@@ -38,7 +38,7 @@ public class ImageController {
     }*/ 
 
     @PostMapping("/upload")
-    public ResponseEntity<String> handleImageUpload(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Image> handleImageUpload(@RequestParam("file") MultipartFile file) {
         try {
             String name = file.getOriginalFilename();
             String contentType = file.getContentType();
@@ -46,9 +46,9 @@ public class ImageController {
 
             Image savedImage = imageService.saveImage(name, contentType, data);
 
-            return ResponseEntity.ok("Image uploaded successfully with ID: " + savedImage.getId());
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedImage);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
