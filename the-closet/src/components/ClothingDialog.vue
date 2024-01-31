@@ -14,10 +14,10 @@
             v-if="newMode" 
             @input="saveImage"
           />
-          <ImageInput
-            v-else :source="clothingStore.clothingItem.image.url" 
-            @input="saveImage"
-          />
+          <img
+            v-else :src="clothingStore.clothingItem.image.url" 
+            class="max-h-44"
+          >
         </div>
       </div>
       <div class="mb-3 px-4 grid grid-cols-12 w-full items-center pb-1 gap-x-4">
@@ -338,6 +338,7 @@ import { useClothingStore, useImageStore, useClothingListStore } from '@/store/c
 import { sortObjectsAlphabetically } from '@/helpers/arrayFunctions';
 import { postClothing } from '@/composables/PostCalls';
 import { deleteClothing } from '@/composables/DeleteCalls';
+import { TreeNode } from 'primevue/treenode';
 
 // toast controller
 const toast = useToast();
@@ -428,47 +429,48 @@ function getStatusColor(statusText: string) {
 const imageStore = useImageStore();
 const clothingListStore = useClothingListStore();
 
+function getObjectUrl(image) {
+
+  const blob =  new Blob([image.largeBinaryData], {
+    type: image.contentType 
+  });
+
+
+  return URL.createObjectURL(blob);
+}
+
 function saveImage(input: File) {
   console.log(input);
 
   imageStore.setImage(input);
-  imageStore.post().then((response) => {
-    console.log(response);
+  imageStore.post()
+    .then((result) => {
+      if (imageStore.postSuccess) {
+        toast.add({
+          severity: "success",
+          summary: "Saved image",
+          closable: true,
+          life: 5000
+        });
+      }
+      else {
+        toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: "An internal server error occured when trying to save the image.",
+          closable: true,
+          life: 5000
+        });
+      }
 
-    if (response.ok) {
-      
+      clothingStore.updateImage({
+        id: result.id,
+        blob: imageStore.image,
+        url: imageStore.url
+      });    
 
-      toast.add({
-        severity: "success",
-        summary: "Saved image",
-        closable: true,
-        life: 5000
-      });
-    }
-    else {
-      toast.add({
-        severity: "error",
-        summary: "Error",
-        detail: "An internal server error occured when trying to save the image.",
-        closable: true,
-        life: 5000
-      });
-    }
-
-    return response.json();
-
-  }).then((result) => {
-    console.log(result);
-
-    clothingStore.updateImage({
-      id: result.id,
-      url: result.url
+      imageStore.id = result.id;
     });
-
-    
-  });
-
-
 }
 
 // save clothing

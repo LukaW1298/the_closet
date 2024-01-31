@@ -202,7 +202,7 @@ import Checkbox from 'primevue/checkbox';
 // custom components
 import NavBar from '@/components/NavBar.vue';
 import testdata from '../../resources/test_data/clothing_items.json';
-import { ClothingItem } from '@/custom_types';
+import { Clothing, ClothingItem } from '@/custom_types';
 import ClothingDialog from '@/components/ClothingDialog.vue';
 import OutfitDialog from '@/components/OutfitDialog.vue';
 
@@ -246,7 +246,7 @@ const clothingItemStore = useClothingStore();
 const dialogMode = ref<"new" | "view">("new");
 
 
-function showModal(clothingItem: ClothingItem, newDialogMode: "new" | "view") {
+function showModal(clothingItem: Clothing, newDialogMode: "new" | "view") {
 
   if (viewingMode.value) {
 
@@ -271,11 +271,11 @@ function showEmptyModal() {
 // ====================================================== //
 // ================== outfit selection ================== //
 // ====================================================== //
-const checkedItems = ref<Record<number | string, ClothingItem>>({});
+const checkedItems = ref<Record<number | string, Clothing>>({});
 
 
 
-function onItemSelection(event: any, clothing: ClothingItem) {
+function onItemSelection(event: any, clothing: Clothing) {
 
   console.log(event);
 
@@ -285,7 +285,7 @@ function onItemSelection(event: any, clothing: ClothingItem) {
     removeFromCheckedItems(clothing.id);
 }
 
-function addToCheckedItems(clothing: ClothingItem) {
+function addToCheckedItems(clothing: Clothing) {
   checkedItems.value[String(clothing.id)] = clothing;
   console.log("checkedItems", checkedItems.value);
 }

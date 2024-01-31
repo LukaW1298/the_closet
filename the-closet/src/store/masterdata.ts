@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed, unref } from "vue";
-import { Brand, Material, WashingMode, Status, Color, Category, OutfitType, Occasion, Weather } from "@/custom_types";
+import { ParentCategory, Brand, Material, WashingMode, Status, Color, Category, OutfitType, Occasion, Weather } from "@/custom_types";
 import { getBrands, getMaterials, getWashingModes, getStatus, getColors, getCategories, getWeathers, getOccasions, getOutfitTypes } from "@/composables/GetCalls";
-import testdata from '@/../resources/test_data/masterdata.json';
 
 export const useBrandsStore = defineStore("brands", () => {
   const brands = ref<Brand[]>([]);
@@ -118,7 +117,7 @@ export const useCategoryStore = defineStore("category", () => {
 
   const tree = computed(() => {
 
-    const parentCategories = [];
+    const parentCategories: ParentCategory[] = [];
 
     for (const category of categories.value) {
       const parentCatEl = parentCategories.find((el) => {

@@ -27,14 +27,21 @@ export type ChildCategory = {
 };
 
 export type ParentCategory = {
-  id: number,
+  id?: number,
   type: string,
+  label: string,
+  key: string | number,
   name?: string,
+  selectable: boolean,
   children?: {
-    id: number,
-    type: string
+    id?: number,
+    type?: string,
+    key: string | number,
+    label: string
   }[]
 };
+
+
 
 export type User = {
   id: number,
@@ -85,7 +92,8 @@ export type ClothingBrand = {
 
 export type ClothingImage = {
   id: number,
-  url?: string
+  blob?: Blob,
+  url: string
 };
 
 export type ClothingMaterial = {
@@ -121,7 +129,7 @@ export type Clothing = {
 
 export type Image = {
   id: number, 
-  url: string
+  blob?: Blob
 };
 
 export type WashingMode = {

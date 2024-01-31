@@ -4,6 +4,7 @@ import { ref, computed } from "vue";
 import { getClothings } from "@/composables/GetCalls";
 import { useUserStore } from "./user";
 import { postImage } from "@/composables/PostCalls";
+import { base64ToBlob } from "@/helpers/blobFunctions";
 
 
 export const useClothingListStore = defineStore("clothingList", () => {
@@ -16,6 +17,15 @@ export const useClothingListStore = defineStore("clothingList", () => {
   function fetch() {
     getClothings().then((result) => {
       clothings.value = result;
+
+      for (const clothing of clothings.value) {
+        clothing.image.blob = base64ToBlob(clothing.image.largeBinaryData, clothing.image.contentType);
+        console.log(clothing.image.blob)
+        clothing.image.url = URL.createObjectURL(clothing.image.blob)
+        console.log(clothing.image)
+      }
+
+      console.log(clothings.value)
     });
   }
 
@@ -96,11 +106,10 @@ export const useClothingStore = defineStore("clothingItem", () => {
 
   const materialSelectValue = computed({
     get() {
-      //const obj: Record<number, boolean> = {};
-      const materialList = [];
+      const materialList: ClothingMaterial[] = [];
 
       for (const material of clothingItem.value.clothingMaterials) {
-        materialList.push(material.material)
+        materialList.push(material.material);
       }
 
       return materialList;
@@ -152,25 +161,37 @@ export const useClothingStore = defineStore("clothingItem", () => {
 });
 
 export const useImageStore = defineStore("image", () => {
-  const image = ref<File | undefined>();
+  const image = ref<Blob>();
+
+  const id = ref<number>(-1);
+
+  const postSuccess = ref(true);
 
   const url = computed(() => {
-    return "/resources/test_items/" + image.value?.name;
+    return image.value === undefined ? "" : URL.createObjectURL(image.value);
   });
 
-  function setImage(newImage: File) {
+  function setImage(newImage: File | Blob) {
     image.value = newImage;
   }
 
-  function post() {
+  async function post() {
 
-    return postImage(url.value);
+    return postImage(image.value).then((response) => {
+      postSuccess.value = response.ok;
+      console.log(response)
+
+      return response.json();
+    });
+
   }
-
+ 
   return {
     image,
     setImage,
-    url,
-    post
+    id,
+    post,
+    postSuccess,
+    url
   };
 });
