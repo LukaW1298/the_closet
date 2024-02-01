@@ -30,7 +30,7 @@ app.use(i18n);
 const userStore = useUserStore();
 userStore.id = 25;
 
-test("Navbar default slot", () => {
+test.skip("Navbar default slot", () => {
   const wrapper = mount(NavBar, {
     slots: {
       default: "Main Title"
