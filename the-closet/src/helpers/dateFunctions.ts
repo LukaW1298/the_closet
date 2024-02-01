@@ -8,3 +8,9 @@ export function toIsoDate(date: Date) {
 
   return `${year}-${monthString}-${dayString}`;
 }
+
+export function prettifyDate(secSinceEpoch: number) {
+  const date = new Date(secSinceEpoch);
+
+  return date.toLocaleDateString();
+}

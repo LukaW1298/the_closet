@@ -15,3 +15,10 @@ export function base64ToBlob(base64String: string, mimeType: string): Blob {
 
   return blob;
 }
+
+
+export function base64ToUrl(base64String: string, mimeType: string) {
+  const blob = base64ToBlob(base64String, mimeType);
+
+  return URL.createObjectURL(blob);
+}

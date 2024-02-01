@@ -155,6 +155,17 @@ export async function getImage(id: number) {
     redirect: "follow"
   })
     .then(response => {
-      return response.blob;
+      return response.blob();
+    });
+}
+
+export async function getOutfits() {
+  return fetch(address + "/api/outfit", {
+    method: "GET",
+    mode: "cors",
+    redirect: "follow"
+  })
+    .then(response => {
+      return response.json();
     });
 }

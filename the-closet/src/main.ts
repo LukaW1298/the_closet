@@ -132,6 +132,7 @@ import { useBrandsStore, useMaterialsStore, useStatusStore, useWashingModeStore,
   from '@/store/masterdata';
 import { useClothingListStore } from './store/clothingItem';
 import Toast from 'primevue/toast'; 
+import { useOutfitListStore } from './store/outfit';
 
 const brandStore = useBrandsStore();
 const materialsStore = useMaterialsStore();
@@ -143,7 +144,8 @@ const clothingListStore = useClothingListStore();
 const outfitTypeStore = useOutfitTypeStore();
 const occasionStore = useOccasionStore();
 const weatherStore = useWeatherStore();
+const outfitListStore = useOutfitListStore();
 
-for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore, categoryStore, clothingListStore, outfitTypeStore, occasionStore, weatherStore]) {
+for (const store of [brandStore, materialsStore, statusStore, washingModeStore, colorStore, categoryStore, clothingListStore, outfitTypeStore, occasionStore, weatherStore, outfitListStore]) {
   store.fetch();
 }

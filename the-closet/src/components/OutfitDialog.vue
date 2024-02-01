@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 gap-y-3 pb-5">
       <Calendar
         v-model="selectedDate" date-format="DD, dd/mm/yy"
-        placeholder="Select date" @input="console.log(selectedDate)"
+        placeholder="Select date"
       />
       <Dropdown
         v-model="selectedWeather" :options="weathers"
@@ -47,12 +47,15 @@ import { postOutfit } from '@/composables/PostCalls';
 import { presentToast } from '@/helpers/toastController';
 import { useWardrobeModeStore } from '@/store/outfitStore';
 import { toIsoDate } from '@/helpers/dateFunctions';
+import { useOutfitListStore } from '@/store/outfit';
+import router from '@/router';
 
 // -------- Stores -------- //
 const { weathers } = storeToRefs(useWeatherStore());
 const { occasions } = storeToRefs(useOccasionStore());
 const { outfitTypes } = storeToRefs(useOutfitTypeStore());
 const wardrobeModeStore = useWardrobeModeStore();
+const outfitListStore = useOutfitListStore();
 
 
 const model = defineModel<boolean>();
@@ -107,6 +110,8 @@ function saveOutfit() {
       presentToast("Outfit has been created.");
       wardrobeModeStore.mode = "view";
       model.value = false;
+      outfitListStore.fetch();
+      router.push("/tabs/outfits");
     }
     else {
       presentToast("Error when trying to save outfit.");

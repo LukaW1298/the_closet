@@ -7,13 +7,13 @@
       <div class="grid grid-cols-12 p-2">
         <div class="col-span-12 md:col-span-6 lg:col-span-4 p-2">
           <Card
-          @click="selectOutfit"
             class="max-sm:!h-44 sm:!h-64 cursor-pointer"
             :pt="{
               body: {
                 class: 'p-4'
               }
             }"
+            @click="selectOutfit"
           >
             <template #content>
               <div class="flex justify-center items-center flex-col h-full gap-y-8">
@@ -28,7 +28,7 @@
           </Card>
         </div>
         <div
-          v-for="outfit of outfits"
+          v-for="outfit of sortedOutfits"
           :key="outfit.id"
           class="col-span-12 md:col-span-6 lg:col-span-4 p-2"
         >
@@ -50,42 +50,48 @@
             }"
           >
             <template #title>
-              {{ outfit.name }}
+              <div class="flex justify-between">
+                <span>
+                  {{ prettifyDate(outfit.date) }}
+                </span>
+              </div>
             </template>
             <template #content>
               <div class="flex">
                 <img
-                  v-for="clothing in getOutfitClothings(outfit.clothingIdList)"
-                  :key="clothing.id"
-                  :src="clothing.image.url"
+                  v-for="clothing in outfit.clothingOutfits.slice(0, 3)"
+                  :key="clothing.clothing.id"
+                  :src="base64ToUrl(clothing.clothing.image.largeBinaryData, clothing.clothing.image.contentType)"
                   class="rounded max-h-16 sm:max-h-24 px-2"
                 >
               </div>
             </template>
             <template #footer>
-              <div class="flex">
+              <div class="flex relative">
                 <div
-                  v-for="occasion in getOutfitOccasions(outfit.occasionList)"
-                  :key="occasion.id"
+                  v-for="occasion in outfit.outfitOccasions"
+                  :key="occasion.occasion.id"
                   class="p-1"
                 >
                   <Tag
                     class="badge-royal-purple"
                   >
-                    {{ occasion.name }}
+                    {{ occasion.occasion.occasion }}
                   </Tag>
                 </div>
                 <div
-                  v-for="weather in getOutfitWeather(outfit.weatherList)"
-                  :key="weather.id"
+                 
                   class="p-1"
                 >
                   <Tag
                     class="badge-sky"
                   >
-                    {{ weather.name }}
+                    {{ outfit.weather.weather }}
                   </Tag>
                 </div>
+                <Tag class="absolute right-0" :severity="outfit.outfitType.outfitType == 'log' ? 'info' : 'primary'">
+                  {{ outfit.outfitType.outfitType }}
+                </Tag>
               </div>
             </template>
           </Card>
@@ -96,42 +102,33 @@
 </template>
   
 <script setup lang="ts">
+import { computed } from 'vue';
 import { IonPage, IonHeader, IonContent } from '@ionic/vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 // primevue
 
 import Card from 'primevue/card';
-
 import Tag from 'primevue/tag';
 
 // custom components
 
 import NavBar from '@/components/NavBar.vue';
-import outfits from '../../resources/test_data/outfits.json';
-import clothingItems from '../../resources/test_data/clothing_items.json';
-import masterdata from '../../resources/test_data/masterdata.json';
-import { useWardrobeModeStore } from '@/store/outfitStore'
+import { useWardrobeModeStore } from '@/store/outfitStore';
 import router from '@/router';
+import { useOutfitListStore } from '@/store/outfit';
+import { prettifyDate } from '@/helpers/dateFunctions';
+import { base64ToUrl } from '@/helpers/blobFunctions';
+import { sortOutfitsByDate } from '@/helpers/arrayFunctions';
 
 
-function getOutfitWeather(weatherIdList: number[]) {
-  return masterdata.weather.filter((weather) => {
-    return weatherIdList.includes(weather.id);
-  });
-}
+// get data
 
-function getOutfitClothings(clothingIdList: number[]) {
-  return clothingItems.filter((item) => {
-    return clothingIdList.includes(item.id);
-  });
-}
+const outfitListStore = useOutfitListStore();
 
-function getOutfitOccasions(occasionIdList: number[]) {
-  return masterdata.occasion.filter((item) => {
-    return occasionIdList.includes(item.id);
-  });
-}
+const sortedOutfits = computed(() => {
+  return sortOutfitsByDate(outfitListStore.outfits);
+})
 
 // go to wardrobe page for outfit selection
 const wardrobeModeStore = useWardrobeModeStore();

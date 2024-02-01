@@ -16,13 +16,7 @@
           size="small"
         />
       </span>
-      <Button @click="wardrobeStore.changeToOutfitSelection">
-        O
-      </Button>
-      <Button @click="wardrobeStore.changeToView">
-        V
-      </Button>
-      <span v-if="outfitSelectionMode">test</span>
+      
       <div class="grid grid-cols-12 h-full">
         <div
           class="col-span-12 overflow-auto scrollbar scrollbar-thumb-royal-purple-700 scrollbar-track-royal-purple-400"
@@ -122,6 +116,7 @@
               v-if="!isMobileDevice" icon="pi pi-times"
               text rounded
               aria-label="Cancel"
+              @click="$router.push('/tabs/outfits')"
             />
           </div>
           <div class="shrink w-full sm:overflow-auto">
@@ -173,6 +168,7 @@
               v-if="isMobileDevice" v-t="'message.close'"
               aria-label="Close"
               class="m-auto"
+              @click="$router.push('/tabs/outfits')"
             />
 
             <Button
