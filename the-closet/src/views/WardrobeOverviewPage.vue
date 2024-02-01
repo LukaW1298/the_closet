@@ -175,13 +175,16 @@
               class="m-auto"
             />
 
-            <Button v-t="'message.saveOutfit'" class="m-auto" />
+            <Button
+              v-t="'message.saveOutfit'" class="m-auto"
+              @click="saveOutfit"
+            />
           </div>
         </div>
       </div>
     </ion-content>
     <ClothingDialog v-model="visible" :dialog-mode="dialogMode" />
-    <OutfitDialog />
+    <OutfitDialog v-model="showOutfitDialog" :selected-clothes="checkedItems" />
   </ion-page>
 </template>
 
@@ -246,7 +249,7 @@ const clothingItemStore = useClothingStore();
 const dialogMode = ref<"new" | "view">("new");
 
 
-function showModal(clothingItem: Clothing, newDialogMode: "new" | "view") {
+function showModal(clothingItem: ClothingItem, newDialogMode: "new" | "view") {
 
   if (viewingMode.value) {
 
@@ -303,6 +306,10 @@ function isInCheckedItems(id: number) {
 // save outfit
 
 const showOutfitDialog = ref(false);
+
+function saveOutfit() {
+  showOutfitDialog.value = true;
+}
 
 // ====================================================== //
 // ==================== card styling ==================== //

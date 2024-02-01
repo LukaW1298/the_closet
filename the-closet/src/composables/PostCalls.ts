@@ -1,5 +1,6 @@
 import { storeToRefs } from "pinia";
 import { useClothingStore } from '@/store/clothingItem';
+import { useUserStore } from "../store/user";
 
 const address = import.meta.env.VITE_API_ADDRESS;
 const headers = new Headers;
@@ -37,20 +38,6 @@ export function postLogin(userName: string, password: string) {
   );
 }
 
-// export function postImage(url: string) {
-//   return fetch(address + "/api/images",
-//     {
-//       method: "POST",
-//       mode: "cors",
-//       redirect: "follow",
-//       headers: headers,
-//       body: JSON.stringify({
-//         "url": url
-//       })
-//     }
-//   );
-// }
-
 
 export function postClothing() {
   const { clothingItem} = storeToRefs(useClothingStore());
@@ -74,5 +61,30 @@ export function postImage(image: File | Blob) {
   return fetch(address + "/api/images/upload", {
     method: "POST",
     body: formData
+  });
+}
+
+
+export function postOutfit(date: string, weatherID: number, outfitTypeID: number, clothingOutfits, outfitOccasions) {
+  const userStore = useUserStore();
+
+  return fetch(address + "/api/outfit", {
+    method: "POST",
+    mode: "cors",
+    headers: headers, 
+    body: JSON.stringify({ 
+      date: date,
+      user: {
+        id: userStore.id
+      },
+      weather: {
+        id: weatherID
+      },
+      outfitType: {
+        id: outfitTypeID
+      },
+      clothingOutfits: clothingOutfits,
+      outfitOccasions: outfitOccasions
+    })
   });
 }
