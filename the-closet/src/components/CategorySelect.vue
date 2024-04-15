@@ -51,16 +51,24 @@ const model = defineModel<Category>();
 const selectedParentCategory = ref<Category>()
 
 const parentCategories = computed(() => {
+<<<<<<< Updated upstream
     return sortObjectsAlphabetically<Category>(props.list, "name").filter((category) => category.parentCategoryID == undefined);
 })
 
 const childCategories = computed(() => {
     return sortObjectsAlphabetically<Category>(props.list, "name").filter((category) => category.parentCategoryID == selectedParentCategory.value?.id)
+=======
+    return sortObjectsAlphabetically<Category>(props.list, "type").filter((category) => category.parentCategory.id == undefined);
+})
+
+const childCategories = computed(() => {
+    return sortObjectsAlphabetically<Category>(props.list, "type").filter((category) => category.parentCategory.id == selectedParentCategory.value?.id)
+>>>>>>> Stashed changes
 })
 
 onMounted(() => {
     if (selectedParentCategory.value == undefined) {
-        selectParentCategory(props.list.filter((el) => el.parentCategoryID == undefined)[0]);
+        selectParentCategory(props.list.filter((el) => el.parentCategory.id == undefined)[0]);
     }
 })
 
