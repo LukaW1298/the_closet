@@ -126,6 +126,7 @@ export const useCategoryStore = defineStore("category", () => {
 
       if (parentCatEl == undefined) {
         parentCategories.push({
+          id: 0, name: "", type: "",
           key: category.parentCategory.id,
           label: category.parentCategory.type,
           selectable: false,

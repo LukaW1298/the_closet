@@ -11,7 +11,7 @@ public class Image {
     private String name;
     private String contentType;
 
-    @Lob
+    @Column(columnDefinition="BLOB")
     private byte[] largeBinaryData;
 
     public int getId() {

@@ -170,7 +170,7 @@ export type Weather = {
   weather?: string
 };
 
-export type OutftitType = {
+export type OutfitType = {
   id: number,
   outfitType?: string
 };
@@ -179,7 +179,7 @@ export type Outfit = {
   date: string | number,
   user: User,
   weather: Weather,
-  outfitType: OutftitType,
+  outfitType: OutfitType,
   outfitOccasions: {
     occasion: Occasion
   }[],

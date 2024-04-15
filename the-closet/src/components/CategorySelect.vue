@@ -5,7 +5,7 @@
       <div id="parent-categories" class="col-span-8 gap-2 flex flex-wrap max-h-40 overflow-auto">
           <Chip  v-for="parentCategory in parentCategories" :key="parentCategory.id"  class="badge rounded-pill badge-gray-clickable sm:!text-13 !font-medium"
           :class="{ 'bg-royal-purple-700 text-white': isSelectedParentCategoryID(parentCategory.id) }"
-          @click="() => selectParentCategory(parentCategory)" :label="capitalize(parentCategory.name)">
+          @click="() => selectParentCategory(parentCategory)" :label="capitalize(parentCategory.type)">
           <font-awesome-icon v-if="isSelectedParentCategoryID(parentCategory.id)" icon="fas fa-check" />
           </Chip>
         <!-- <div
@@ -30,7 +30,7 @@
           :class="{ 'badge-royal-purple-selected': isSelectedChildCategoryID(childCategory.id) }"
           @click="() => selectChildCategory(childCategory)"
         >
-          {{ capitalize(childCategory.name) }}
+          {{ capitalize(childCategory.type) }}
           <span v-if="isSelectedChildCategoryID(childCategory.id)"> &nbsp;</span>
           <font-awesome-icon v-if="isSelectedChildCategoryID(childCategory.id)" icon="fas fa-check" />
         </div>
@@ -51,11 +51,11 @@ const model = defineModel<Category>();
 const selectedParentCategory = ref<Category>()
 
 const parentCategories = computed(() => {
-    return sortObjectsAlphabetically<Category>(props.list, "name").filter((category) => category.parentCategoryID == undefined);
+    return sortObjectsAlphabetically<Category>(props.list, "type").filter((category) => category.parentCategoryID == undefined);
 })
 
 const childCategories = computed(() => {
-    return sortObjectsAlphabetically<Category>(props.list, "name").filter((category) => category.parentCategoryID == selectedParentCategory.value?.id)
+    return sortObjectsAlphabetically<Category>(props.list, "type").filter((category) => category.parentCategoryID == selectedParentCategory.value?.id)
 })
 
 onMounted(() => {
