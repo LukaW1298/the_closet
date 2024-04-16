@@ -11,12 +11,12 @@ public class ClothingOutfit {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "ID_outfit")
+    @JoinColumn(name = "id_outfit")
     @JsonIgnoreProperties("clothingOutfits") 
     private Outfit outfit;
 
     @ManyToOne
-    @JoinColumn(name = "ID_clothing")
+    @JoinColumn(name = "id_clothing")
     private Clothing clothing;
 
     public Outfit getOutfit() {

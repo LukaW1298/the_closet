@@ -1,6 +1,7 @@
 package com.project4app.model;
 
 import jakarta.persistence.*;
+import org.springframework.lang.Nullable;
 
 @Entity
 public class Category {
@@ -10,7 +11,8 @@ public class Category {
     private String type;
 
     @OneToOne
-    @JoinColumn(name = "ID_parent_category")
+    @Nullable
+    @JoinColumn(name = "id_parent_category", nullable = false)
     private ParentCategory parentCategory;
 
     public int getId() {

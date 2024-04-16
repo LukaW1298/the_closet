@@ -19,7 +19,7 @@ public class ParentCategoryService {
         this.parentCategoryRepository = parentCategoryRepository;
     }
 
-    public List<ParentCategory> getAllParentCategorys() {
+    public List<ParentCategory> getAllParentCategories() {
         return parentCategoryRepository.findAll();
     }
 

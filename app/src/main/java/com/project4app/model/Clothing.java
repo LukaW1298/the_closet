@@ -15,36 +15,36 @@ public class Clothing {
     private int id;
 
     private String name;
-    private float price;
+    private Float price;
     private String notes;
     private String size;
 
     @OneToOne
-    @JoinColumn(name = "ID_color")
+    @JoinColumn(name = "id_color")
     private Color color;
 
     @OneToOne
-    @JoinColumn(name = "ID_brand")
+    @JoinColumn(name = "id_brand")
     private Brand brand;
 
     @OneToOne
-    @JoinColumn(name = "ID_category")
+    @JoinColumn(name = "id_category")
     private Category category;
 
     @OneToOne
-    @JoinColumn(name = "ID_status")
+    @JoinColumn(name = "id_status")
     private Status status;
 
     @OneToOne
-    @JoinColumn(name = "ID_washing_mode")
+    @JoinColumn(name = "id_washing_mode")
     private WashingMode washingMode;
 
     @OneToOne
-    @JoinColumn(name = "ID_user")
+    @JoinColumn(name = "id_user")
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "ID_image")
+    @JoinColumn(name = "id_image")
     private Image image;
 
     @OneToMany(mappedBy = "clothing", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
